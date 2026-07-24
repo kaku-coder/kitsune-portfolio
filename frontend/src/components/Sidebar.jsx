@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cardimage1 from '../assets/cardimage1.jpg';
 import {
   Home,
   User,
@@ -66,8 +67,8 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
       {/* Floating Card Sidebar Matching Reference Image */}
       <aside
         className={`fixed z-40 flex flex-col justify-between items-center py-6 transition-all duration-300 shadow-2xl ${mobileOpen
-            ? 'top-0 left-0 h-screen w-64 items-start px-6 bg-[#09080e] rounded-none border-r border-purple-900/30'
-            : 'top-0 left-3 h-screen w-[88px] bg-[#0b0816]/95 backdrop-blur-2xl border border-purple-900/35 rounded-3xl -translate-x-full lg:translate-x-0'
+          ? 'top-0 left-0 h-screen w-64 items-start px-6 bg-[#09080e] rounded-none border-r border-purple-900/30'
+          : 'top-0 left-3 h-screen w-[88px] bg-[#0b0816]/95 backdrop-blur-2xl border border-purple-900/35 rounded-3xl -translate-x-full lg:translate-x-0'
           }`}
       >
         {/* Logo — no box, just the image */}

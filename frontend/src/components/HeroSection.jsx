@@ -20,6 +20,7 @@ import {
   Rocket
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
+import cardimage1 from '../assets/cardimage1.jpg';
 import AtmosphereLayer from './AtmosphereLayer';
 
 export default function HeroSection() {
@@ -184,35 +185,45 @@ export default function HeroSection() {
       <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 m-0">
 
         {/* CARD 1 — ABOUT ME */}
-        <div className="lg:col-span-4 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-5 sm:p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500 group">
-          <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
+        <div className="lg:col-span-4 rounded-[20px] bg-[#0d0914] border border-purple-500/20 p-5 flex flex-col justify-between relative overflow-hidden hover:border-purple-500/40 transition-all duration-500 group shadow-xl min-h-[220px]">
+          {/* Card Background Image */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <img
+              src={cardimage1}
+              alt="About Me Background"
+              className="w-full h-full object-cover object-center opacity-85 group-hover:scale-105 transition-transform duration-700 filter brightness-105 contrast-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#090712]/90 via-[#090712]/40 to-[#090712]/20" />
+          </div>
+
+          <div className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-300 uppercase mb-4 bg-[#090712]/60 backdrop-blur-md w-max px-2.5 py-1 rounded-full border border-purple-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_8px_#a855f7]" />
               About Me
             </div>
 
-            <h3 className="text-xl font-extrabold text-gray-100 mb-3 leading-snug">
+            <h3 className="text-xl font-extrabold text-white mb-3 leading-snug drop-shadow-md">
               Crafting solutions,
               <br />
-              <span className="text-purple-400">solving problems.</span>
+              <span className="text-purple-300">solving problems.</span>
             </h3>
 
-            <p className="text-gray-400 text-[13px] leading-relaxed">
+            <p className="text-gray-200 text-[13px] leading-relaxed font-medium drop-shadow">
               I'm a Full Stack Developer who loves turning ideas into real-world products. I enjoy building things that are fast, scalable and impactful.
             </p>
           </div>
 
-          <div className="flex items-center justify-between pt-4 mt-4 border-t border-purple-500/10">
+          <div className="relative z-10 flex items-center justify-between pt-3 mt-3 border-t border-purple-500/30 bg-[#090712]/50 backdrop-blur-md rounded-xl px-2.5 py-1.5">
             <div className="flex items-baseline gap-2">
-              <span className="font-handwriting text-2xl text-purple-300 font-bold">
+              <span className="font-handwriting text-2xl text-purple-200 font-bold drop-shadow">
                 Prakash
               </span>
-              <span className="font-japanese text-lg text-purple-400/60">
+              <span className="font-japanese text-lg text-purple-300 font-semibold">
                 顏
               </span>
             </div>
-            <span className="text-[9px] text-gray-500 uppercase font-mono tracking-widest">
-              Developer
+            <span className="text-[9px] text-purple-300 uppercase font-mono tracking-widest font-bold">
+              DEVELOPER & CREATIVE
             </span>
           </div>
         </div>

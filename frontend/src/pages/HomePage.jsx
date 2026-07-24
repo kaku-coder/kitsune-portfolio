@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
 import logoImg from '../assets/logo.png';
+import cardimage1 from '../assets/cardimage1.jpg';
 
 const HomePage = () => {
     const techStack = [
@@ -34,7 +35,7 @@ const HomePage = () => {
     ];
 
     return (
-        <div className=" w-[100%] m flex flex-col gap-6">
+        <div className="w-full flex flex-col gap-6">
 
             {/* ================= 1. HERO SECTION ================= */}
             <div id="home" className="relative w-full min-h-[580px] lg:min-h-[640px] rounded-3xl overflow-hidden border border-purple-900/20 shadow-2xl flex flex-col justify-between p-6 sm:p-10 lg:p-14 group">
@@ -150,57 +151,53 @@ const HomePage = () => {
             <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
                 {/* CARD 1: ABOUT ME (Cols 4) */}
-                <div className="lg:col-span-4 rounded-2xl bg-[#110d1f]/90 backdrop-blur-md border border-purple-900/30 p-6 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/40 transition-colors">
-                    <div>
-                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase mb-4">
-                            <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
+                <div className="lg:col-span-4 rounded-2xl bg-[#0d0914] border border-purple-900/40 p-5 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/50 transition-all duration-500 shadow-xl min-h-[220px]">
+                    {/* Card Background Image (Full Card Fit) */}
+                    <div className="absolute inset-0 z-0 overflow-hidden">
+                        <img
+                            src={cardimage1}
+                            alt="About Me Background"
+                            className="w-full h-full object-cover object-center opacity-85 group-hover:scale-105 transition-transform duration-700 filter brightness-105 contrast-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090712]/90 via-[#090712]/40 to-[#090712]/20" />
+                    </div>
+
+                    <div className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-300 uppercase mb-3 bg-[#090712]/60 backdrop-blur-md w-max px-2.5 py-1 rounded-full border border-purple-500/30">
+                            <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#a855f7]" />
                             <span>ABOUT ME</span>
                         </div>
 
-                        <h3 className="text-2xl font-extrabold text-gray-100 mb-3 leading-snug">
+                        <h3 className="text-xl font-extrabold text-white mb-2 leading-snug drop-shadow-md">
                             Crafting solutions, <br />
-                            <span className="text-purple-400">solving problems.</span>
+                            <span className="text-purple-300">solving problems.</span>
                         </h3>
 
-                        <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6">
+                        <p className="text-gray-200 text-xs sm:text-sm leading-relaxed font-medium drop-shadow">
                             I'm a Full Stack Developer who loves turning ideas into real-world products. I enjoy building things that are fast, scalable and impactful.
                         </p>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-purple-900/30">
-                        <div className="flex items-baseline gap-2">
-                            <span className="font-handwriting text-3xl text-purple-300 tracking-wide font-bold">
-                                Prakash
-                            </span>
-                            <span className="font-japanese text-xl text-purple-400/80 font-semibold">
-                                顏
-                            </span>
-                        </div>
-                        <span className="text-[10px] text-gray-400 uppercase font-mono tracking-widest">
-                            DEVELOPER & CREATIVE
-                        </span>
                     </div>
                 </div>
 
                 {/* CARD 2: FEATURED PROJECT (Cols 5) */}
-                <div id="projects" className="lg:col-span-5 rounded-2xl bg-[#110d1f]/90 backdrop-blur-md border border-purple-900/30 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-colors">
+                <div id="projects" className="lg:col-span-5 rounded-2xl bg-[#110d1f]/90 backdrop-blur-md border border-purple-900/30 p-5 flex flex-col justify-between hover:border-purple-500/40 transition-colors">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase mb-3">
+                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase mb-2">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
                             <span>FEATURED PROJECT</span>
                         </div>
 
-                        <h3 className="text-2xl font-extrabold text-gray-100 mb-2">
+                        <h3 className="text-xl font-extrabold text-gray-100 mb-1.5">
                             AI Battle Arena
                         </h3>
 
-                        <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                        <p className="text-gray-300 text-xs leading-relaxed mb-3">
                             Real-time AI battle platform where different AI models compete and users vote for the best response.
                         </p>
 
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap gap-1.5 mb-3">
                             {['MERN', 'Socket.io', 'AI', 'Tailwind', 'MongoDB'].map((tag) => (
-                                <span key={tag} className="px-2.5 py-0.5 rounded-md bg-purple-950/60 border border-purple-500/20 text-[11px] font-semibold text-purple-300">
+                                <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/60 border border-purple-500/20 text-[10px] font-semibold text-purple-300">
                                     {tag}
                                 </span>
                             ))}
@@ -208,8 +205,8 @@ const HomePage = () => {
                     </div>
 
                     {/* Interactive UI Mockup Preview Frame */}
-                    <div className="relative w-full h-44 rounded-xl bg-[#090712] border border-purple-500/30 p-3 overflow-hidden shadow-inner flex flex-col justify-between">
-                        <div className="flex items-center justify-between text-[10px] text-purple-300/80 font-mono pb-2 border-b border-purple-900/30">
+                    <div className="relative w-full h-32 rounded-xl bg-[#090712] border border-purple-500/30 p-2.5 overflow-hidden shadow-inner flex flex-col justify-between">
+                        <div className="flex items-center justify-between text-[9px] text-purple-300/80 font-mono pb-1 border-b border-purple-900/30">
                             <span className="font-bold tracking-wider uppercase">AI BATTLE ARENA</span>
                             <span className="text-emerald-400 flex items-center gap-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
@@ -217,34 +214,32 @@ const HomePage = () => {
                             </span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3 my-auto items-center">
-                            <div className="p-2 rounded-lg bg-[#140f26] border border-purple-500/30 text-center flex flex-col items-center">
-                                <div className="w-6 h-6 rounded-full bg-purple-900/40 border border-purple-400/40 flex items-center justify-center text-purple-300 text-[10px] font-bold mb-1">
+                        <div className="grid grid-cols-2 gap-2 my-auto items-center">
+                            <div className="p-1.5 rounded-lg bg-[#140f26] border border-purple-500/30 text-center flex flex-col items-center">
+                                <div className="w-5 h-5 rounded-full bg-purple-900/40 border border-purple-400/40 flex items-center justify-center text-purple-300 text-[9px] font-bold mb-0.5">
                                     GPT
                                 </div>
-                                <span className="text-[11px] font-bold text-gray-200">GPT-4</span>
-                                <span className="text-[9px] text-purple-400">Selected Response</span>
+                                <span className="text-[10px] font-bold text-gray-200">GPT-4</span>
                             </div>
 
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-purple-600 text-white font-bold text-[10px] flex items-center justify-center shadow-lg shadow-purple-950">
+                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-purple-600 text-white font-bold text-[9px] flex items-center justify-center shadow-lg shadow-purple-950">
                                 VS
                             </div>
 
                             <div className="p-2 rounded-lg bg-[#140f26] border border-purple-500/30 text-center flex flex-col items-center">
-                                <div className="w-6 h-6 rounded-full bg-purple-900/40 border border-purple-400/40 flex items-center justify-center text-purple-300 text-[10px] font-bold mb-1">
+                                <div className="w-5 h-5 rounded-full bg-purple-900/40 border border-purple-400/40 flex items-center justify-center text-purple-300 text-[9px] font-bold mb-0.5">
                                     GEM
                                 </div>
-                                <span className="text-[11px] font-bold text-gray-200">Gemini Pro</span>
-                                <span className="text-[9px] text-purple-400">Challenger</span>
+                                <span className="text-[10px] font-bold text-gray-200">Gemini Pro</span>
                             </div>
                         </div>
 
-                        <div className="text-[9px] text-gray-400 text-center font-mono">
-                            Judge System • Real-time evaluation • Live voting • AI Power
+                        <div className="text-[8.5px] text-gray-400 text-center font-mono">
+                            Judge System • Real-time evaluation • AI Power
                         </div>
                     </div>
 
-                    <div className="pt-3">
+                    <div className="pt-2">
                         <a
                             href="#projects"
                             className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider text-purple-300 hover:text-purple-100 transition-colors uppercase"
@@ -256,23 +251,23 @@ const HomePage = () => {
                 </div>
 
                 {/* CARD 3: TECH STACK (Cols 3) */}
-                <div id="skills" className="lg:col-span-3 rounded-2xl bg-[#110d1f]/90 backdrop-blur-md border border-purple-900/30 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-colors">
+                <div id="skills" className="lg:col-span-3 rounded-2xl bg-[#110d1f]/90 backdrop-blur-md border border-purple-900/30 p-5 flex flex-col justify-between hover:border-purple-500/40 transition-colors">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase mb-4">
+                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase mb-3">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
                             <span>TECH STACK</span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="grid grid-cols-2 gap-2 mb-3">
                             {techStack.map((tech) => {
                                 const Icon = tech.icon;
                                 return (
                                     <div
                                         key={tech.name}
-                                        className="p-3 rounded-xl bg-[#120e20] border border-purple-500/20 hover:border-purple-400/60 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:scale-105 group"
+                                        className="p-2 rounded-xl bg-[#120e20] border border-purple-500/20 hover:border-purple-400/60 flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:scale-105 group"
                                     >
-                                        <Icon size={20} className={`${tech.color} group-hover:scale-110 transition-transform`} />
-                                        <span className="text-[11px] font-semibold text-gray-300 group-hover:text-purple-200">
+                                        <Icon size={18} className={`${tech.color} group-hover:scale-110 transition-transform`} />
+                                        <span className="text-[10px] font-semibold text-gray-300 group-hover:text-purple-200">
                                             {tech.name}
                                         </span>
                                     </div>
