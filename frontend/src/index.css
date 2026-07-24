@@ -1,10 +1,82 @@
 @import "tailwindcss";
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+
+@layer base {
+  body {
+    background-color: #09090B;
+    color: #f3f4f6;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
 }
-html,body,#root{
-    width: 100%;
-    height: 100%;
+
+/* ─── CSS Keyframes for Atmosphere Animations ─── */
+@keyframes fallRain {
+  0% {
+    transform: translateY(-80px) translateX(0px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(105vh) translateX(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes fallPetal {
+  0% {
+    transform: translateY(-60px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(50px) rotate(180deg);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) translateX(-40px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fallLeaf {
+  0% {
+    transform: translateY(-60px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(-70px) rotate(-180deg);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) translateX(60px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+.animate-rain {
+  animation: fallRain linear infinite;
+}
+
+.animate-petal {
+  animation: fallPetal ease-in-out infinite;
+}
+
+.animate-leaf {
+  animation: fallLeaf ease-in-out infinite;
 }

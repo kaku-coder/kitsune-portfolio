@@ -12,7 +12,7 @@ export default function LoadingScreen({ onComplete }) {
         if (prev >= 100) {
           clearInterval(interval);
           setPhase('split');
-          setTimeout(() => onComplete(), 1200);
+          setTimeout(() => onComplete(), 800);
           return 100;
         }
         return prev + Math.random() * 8 + 2;
@@ -27,7 +27,7 @@ export default function LoadingScreen({ onComplete }) {
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#09090B]"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.15 }}
         >
           <div className="flex flex-col items-center gap-6">
 
@@ -38,7 +38,7 @@ export default function LoadingScreen({ onComplete }) {
                 className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: 'inset(0 0 50% 0)' }}
                 animate={phase === 'split' ? { y: '-120vh', opacity: 0 } : { y: 0, opacity: 1 }}
-                transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
               >
                 <img src={logoImg} alt="" className="w-24 h-24 object-contain" />
               </motion.div>
@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }) {
                 className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: 'inset(50% 0 0 0)' }}
                 animate={phase === 'split' ? { y: '120vh', opacity: 0 } : { y: 0, opacity: 1 }}
-                transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
               >
                 <img src={logoImg} alt="" className="w-24 h-24 object-contain" />
               </motion.div>

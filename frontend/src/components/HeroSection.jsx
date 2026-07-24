@@ -52,10 +52,10 @@ export default function HeroSection() {
     <div className="w-full flex flex-col gap-6">
 
       {/* ================= 1. HERO SECTION ================= */}
-      <div id="home" className="relative w-full min-h-[560px] lg:min-h-[620px] rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.06)]">
+      <div id="home" className="relative w-full min-h-[560px] lg:min-h-[620px] rounded-[20px] shadow-[0_0_80px_rgba(139,92,246,0.06)]">
 
         {/* Background Image */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 rounded-[20px] overflow-hidden">
           <img
             src={mainimage}
             alt=""
@@ -66,7 +66,7 @@ export default function HeroSection() {
           <div className="absolute top-1/4 right-[15%] w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px]" />
         </div>
 
-        {/* Atmospheric Layer (Rain, Glowing Petals, Leaves, Fog floating over image) */}
+        {/* Atmospheric Effects — inside hero card, clipped by overflow-hidden */}
         <AtmosphereLayer />
 
         {/* Hero Content */}
