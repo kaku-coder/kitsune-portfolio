@@ -34,21 +34,34 @@
 }
 
 /* All dark card backgrounds → warm summer white */
-[data-theme="light"] .bg-\[\#0a0714\],
-[data-theme="light"] .bg-\[\#0d0914\],
-[data-theme="light"] .bg-\[\#110d1f\],
-[data-theme="light"] .bg-\[\#120f1c\],
-[data-theme="light"] .bg-\[\#090712\],
-[data-theme="light"] .bg-\[\#07050d\],
-[data-theme="light"] .bg-\[\#140e29\],
-[data-theme="light"] .bg-\[\#140e2b\],
-[data-theme="light"] .bg-\[\#06040a\],
+[data-theme="light"] [class*="bg-[#0a0714]"],
+[data-theme="light"] [class*="bg-[#0c0916]"],
+[data-theme="light"] [class*="bg-[#0d091a]"],
+[data-theme="light"] [class*="bg-[#0d0914]"],
+[data-theme="light"] [class*="bg-[#110d1f]"],
+[data-theme="light"] [class*="bg-[#07050d]"],
+[data-theme="light"] [class*="bg-[#090712]"],
+[data-theme="light"] [class*="bg-[#100c1e]"],
+[data-theme="light"] [class*="bg-[#120f20]"],
+[data-theme="light"] [class*="bg-[#150f2b]"],
+[data-theme="light"] [class*="bg-[#140f2b]"],
 [data-theme="light"] .bg-black,
-[data-theme="light"] .bg-\[\#09090B\] {
+[data-theme="light"] [class*="bg-[#09090B]"] {
   background-color: #fff7ed !important;
 }
 
-/* Text → warm dark */
+/* Inner sub-card & list-item dark backgrounds → warm peach/cream tint */
+[data-theme="light"] [class*="bg-[#140f29]"],
+[data-theme="light"] [class*="bg-[#140e29]"],
+[data-theme="light"] [class*="bg-[#120d24]"],
+[data-theme="light"] [class*="bg-[#110b24]"],
+[data-theme="light"] [class*="bg-[#140f26]"],
+[data-theme="light"] [class*="bg-[#06040a]"],
+[data-theme="light"] [class*="bg-[#120f1c]"] {
+  background-color: #ffedd5 !important;
+}
+
+/* Text → warm dark high-contrast */
 [data-theme="light"] .text-white,
 [data-theme="light"] .text-gray-100 {
   color: #1c1917 !important;
@@ -56,19 +69,19 @@
 
 [data-theme="light"] .text-gray-200,
 [data-theme="light"] .text-gray-300 {
-  color: #44403c !important;
+  color: #292524 !important;
 }
 
 [data-theme="light"] .text-gray-400 {
-  color: #78716c !important;
+  color: #57534e !important;
 }
 
 [data-theme="light"] .text-gray-500 {
-  color: #a8a29e !important;
+  color: #78716c !important;
 }
 
 [data-theme="light"] .text-gray-600\/50 {
-  color: rgba(120, 113, 108, 0.5) !important;
+  color: rgba(120, 113, 108, 0.6) !important;
 }
 
 /* Purple text → warm orange/red for summer */
@@ -79,22 +92,20 @@
   color: #ea580c !important;
 }
 
-/* Purple backgrounds → warm orange */
-[data-theme="light"] .bg-purple-950\/50,
-[data-theme="light"] .bg-purple-950\/60,
-[data-theme="light"] .bg-purple-950\/30,
-[data-theme="light"] .bg-purple-950\/80,
-[data-theme="light"] .bg-purple-900\/40,
-[data-theme="light"] .bg-purple-900\/80,
-[data-theme="light"] .bg-purple-600,
-[data-theme="light"] .bg-purple-600\/40 {
-  background-color: rgba(234, 88, 12, 0.1) !important;
+/* Purple backgrounds → warm light orange icon tint */
+[data-theme="light"] [class*="bg-purple-950"],
+[data-theme="light"] [class*="bg-purple-900"],
+[data-theme="light"] [class*="bg-purple-800"],
+[data-theme="light"] [class*="bg-purple-700"],
+[data-theme="light"] [class*="bg-purple-600"] {
+  background-color: rgba(234, 88, 12, 0.15) !important;
 }
 
-/* Borders → warm orange */
+/* Borders → warm orange tint */
 [data-theme="light"] [class*="border-purple-900"],
-[data-theme="light"] [class*="border-purple-500"] {
-  border-color: rgba(234, 88, 12, 0.15) !important;
+[data-theme="light"] [class*="border-purple-500"],
+[data-theme="light"] [class*="border-purple-400"] {
+  border-color: rgba(234, 88, 12, 0.25) !important;
 }
 
 /* Shadows warm */

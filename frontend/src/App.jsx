@@ -5,6 +5,8 @@ import Aboutpage from './pages/Aboutpage';
 import LoadingScreen from './components/LoadingScreen';
 import logoImg from './assets/logo.png';
 
+import Projectpage from './pages/Projectpage';
+
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [loaded, setLoaded] = useState(false);
@@ -80,6 +82,8 @@ function App() {
         <main className="flex-1 min-h-screen sm:px-4 lg:px-6">
           {activeSection === 'about' ? (
             <Aboutpage theme={theme} toggleTheme={toggleTheme} />
+          ) : activeSection === 'projects' ? (
+            <Projectpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           ) : (
             <HomePage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           )}
