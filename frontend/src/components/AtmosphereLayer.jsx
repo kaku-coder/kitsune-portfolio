@@ -4,43 +4,41 @@ import { motion } from 'framer-motion';
 /* ─── 1. Falling Sakura Petal (Purple Glowing Petals) ─── */
 function SakuraPetal({ delay }) {
   const cfg = useMemo(() => {
-    const startX = Math.random() * 110 - 5; // -5% to 105%
-    const endX = startX + (Math.random() * 40 - 20);
+    const startX = Math.random() * 105; // 0% to 105%
+    const driftX = (Math.random() - 0.5) * 120; // horizontal drift px
     return {
       startX,
-      endX,
-      size: 10 + Math.random() * 12,
-      duration: 6 + Math.random() * 7,
+      driftX,
+      size: 10 + Math.random() * 14,
+      duration: 5 + Math.random() * 6,
       rotateEnd: 360 + Math.random() * 720,
-      sway: 30 + Math.random() * 40,
     };
   }, []);
 
   return (
     <motion.div
-      className="absolute pointer-events-none z-30"
+      className="absolute pointer-events-none"
       style={{
         left: `${cfg.startX}%`,
-        top: '-5%',
         width: cfg.size,
         height: cfg.size * 0.6,
         borderRadius: '80% 10% 80% 10%',
-        background: 'linear-gradient(135deg, rgba(216,180,254,0.95), rgba(168,85,247,0.8), rgba(147,51,234,0.6))',
-        boxShadow: '0 0 10px rgba(192,132,252,0.8), 0 0 4px rgba(255,255,255,0.6)',
-        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+        background: 'linear-gradient(135deg, rgba(233,213,255,1), rgba(192,132,252,0.9), rgba(168,85,247,0.7))',
+        boxShadow: '0 0 12px rgba(192,132,252,0.9), 0 0 4px rgba(255,255,255,0.8)',
+        zIndex: 25,
       }}
-      initial={{ y: '-5%', x: 0, rotate: 0, opacity: 0 }}
+      initial={{ top: '-8%', x: 0, rotate: 0, opacity: 0 }}
       animate={{
-        y: ['-5%', '115%'],
-        x: [0, cfg.sway, -cfg.sway, cfg.sway * 0.5, cfg.endX - cfg.startX],
-        rotate: [0, cfg.rotateEnd * 0.3, cfg.rotateEnd * 0.7, cfg.rotateEnd],
-        opacity: [0, 0.9, 0.95, 0.9, 0],
+        top: ['-8%', '112%'],
+        x: [0, cfg.driftX * 0.4, cfg.driftX * 0.8, cfg.driftX],
+        rotate: [0, cfg.rotateEnd * 0.4, cfg.rotateEnd * 0.7, cfg.rotateEnd],
+        opacity: [0, 0.95, 1, 0.9, 0],
       }}
       transition={{
         duration: cfg.duration,
         delay,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: 'linear',
       }}
     />
   );
@@ -49,43 +47,42 @@ function SakuraPetal({ delay }) {
 /* ─── 2. Falling Green Bamboo/Autumn Leaf ─── */
 function FallingLeaf({ delay }) {
   const cfg = useMemo(() => {
-    const startX = Math.random() * 110 - 5;
-    const endX = startX + (Math.random() * 60 - 30);
+    const startX = Math.random() * 105;
+    const driftX = (Math.random() - 0.5) * 150;
     return {
       startX,
-      endX,
-      width: 14 + Math.random() * 10,
-      height: 7 + Math.random() * 6,
-      duration: 7 + Math.random() * 8,
-      rotateEnd: -540 - Math.random() * 360,
-      sway: 40 + Math.random() * 50,
+      driftX,
+      width: 16 + Math.random() * 10,
+      height: 8 + Math.random() * 6,
+      duration: 6 + Math.random() * 7,
+      rotateEnd: -360 - Math.random() * 540,
     };
   }, []);
 
   return (
     <motion.div
-      className="absolute pointer-events-none z-30"
+      className="absolute pointer-events-none"
       style={{
         left: `${cfg.startX}%`,
-        top: '-5%',
         width: cfg.width,
         height: cfg.height,
         borderRadius: '100% 0% 100% 0%',
-        background: 'linear-gradient(135deg, rgba(52,211,153,0.9), rgba(16,185,129,0.7), rgba(5,150,105,0.5))',
-        boxShadow: '0 0 8px rgba(52,211,153,0.6)',
+        background: 'linear-gradient(135deg, rgba(52,211,153,0.95), rgba(16,185,129,0.85), rgba(5,150,105,0.7))',
+        boxShadow: '0 0 10px rgba(52,211,153,0.8)',
+        zIndex: 25,
       }}
-      initial={{ y: '-5%', x: 0, rotate: 0, opacity: 0 }}
+      initial={{ top: '-8%', x: 0, rotate: 0, opacity: 0 }}
       animate={{
-        y: ['-5%', '115%'],
-        x: [0, -cfg.sway, cfg.sway, -cfg.sway * 0.5, cfg.endX - cfg.startX],
-        rotate: [0, cfg.rotateEnd * 0.4, cfg.rotateEnd * 0.8, cfg.rotateEnd],
-        opacity: [0, 0.85, 0.9, 0.85, 0],
+        top: ['-8%', '112%'],
+        x: [0, -cfg.driftX * 0.3, cfg.driftX * 0.6, cfg.driftX],
+        rotate: [0, cfg.rotateEnd * 0.3, cfg.rotateEnd * 0.7, cfg.rotateEnd],
+        opacity: [0, 0.9, 0.95, 0.85, 0],
       }}
       transition={{
         duration: cfg.duration,
         delay,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: 'linear',
       }}
     />
   );
@@ -96,28 +93,27 @@ function RainDrop({ delay }) {
   const cfg = useMemo(() => ({
     left: Math.random() * 115 - 5,
     duration: 0.5 + Math.random() * 0.4,
-    height: 30 + Math.random() * 35,
-    windOffset: -40 - Math.random() * 30, // Diagonal fall
-    opacity: 0.4 + Math.random() * 0.45,
+    height: 35 + Math.random() * 35,
+    windOffset: -50 - Math.random() * 40,
   }), []);
 
   return (
     <motion.div
-      className="absolute pointer-events-none z-30"
+      className="absolute pointer-events-none"
       style={{
         left: `${cfg.left}%`,
-        top: '-10%',
-        width: 1.8,
+        width: 2,
         height: cfg.height,
         borderRadius: 2,
-        background: 'linear-gradient(to bottom, transparent, rgba(233,213,255,0.95), transparent)',
-        boxShadow: '0 0 6px rgba(192,132,252,0.6)',
+        background: 'linear-gradient(to bottom, transparent, rgba(233,213,255,0.95), rgba(192,132,252,0.8), transparent)',
+        boxShadow: '0 0 8px rgba(192,132,252,0.8)',
+        zIndex: 25,
       }}
-      initial={{ y: '-10%', x: 0, opacity: 0 }}
+      initial={{ top: '-12%', x: 0, opacity: 0 }}
       animate={{
-        y: ['-10%', '115%'],
+        top: ['-12%', '112%'],
         x: [0, cfg.windOffset],
-        opacity: [0, cfg.opacity, cfg.opacity, 0],
+        opacity: [0, 0.85, 0.85, 0],
       }}
       transition={{
         duration: cfg.duration,
@@ -133,25 +129,26 @@ function RainDrop({ delay }) {
 function FogCloud({ index }) {
   const cfg = useMemo(() => ({
     fromRight: index % 2 === 0,
-    width: 350 + Math.random() * 350,
-    height: 100 + Math.random() * 120,
-    top: 5 + Math.random() * 50,
-    duration: 25 + Math.random() * 20,
+    width: 350 + Math.random() * 300,
+    height: 100 + Math.random() * 100,
+    top: 10 + Math.random() * 50,
+    duration: 22 + Math.random() * 18,
   }), [index]);
 
   return (
     <motion.div
-      className="absolute pointer-events-none z-20"
+      className="absolute pointer-events-none"
       style={{
         width: cfg.width,
         height: cfg.height,
         top: `${cfg.top}%`,
         borderRadius: '50%',
-        background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.08), rgba(147,51,234,0.03), transparent 70%)',
-        filter: 'blur(25px)',
+        background: 'radial-gradient(ellipse at center, rgba(192,132,252,0.12), rgba(168,85,247,0.04), transparent 70%)',
+        filter: 'blur(20px)',
+        zIndex: 15,
       }}
-      initial={{ x: cfg.fromRight ? '120%' : '-40%' }}
-      animate={{ x: cfg.fromRight ? '-40%' : '120%' }}
+      initial={{ left: cfg.fromRight ? '110%' : '-40%' }}
+      animate={{ left: cfg.fromRight ? '-40%' : '110%' }}
       transition={{
         duration: cfg.duration,
         repeat: Infinity,
@@ -163,24 +160,24 @@ function FogCloud({ index }) {
 
 /* ─── Main Atmosphere Layer Export ─── */
 export default function AtmosphereLayer() {
-  const sakuraPetals = useMemo(() => Array.from({ length: 22 }, (_, i) => i), []);
-  const greenLeaves = useMemo(() => Array.from({ length: 14 }, (_, i) => i), []);
-  const rainDrops = useMemo(() => Array.from({ length: 55 }, (_, i) => i), []);
+  const sakuraPetals = useMemo(() => Array.from({ length: 25 }, (_, i) => i), []);
+  const greenLeaves = useMemo(() => Array.from({ length: 15 }, (_, i) => i), []);
+  const rainDrops = useMemo(() => Array.from({ length: 60 }, (_, i) => i), []);
   const fogClouds = useMemo(() => Array.from({ length: 4 }, (_, i) => i), []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-30">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
       {/* Fog Clouds */}
       {fogClouds.map((i) => <FogCloud key={`fog-${i}`} index={i} />)}
 
       {/* Rain Drops */}
-      {rainDrops.map((i) => <RainDrop key={`rain-${i}`} delay={Math.random() * 2.5} />)}
+      {rainDrops.map((i) => <RainDrop key={`rain-${i}`} delay={Math.random() * 2} />)}
 
       {/* Glowing Purple Sakura Petals */}
-      {sakuraPetals.map((i) => <SakuraPetal key={`sakura-${i}`} delay={i * 0.35} />)}
+      {sakuraPetals.map((i) => <SakuraPetal key={`sakura-${i}`} delay={i * 0.25} />)}
 
       {/* Emerald Green Leaves */}
-      {greenLeaves.map((i) => <FallingLeaf key={`leaf-${i}`} delay={i * 0.55 + 0.2} />)}
+      {greenLeaves.map((i) => <FallingLeaf key={`leaf-${i}`} delay={i * 0.4 + 0.1} />)}
     </div>
   );
 }
