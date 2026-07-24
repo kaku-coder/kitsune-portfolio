@@ -422,6 +422,23 @@
   animation: lsBarGlow 2s ease-in-out infinite;
 }
 
+/* ─── Scrollbar Hide Utility ─── */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Touch device: show image overlays always (no hover) ─── */
+@media (hover: none) {
+  .touch-show-overlay {
+    opacity: 1 !important;
+    background-color: rgba(30, 15, 60, 0.4) !important;
+  }
+}
+
 /* ─── Theme Transition: Center Line + Logo Split ─── */
 @keyframes ttLineIn {
   0% { transform: translateX(-50%) scaleY(0); opacity: 0; }
