@@ -40,7 +40,7 @@ export default function HeroSection() {
       <div id="home" className="relative w-full min-h-[580px] lg:min-h-[640px] rounded-3xl overflow-hidden border border-purple-900/20 shadow-2xl flex flex-col justify-between p-6 sm:p-10 lg:p-14 group">
         
         {/* Hero Background Image (mainimage.png) */}
-        <div className="absolute inset-0 z-0">
+        <div className="border absolute inset-0 z-0">
           <img
             src={mainimage}
             alt="Hero Background Kitsune"
