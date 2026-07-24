@@ -52,24 +52,25 @@ export default function HeroSection() {
     <div className="w-full flex flex-col gap-6">
 
       {/* ================= 1. HERO SECTION ================= */}
-      <div id="home" className="relative w-full min-h-[560px] lg:min-h-[620px] rounded-[20px] shadow-[0_0_80px_rgba(139,92,246,0.06)]">
+      {/* Wrapper — relative, NO overflow-hidden, clips nothing */}
+      <div className="relative w-full rounded-[20px]">
+
+        {/* Hero Card — overflow-hidden only for bg image rounded corners */}
+        <div id="home" className="relative w-full min-h-[560px] lg:min-h-[620px] rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.06)]">
 
         {/* Background Image */}
-        <div className="absolute inset-0 z-0 rounded-[20px] overflow-hidden">
-          <img
-            src={mainimage}
-            alt=""
-            className="w-full h-full object-cover object-center brightness-[0.5] contrast-110 saturate-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#09090B]/70 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B]/30" />
-          <div className="absolute top-1/4 right-[15%] w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px]" />
-        </div>
+          <div className="absolute inset-0 z-0">
+            <img
+              src={mainimage}
+              alt=""
+              className="w-full h-full object-cover object-center brightness-[0.5] contrast-110 saturate-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#09090B]/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B]/30" />
+            <div className="absolute top-1/4 right-[15%] w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px]" />
+          </div>
 
-        {/* Atmospheric Effects — inside hero card, clipped by overflow-hidden */}
-        <AtmosphereLayer />
-
-        {/* Hero Content */}
+          {/* Hero Content */}
         <div className="relative z-10 w-full h-full min-h-[560px] lg:min-h-[620px] flex flex-col lg:flex-row items-center p-8 sm:p-12 lg:p-16 gap-10 lg:gap-6">
 
           {/* LEFT — Text Content */}
@@ -163,6 +164,11 @@ export default function HeroSection() {
           </div>
           <span className="text-[9px] text-gray-500 font-mono tracking-[0.25em] uppercase">Scroll</span>
         </div>
+
+      </div>
+
+      {/* Atmosphere — absolute inside wrapper, over the hero image only */}
+      <AtmosphereLayer />
 
       </div>
 
