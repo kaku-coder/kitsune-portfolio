@@ -55,7 +55,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
 
             {/* ================= 1. TOP HERO SECTION (OPEN BACKGROUND, EXACT REFERENCE MATCH) ================= */}
             <div className="relative w-full min-h-[340px] flex items-center mb-2">
-                
+
                 {/* Background Samurai Kitsune Avatar (Far Right, Moon & Torii Gate) */}
                 <div className="absolute right-0 top-0 bottom-0 w-full sm:w-[50%] lg:w-[40%] z-0 overflow-hidden pointer-events-none rounded-3xl">
                     <img
@@ -77,7 +77,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
 
                 {/* Content Grid (No Card Box, Pure Open Text Layout) */}
                 <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start py-4">
-                    
+
                     {/* Left Column (col-span-5): Headline & Intro */}
                     <div className="lg:col-span-5 flex flex-col gap-4">
                         <div className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase">
@@ -143,9 +143,15 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         <img
                             src={aboutUserimage}
                             alt="Developer Portrait"
-                            className="w-full h-full object-cover object-[center_25%] scale-130 group-hover:scale-135 transition-transform duration-700 filter brightness-95 contrast-105 opacity-85"
+                            className="tt-dark-img w-full h-full object-cover object-[center_25%] scale-130 group-hover:scale-135 transition-transform duration-700 filter brightness-95 contrast-105 opacity-85"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/90 via-45% to-transparent/10" />
+                        <img
+                            src={aboutUserimagesummer}
+                            alt="Developer Portrait Summer"
+                            className="tt-light-img absolute inset-0 w-full h-full object-cover object-[center_25%] scale-130 group-hover:scale-135 transition-transform duration-700 filter brightness-95 contrast-105 opacity-85"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/90 via-45% to-transparent/10 tt-dark-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/90 via-45% to-transparent/10 tt-light-overlay" />
                     </div>
 
                     <div className="relative z-10 self-end">
@@ -172,7 +178,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                     </div>
 
                     <div className="flex flex-col gap-5 my-auto">
-                        
+
                         <div className="flex gap-3.5 items-start">
                             <div className="p-2.5 rounded-2xl bg-[#140f29] border border-purple-500/20 text-purple-300 flex-shrink-0 mt-0.5">
                                 <Zap size={16} />
@@ -279,8 +285,10 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 {/* Left Quote Card */}
                 <div className="lg:col-span-4 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl">
                     <div className="absolute inset-0 z-0 overflow-hidden">
-                        <img src={cardimage1} alt="Background" className="w-full h-full object-cover opacity-25 filter brightness-75" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/85 to-transparent" />
+                        <img src={cardimage1} alt="Background" className="tt-dark-img w-full h-full object-cover opacity-25 filter brightness-75" />
+                        <img src={cardimage1summer} alt="Background Summer" className="tt-light-img absolute inset-0 w-full h-full object-cover opacity-25 filter brightness-75" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/85 to-transparent tt-dark-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-transparent tt-light-overlay" />
                     </div>
 
                     <div className="relative z-10">

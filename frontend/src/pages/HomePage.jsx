@@ -28,6 +28,7 @@ import {
 import mainimage from '../assets/mainimage.png';
 import mainimagesummer from '../assets/mainimagesummer.png';
 import cardimage1 from '../assets/cardimage1.jpg';
+import cardimage1summer from '../assets/cardimage1summer.png';
 import logoImg from '../assets/logo.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
 import useGitHub from '../hooks/useGitHub';
@@ -260,10 +261,16 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     <div className="absolute inset-0 z-0 overflow-hidden">
                         <img
                             src={cardimage1}
-                            alt="About Me Background"
-                            className="w-full h-full object-cover object-center opacity-35 group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                            alt="About Me Background Dark"
+                            className="tt-dark-img w-full h-full object-cover object-center opacity-35 group-hover:scale-105 transition-transform duration-700 filter brightness-90"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/85 to-[#0c0916]/30" />
+                        <img
+                            src={cardimage1summer}
+                            alt="About Me Background Summer"
+                            className="tt-light-img w-full h-full object-cover object-center opacity-45 group-hover:scale-105 transition-transform duration-700 filter brightness-95"
+                        />
+                        <div className="tt-dark-overlay absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/85 to-[#0c0916]/30" />
+                        <div className="tt-light-overlay absolute inset-0 bg-gradient-to-t from-[#fff7ed] via-[#fff7ed]/85 to-[#fff7ed]/30" />
                     </div>
 
                     <div className="relative z-10 flex items-center justify-between mb-3">

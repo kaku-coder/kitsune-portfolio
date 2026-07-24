@@ -12,6 +12,7 @@ import {
   X
 } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import logosummer from '../assets/logosummer.png';
 
 const GithubIcon = ({ size = 17 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -52,11 +53,10 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className={`lg:hidden fixed top-4 left z-50 p-2.5 rounded-xl border backdrop-blur-md shadow-lg ${
-          isLight
+        className={`lg:hidden fixed top-4 left z-50 p-2.5 rounded-xl border backdrop-blur-md shadow-lg ${isLight
             ? 'bg-orange-50 border-orange-200 text-orange-600'
             : 'bg-[#120f1c] border-purple-500/30 text-purple-300'
-        }`}
+          }`}
       >
         {mobileOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
@@ -73,11 +73,11 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
         className={`fixed z-40 flex flex-col justify-between items-center py-6 transition-all duration-300 shadow-2xl ${mobileOpen
           ? `top-0 left-0 h-screen w-64 items-start px-6 rounded-none border-r ${isLight ? 'bg-orange-50 border-orange-200' : 'bg-[#09080e] border-purple-900/30'}`
           : `top-0 left-3 h-screen w-[88px] backdrop-blur-2xl rounded-3xl -translate-x-full lg:translate-x-0 ${isLight ? 'bg-white/95 border border-orange-200' : 'bg-[#0b0816]/95 border border-purple-900/35'}`
-        }`}
+          }`}
       >
         {/* Logo */}
         <div className="flex flex-col items-center">
-          <img src={logoImg} alt="Logo" className={`w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer ${isLight ? 'drop-shadow-[0_0_8px_rgba(234,88,12,0.3)]' : 'drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]'}`} />
+          <img src={isLight ? logosummer : logoImg} alt="Logo" className={`w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer ${isLight ? 'drop-shadow-[0_0_8px_rgba(234,88,12,0.3)]' : 'drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]'}`} />
         </div>
 
         {/* Nav Links */}
@@ -94,11 +94,10 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
                   const el = document.getElementById(item.id);
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start' : 'flex-col items-center'} group py-1 px-2 rounded-xl transition-all ${
-                  isActive
+                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start' : 'flex-col items-center'} group py-1 px-2 rounded-xl transition-all ${isActive
                     ? isLight ? 'text-orange-600' : 'text-purple-300'
                     : isLight ? 'text-stone-400 hover:text-orange-500' : 'text-gray-400 hover:text-purple-200'
-                }`}
+                  }`}
               >
                 {isActive && (
                   <span className={`absolute -left-3 lg:-left-2 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full ${isLight ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-purple-500 shadow-[0_0_10px_#a855f7]'}`} />
