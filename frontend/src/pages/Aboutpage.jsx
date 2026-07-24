@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import {
     User,
     Heart,
@@ -11,37 +11,47 @@ import {
     Container,
     Calendar,
     Coffee,
-    ArrowRight
+    ArrowRight,
+    Sparkles
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
+import mainimagesummer from '../assets/mainimagesummer.png';
 import aboutUserimage from '../assets/aboutUserimage.png';
+import aboutUserimagesummer from '../assets/aboutUserimagesummer.png';
 import cardimage1 from '../assets/cardimage1.jpg';
+import cardimage1summer from '../assets/cardimage1summer.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
 
-const Aboutpage = () => {
-    const pageRef = useRef(null);
-    const [rect, setRect] = useState(null);
-
-    useEffect(() => {
-        const update = () => {
-            if (pageRef.current) {
-                const r = pageRef.current.getBoundingClientRect();
-                setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
-            }
-        };
-        update();
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', update);
-            window.removeEventListener('resize', update);
-        };
-    }, []);
-
+const Aboutpage = ({ theme, toggleTheme }) => {
     return (
-        <div ref={pageRef} className="w-full flex flex-col gap-8 py-4 select-none max-w-7xl mx-auto">
+        <div className="w-full flex flex-col gap-8 py-4 select-none max-w-7xl mx-auto">
             {/* Atmospheric Falling Particles */}
-            {/* <AtmosphereLayer rect={rect} /> */}
+            {/* <AtmosphereLayer /> */}
+
+            {/* Theme Toggle */}
+            <button
+                onClick={toggleTheme}
+                className="fixed top-4 right-4 z-[9990] w-10 h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+                title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
+            >
+                {theme === 'dark' ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                ) : (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                )}
+            </button>
 
             {/* ================= 1. TOP HERO SECTION (OPEN BACKGROUND, EXACT REFERENCE MATCH) ================= */}
             <div className="relative w-full min-h-[340px] flex items-center mb-2">
@@ -51,11 +61,18 @@ const Aboutpage = () => {
                     <img
                         src={mainimage}
                         alt="Kitsune Samurai Avatar"
-                        className="w-full h-full object-cover object-[85%_center] filter brightness-110 contrast-105"
+                        className="tt-dark-img w-full h-full object-cover object-[85%_center] filter brightness-110 contrast-105"
                     />
-                    {/* Gradient Overlay: Solid dark on the left, transparent on the fox avatar on the right */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#09090B] via-[#09090B]/90 via-35% to-transparent/10" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B]" />
+                    <img
+                        src={mainimagesummer}
+                        alt="Kitsune Samurai Avatar Summer"
+                        className="tt-light-img absolute inset-0 w-full h-full object-cover object-[85%_center] filter brightness-110 contrast-105"
+                    />
+                    {/* Gradient Overlay: Solid on the left, transparent on the right */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#09090B] via-[#09090B]/90 via-35% to-transparent/10 tt-dark-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B] tt-dark-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 via-35% to-transparent/10 tt-light-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white tt-light-overlay" />
                 </div>
 
                 {/* Content Grid (No Card Box, Pure Open Text Layout) */}
@@ -285,7 +302,7 @@ const Aboutpage = () => {
                         <div className="p-3.5 rounded-full bg-[#140f29] text-purple-400 mb-2 shadow-inner">
                             <Code2 size={20} />
                         </div>
-                        <div className="text-2xl font-black text-white mb-0.5">15+</div>
+                        <div className="text-2xl font-black text-white mb-0.5">10+</div>
                         <div className="text-xs font-bold text-gray-200 mb-1">Projects</div>
                         <div className="text-[10px] text-gray-400 leading-tight">
                             Completed across different domains
@@ -294,12 +311,12 @@ const Aboutpage = () => {
 
                     <div className="flex flex-col items-center text-center p-2">
                         <div className="p-3.5 rounded-full bg-[#140f29] text-purple-400 mb-2 shadow-inner">
-                            <Calendar size={20} />
+                            <Sparkles size={20} />
                         </div>
-                        <div className="text-2xl font-black text-white mb-0.5">2+</div>
-                        <div className="text-xs font-bold text-gray-200 mb-1">Years</div>
+                        <div className="text-2xl font-black text-white mb-0.5">100%</div>
+                        <div className="text-xs font-bold text-gray-200 mb-1">Passion & Drive</div>
                         <div className="text-[10px] text-gray-400 leading-tight">
-                            Of hands-on experience in development
+                            Fast learner, dedicated & ready to contribute
                         </div>
                     </div>
 

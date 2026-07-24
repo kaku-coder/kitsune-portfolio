@@ -26,6 +26,7 @@ import {
     Flame
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
+import mainimagesummer from '../assets/mainimagesummer.png';
 import cardimage1 from '../assets/cardimage1.jpg';
 import logoImg from '../assets/logo.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
@@ -55,33 +56,8 @@ const BrushUnderline = () => (
     </svg>
 );
 
-const HomePage = ({ setActiveSection }) => {
+const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
     const gh = useGitHub();
-    const [theme, setTheme] = useState('dark');
-    const [transPhase, setTransPhase] = useState(''); // '' | 'enter' | 'split' | 'done'
-
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        if (transPhase) return;
-        const goingLight = theme === 'dark';
-        setTransPhase('enter');
-
-        setTimeout(() => {
-            setTheme(goingLight ? 'light' : 'dark');
-            setTransPhase('split');
-        }, 450);
-
-        setTimeout(() => {
-            setTransPhase('done');
-        }, 1000);
-
-        setTimeout(() => {
-            setTransPhase('');
-        }, 1050);
-    };
 
     // Pure Black, White & Purple Theme Tech Stack
     const techStack = [
@@ -98,84 +74,39 @@ const HomePage = ({ setActiveSection }) => {
     return (
         <div className="w-full flex flex-col gap-6 py-4 select-none">
 
-            {/* Theme Transition Overlay */}
-            {transPhase && transPhase !== 'done' && (
-                <div className="fixed inset-0 z-[9998] pointer-events-none flex items-center justify-center">
-                    {/* Background flash */}
-                    <div className={`absolute inset-0 ${transPhase === 'enter' ? 'tt-bg-enter' : 'tt-bg-split'} ${theme === 'dark' ? 'bg-white' : 'bg-[#09090B]'}`} />
-
-                    {/* Center vertical line - enters */}
-                    {transPhase === 'enter' && (
-                        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] tt-line-in">
-                            <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
-                        </div>
-                    )}
-
-                    {/* Split lines - left and right */}
-                    {transPhase === 'split' && (
-                        <>
-                            <div className="absolute top-0 bottom-0 w-[2px] tt-line-left">
-                                <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
-                            </div>
-                            <div className="absolute top-0 bottom-0 w-[2px] tt-line-right">
-                                <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
-                            </div>
-                        </>
-                    )}
-
-                    {/* Logo - splits top/bottom */}
-                    <div className="relative z-10">
-                        {/* Top half */}
-                        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(0 0 50% 0)' }}>
-                            <img
-                                src={logoImg}
-                                alt=""
-                                className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-up' : ''}`}
-                            />
-                        </div>
-                        {/* Bottom half */}
-                        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(50% 0 0 0)' }}>
-                            <img
-                                src={logoImg}
-                                alt=""
-                                className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-down' : ''}`}
-                            />
-                        </div>
-                        {/* Full logo during enter */}
-                        <img
-                            src={logoImg}
-                            alt="Logo"
-                            className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-fade' : 'tt-logo-in'}`}
-                        />
-                    </div>
-                </div>
-            )}
-
             {/* ================= 1. HERO SECTION (NO BORDER) ================= */}
             <div
                 id="home"
                 className="relative w-full min-h-[580px] lg:min-h-[620px] rounded-3xl overflow-hidden bg-[#0a0714] flex flex-col justify-between p-6 sm:p-10 lg:p-12 group shadow-2xl"
             >
 
-                {/* Hero Background Image (Kitsune Samurai avatar & Japanese Pagoda Fog) */}
+                {/* Hero Background Image */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <img
                         src={mainimage}
-                        alt="Hero Background Kitsune"
-                        className="w-full h-full object-cover object-[85%_center] sm:object-right filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-1000 opacity-95"
+                        alt="Hero Background Dark"
+                        className="tt-dark-img absolute inset-0 w-full h-full object-cover object-[85%_center] sm:object-right filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-1000 opacity-95"
+                    />
+                    <img
+                        src={mainimagesummer}
+                        alt="Hero Background Summer"
+                        className="tt-light-img absolute inset-0 w-full h-full object-cover object-[85%_center] sm:object-right filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-1000 opacity-95"
                     />
                     {/* Dark Blending Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a0714] via-[#0a0714]/80 via-45% to-transparent/10" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-transparent to-black/30" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a0714] via-[#0a0714]/80 via-45% to-transparent/10 tt-dark-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-transparent to-black/30 tt-dark-overlay" />
+                    {/* Light Blending Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 via-45% to-transparent/10 tt-light-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30 tt-light-overlay" />
                 </div>
 
                 {/* Atmospheric Falling Particles */}
-                <AtmosphereLayer />
+                <AtmosphereLayer theme={theme} />
 
                 {/* Theme Toggle Button */}
                 <button
                     onClick={toggleTheme}
-                    className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-purple-950/60 hover:bg-purple-900/80 border border-purple-500/30 hover:border-purple-400/60 flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+                    className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
                     title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
                 >
                     {theme === 'dark' ? (

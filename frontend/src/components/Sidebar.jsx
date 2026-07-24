@@ -34,8 +34,9 @@ const TwitterIcon = ({ size = 17 }) => (
   </svg>
 );
 
-export default function Sidebar({ activeSection = 'home', setActiveSection }) {
+export default function Sidebar({ activeSection = 'home', setActiveSection, theme = 'dark' }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isLight = theme === 'light';
 
   const navItems = [
     { id: 'home', label: 'HOME', icon: Home },
@@ -51,7 +52,11 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="lg:hidden fixed top-4 left z-50 p-2.5 rounded-xl bg-[#120f1c] border border-purple-500/30 text-purple-300 backdrop-blur-md shadow-lg"
+        className={`lg:hidden fixed top-4 left z-50 p-2.5 rounded-xl border backdrop-blur-md shadow-lg ${
+          isLight
+            ? 'bg-orange-50 border-orange-200 text-orange-600'
+            : 'bg-[#120f1c] border-purple-500/30 text-purple-300'
+        }`}
       >
         {mobileOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
@@ -63,16 +68,16 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
         />
       )}
 
-      {/* Floating Card Sidebar Matching Reference Image */}
+      {/* Floating Card Sidebar */}
       <aside
         className={`fixed z-40 flex flex-col justify-between items-center py-6 transition-all duration-300 shadow-2xl ${mobileOpen
-          ? 'top-0 left-0 h-screen w-64 items-start px-6 bg-[#09080e] rounded-none border-r border-purple-900/30'
-          : 'top-0 left-3 h-screen w-[88px] bg-[#0b0816]/95 backdrop-blur-2xl border border-purple-900/35 rounded-3xl -translate-x-full lg:translate-x-0'
-          }`}
+          ? `top-0 left-0 h-screen w-64 items-start px-6 rounded-none border-r ${isLight ? 'bg-orange-50 border-orange-200' : 'bg-[#09080e] border-purple-900/30'}`
+          : `top-0 left-3 h-screen w-[88px] backdrop-blur-2xl rounded-3xl -translate-x-full lg:translate-x-0 ${isLight ? 'bg-white/95 border border-orange-200' : 'bg-[#0b0816]/95 border border-purple-900/35'}`
+        }`}
       >
-        {/* Logo — no box, just the image */}
-        <div className="flex  flex-col items-center">
-          <img src={logoImg} alt="Logo" className="w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]" />
+        {/* Logo */}
+        <div className="flex flex-col items-center">
+          <img src={logoImg} alt="Logo" className={`w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer ${isLight ? 'drop-shadow-[0_0_8px_rgba(234,88,12,0.3)]' : 'drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]'}`} />
         </div>
 
         {/* Nav Links */}
@@ -89,19 +94,26 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
                   const el = document.getElementById(item.id);
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start' : 'flex-col items-center'} group py-1 px-2 rounded-xl transition-all ${isActive ? 'text-purple-300' : 'text-gray-400 hover:text-purple-200'
-                  }`}
+                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start' : 'flex-col items-center'} group py-1 px-2 rounded-xl transition-all ${
+                  isActive
+                    ? isLight ? 'text-orange-600' : 'text-purple-300'
+                    : isLight ? 'text-stone-400 hover:text-orange-500' : 'text-gray-400 hover:text-purple-200'
+                }`}
               >
                 {isActive && (
-                  <span className="absolute -left-3 lg:-left-2 top-1/2 -translate-y-1/2 w-1 h-6 bg-purple-500 rounded-r-full shadow-[0_0_10px_#a855f7]" />
+                  <span className={`absolute -left-3 lg:-left-2 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full ${isLight ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-purple-500 shadow-[0_0_10px_#a855f7]'}`} />
                 )}
 
-                <div className={`p-2 rounded-xl transition-all ${isActive ? 'bg-purple-600/20 text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]' : 'group-hover:bg-purple-900/20'
+                <div className={`p-2 rounded-xl transition-all ${isActive
+                  ? isLight ? 'bg-orange-100 text-orange-600 shadow-[0_0_12px_rgba(234,88,12,0.2)]' : 'bg-purple-600/20 text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
+                  : isLight ? 'group-hover:bg-orange-50' : 'group-hover:bg-purple-900/20'
                   }`}>
                   <Icon size={18} />
                 </div>
 
-                <span className={`text-[8.5px] tracking-widest font-bold mt-0.5 uppercase ${isActive ? 'text-purple-300' : 'text-gray-400 group-hover:text-purple-200'
+                <span className={`text-[8.5px] tracking-widest font-bold mt-0.5 uppercase ${isActive
+                  ? isLight ? 'text-orange-600' : 'text-purple-300'
+                  : isLight ? 'text-stone-400 group-hover:text-orange-500' : 'text-gray-400 group-hover:text-purple-200'
                   }`}>
                   {item.label}
                 </span>
@@ -112,19 +124,19 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
 
         {/* Socials & Copyright */}
         <div className="flex flex-col items-center gap-3 w-full">
-          <div className="flex flex-col gap-5 text-gray-400">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-purple-300 transition-colors">
+          <div className={`flex flex-col gap-5 ${isLight ? 'text-stone-400' : 'text-gray-400'}`}>
+            <a href="https://github.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <GithubIcon size={16} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-purple-300 transition-colors">
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <LinkedinIcon size={16} />
             </a>
-            <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-purple-300 transition-colors">
+            <a href="https://x.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <TwitterIcon size={16} />
             </a>
           </div>
 
-          <div className="text-[8.5px] text-gray-400 text-center font-mono">
+          <div className={`text-[8.5px] text-center font-mono ${isLight ? 'text-stone-400' : 'text-gray-400'}`}>
             © 2026 Prakash.
           </div>
         </div>
