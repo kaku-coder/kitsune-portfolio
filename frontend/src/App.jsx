@@ -12,15 +12,10 @@ function App() {
   return (
     <>
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
-      <div className={`h-screen w-screen bg-[#09090B] text-gray-100 flex overflow-hidden selection:bg-purple-500 selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
-        {/* Sidebar Spacer */}
-        <div className="hidden md:block w-[100px] flex-shrink-0" />
-
-        {/* Sidebar Component */}
+      <div className={`min-h-screen bg-[#09090B] text-gray-100 flex overflow-x-hidden selection:bg-purple-500 selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
+        <div className="hidden md:block w-[120px] flex-shrink-0" />
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
-
-        {/* Main Content Area — Single Screen Fit without vertical scrollbar */}
-        <main className="flex-1 h-screen overflow-y-auto lg:overflow-hidden py-3 px-4 sm:px-6 lg:px-8 min-w-0 max-w-[1720px] flex flex-col justify-between">
+        <main className="flex-1 min-h-screen  sm:px-10 lg:px-14">
           <HomePage />
         </main>
       </div>

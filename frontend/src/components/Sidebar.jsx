@@ -71,7 +71,7 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
           }`}
       >
         {/* Logo — no box, just the image */}
-        <div className="flex flex-col items-center">
+        <div className="flex  flex-col items-center">
           <img src={logoImg} alt="Logo" className="w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]" />
         </div>
 

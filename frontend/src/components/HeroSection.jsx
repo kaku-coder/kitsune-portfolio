@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Play,
-  MapPin,
   Sparkles,
   Code2,
   Calendar,
   Braces,
   Coffee,
-  Heart,
   ArrowRight,
   Layers,
   Cpu,
@@ -22,10 +20,28 @@ import {
   Rocket
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
-import logoImg from '../assets/logo.png';
 import AtmosphereLayer from './AtmosphereLayer';
 
 export default function HeroSection() {
+  const heroRef = useRef(null);
+  const [rect, setRect] = useState(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (heroRef.current) {
+        const r = heroRef.current.getBoundingClientRect();
+        setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
+      }
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
   const techStack = [
     { name: 'React', icon: Layers, color: 'text-cyan-400' },
     { name: 'Next.js', icon: FileCode2, color: 'text-gray-100' },
@@ -51,122 +67,116 @@ export default function HeroSection() {
   return (
     <div className="w-full flex flex-col gap-4 sm:gap-5 m-0 p-0">
 
-      {/* ================= 1. HERO SECTION (Compact Height, No Outer Margins) ================= */}
-      <div className="relative w-full rounded-[20px]">
+      {/* ================= 1. HERO SECTION (Zero Borders on Image) ================= */}
+      <div ref={heroRef} id="home" className="relative w-full min-h-[480px] lg:min-h-[520px] rounded-[20px] border-0 outline-none m-0">
 
-        {/* Hero Card */}
-        <div id="home" className="relative w-full min-h-[480px] lg:min-h-[520px] rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.06)] m-0">
+        {/* Background Image (No Border) */}
+        <div className="absolute inset-0 z-0 rounded-[20px] overflow-hidden border-0 outline-none">
+          <img
+            src={mainimage}
+            alt=""
+            className="w-full h-full object-cover object-center brightness-[0.5] contrast-110 saturate-110 border-0 outline-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#09090B]/70 via-transparent to-transparent border-0" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B]/30 border-0" />
+          <div className="absolute top-1/4 right-[15%] w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px]" />
+        </div>
 
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src={mainimage}
-              alt=""
-              className="w-full h-full object-cover object-center brightness-[0.5] contrast-110 saturate-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#09090B]/70 via-transparent to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B]/30" />
-            <div className="absolute top-1/4 right-[15%] w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px]" />
-          </div>
+        {/* Atmospheric Effects */}
+        <AtmosphereLayer rect={rect} />
 
-          {/* Hero Content */}
-          <div className="relative z-10 w-full h-full min-h-[480px] lg:min-h-[520px] flex flex-col lg:flex-row items-center p-6 sm:p-10 lg:p-12 gap-8 lg:gap-6">
+        {/* Hero Content */}
+        <div className="relative z-10 w-full h-full min-h-[480px] lg:min-h-[520px] flex flex-col lg:flex-row items-center p-6 sm:p-10 lg:p-12 gap-8 lg:gap-6">
 
-            {/* LEFT — Text Content */}
-            <div className="flex-1 flex flex-col justify-center max-w-xl">
+          {/* LEFT — Text Content */}
+          <div className="flex-1 flex flex-col justify-center max-w-xl">
 
-              {/* Japanese Subtitle */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-[1px] bg-purple-500/60" />
-                <span className="text-purple-400 text-xs font-medium tracking-[0.3em] uppercase font-sans">
-                  キツネの道 — The Way of the Fox
-                </span>
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-white leading-[1.08] mb-4">
-                I Build
-                <br />
-                <span className="text-purple-400">Digital</span>{' '}
-                Experiences
-              </h1>
-
-              {/* Description */}
-              <p className="text-gray-400 text-sm sm:text-[14px] leading-relaxed max-w-md mb-5">
-                Full Stack Developer crafting fast, scalable, and beautiful web applications with clean code and thoughtful design.
-              </p>
-
-              {/* Tech Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {['React', 'Node.js', 'MongoDB', 'Tailwind'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-purple-500/10 border border-purple-500/20 text-purple-300"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center gap-4">
-                <button className="group px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)]">
-                  <span>Explore Work</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                <button className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center">
-                    <Play size={10} className="fill-purple-300 text-purple-300 ml-0.5" />
-                  </div>
-                  <span>Watch Intro</span>
-                </button>
-              </div>
-
+            {/* Japanese Subtitle */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-[1px] bg-purple-500/60" />
+              <span className="text-purple-400 text-xs font-medium tracking-[0.3em] uppercase font-sans">
+                キツネの道 — The Way of the Fox
+              </span>
             </div>
 
-            {/* RIGHT — Fox Samurai Artwork + Status Card */}
-            <div className="flex-1 flex flex-col items-center justify-center relative w-full max-w-md">
+            {/* Main Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-white leading-[1.08] mb-4">
+              I Build
+              <br />
+              <span className="text-purple-400">Digital</span>{' '}
+              Experiences
+            </h1>
 
-              {/* Main Image — cinematic framed */}
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-purple-500/15 shadow-[0_0_60px_rgba(139,92,246,0.08)]">
-                <img
-                  src={mainimage}
-                  alt="Fox Samurai"
-                  className="w-full h-full object-cover brightness-[0.7] contrast-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-[#09090B]/20" />
-                <div className="absolute inset-0 border border-purple-500/10 rounded-2xl" />
-              </div>
+            {/* Description */}
+            <p className="text-gray-400 text-sm sm:text-[14px] leading-relaxed max-w-md mb-5">
+              Full Stack Developer crafting fast, scalable, and beautiful web applications with clean code and thoughtful design.
+            </p>
 
-              {/* Floating Status Card */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-bottom-3 sm:right-4 z-20 px-4 py-3 rounded-2xl bg-[#120f1c]/80 backdrop-blur-xl border border-purple-500/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 min-w-[200px]">
-                <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            {/* Tech Tags */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {['React', 'Node.js', 'MongoDB', 'Tailwind'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-purple-500/10 border border-purple-500/20 text-purple-300"
+                >
+                  {tag}
                 </span>
-                <div className="flex flex-col">
-                  <span className="text-[9px] text-gray-500 font-medium tracking-wider uppercase">Status</span>
-                  <span className="text-[11px] font-bold text-gray-100">Available for Work</span>
+              ))}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-4">
+              <button className="group px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)]">
+                <span>Explore Work</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <button className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
+                <div className="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center">
+                  <Play size={10} className="fill-purple-300 text-purple-300 ml-0.5" />
                 </div>
-              </div>
-
+                <span>Watch Intro</span>
+              </button>
             </div>
 
           </div>
 
-          {/* Bottom Scroll Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1.5">
-            <div className="w-4 h-7 rounded-full border-2 border-purple-500/30 flex justify-center pt-1">
-              <div className="w-1 h-2 rounded-full bg-purple-400 animate-bounce" />
+          {/* RIGHT — Fox Samurai Artwork (Zero Borders) */}
+          <div className="flex-1 flex flex-col items-center justify-center relative w-full max-w-md">
+
+            {/* Main Image — Completely borderless framing */}
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border-0 outline-none shadow-none">
+              <img
+                src={mainimage}
+                alt="Fox Samurai"
+                className="w-full h-full object-cover brightness-[0.7] contrast-110 border-0 outline-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-[#09090B]/20 border-0" />
             </div>
-            <span className="text-[8px] text-gray-500 font-mono tracking-[0.25em] uppercase">Scroll</span>
+
+            {/* Floating Status Card */}
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-bottom-3 sm:right-4 z-20 px-4 py-3 rounded-2xl bg-[#120f1c]/80 backdrop-blur-xl border border-purple-500/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 min-w-[200px]">
+              <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+              <div className="flex flex-col">
+                <span className="text-[9px] text-gray-500 font-medium tracking-wider uppercase">Status</span>
+                <span className="text-[11px] font-bold text-gray-100">Available for Work</span>
+              </div>
+            </div>
+
           </div>
 
         </div>
 
-        {/* Atmosphere Overlay */}
-        <AtmosphereLayer />
+        {/* Bottom Scroll Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1.5">
+          <div className="w-4 h-7 rounded-full border-2 border-purple-500/30 flex justify-center pt-1">
+            <div className="w-1 h-2 rounded-full bg-purple-400 animate-bounce" />
+          </div>
+          <span className="text-[8px] text-gray-500 font-mono tracking-[0.25em] uppercase">Scroll</span>
+        </div>
 
       </div>
 

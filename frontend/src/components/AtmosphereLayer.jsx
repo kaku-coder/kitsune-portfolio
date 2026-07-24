@@ -1,84 +1,101 @@
 import React, { useMemo } from 'react';
+import { motion } from 'framer-motion';
 
-function PetalItem({ index }) {
-  const cfg = useMemo(() => {
-    const left = (index * 3.5 + Math.random() * 3) % 100;
-    const size = 16 + (index % 5) * 3;
-    const duration = 5 + (index % 4) * 1.5;
-    const delay = (index * 0.25) % 4;
-    return { left, size, duration, delay };
-  }, [index]);
+function Petal({ delay }) {
+  const cfg = useMemo(() => ({
+    left: Math.random() * 100,
+    size: 14 + Math.random() * 6,
+    dur: 5 + Math.random() * 6,
+    drift: (Math.random() - 0.5) * 100,
+  }), []);
 
   return (
-    <div
-      className="absolute pointer-events-none animate-petal"
+    <motion.div
       style={{
-        left: `${cfg.left}%`,
-        top: 0,
+        position: 'absolute',
+        left: cfg.left + '%',
+        top: -20,
         width: cfg.size,
-        height: cfg.size * 0.65,
+        height: cfg.size * 0.6,
         borderRadius: '80% 10% 80% 10%',
         background: 'linear-gradient(135deg, #f472b6, #c084fc, #a855f7)',
-        boxShadow: '0 0 16px #c084fc, 0 0 8px #ffffff',
-        filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.7))',
-        animationDuration: `${cfg.duration}s`,
-        animationDelay: `${cfg.delay}s`,
+        boxShadow: '0 0 12px #c084fc',
+        pointerEvents: 'none',
+      }}
+      initial={{ y: -30, x: 0, rotate: 0, opacity: 0 }}
+      animate={{
+        y: ['0%', '110%'],
+        x: [0, cfg.drift * 0.5, cfg.drift],
+        rotate: [0, 180, 360],
+        opacity: [0, 0.9, 0.9, 0],
+      }}
+      transition={{
+        duration: cfg.dur,
+        delay,
+        repeat: Infinity,
+        ease: 'linear',
       }}
     />
   );
 }
 
-function RainItem({ index }) {
-  const cfg = useMemo(() => {
-    const left = (index * 1.8 + Math.random() * 2) % 100;
-    const height = 35 + (index % 5) * 10;
-    const duration = 0.5 + (index % 3) * 0.2;
-    const delay = (index * 0.08) % 2;
-    return { left, height, duration, delay };
-  }, [index]);
+function Rain({ delay }) {
+  const cfg = useMemo(() => ({
+    left: Math.random() * 100,
+    h: 30 + Math.random() * 30,
+    dur: 0.4 + Math.random() * 0.4,
+  }), []);
 
   return (
-    <div
-      className="absolute pointer-events-none animate-rain"
+    <motion.div
       style={{
-        left: `${cfg.left}%`,
-        top: 0,
-        width: '2.5px',
-        height: cfg.height,
-        borderRadius: '2px',
+        position: 'absolute',
+        left: cfg.left + '%',
+        top: -cfg.h,
+        width: 2,
+        height: cfg.h,
+        borderRadius: 2,
         background: 'linear-gradient(to bottom, transparent, #e9d5ff, #c084fc, transparent)',
-        boxShadow: '0 0 12px #c084fc',
-        animationDuration: `${cfg.duration}s`,
-        animationDelay: `${cfg.delay}s`,
+        boxShadow: '0 0 8px #c084fc',
+        pointerEvents: 'none',
+      }}
+      initial={{ y: 0, opacity: 0 }}
+      animate={{
+        y: [0, 700],
+        opacity: [0, 0.8, 0.8, 0],
+      }}
+      transition={{
+        duration: cfg.dur,
+        delay,
+        repeat: Infinity,
+        ease: 'linear',
       }}
     />
   );
 }
 
 export default function AtmosphereLayer({ rect }) {
-  const petals = useMemo(() => Array.from({ length: 28 }, (_, i) => i), []);
-  const rain = useMemo(() => Array.from({ length: 60 }, (_, i) => i), []);
+  const petals = useMemo(() => Array.from({ length: 20 }, (_, i) => i), []);
+  const rain = useMemo(() => Array.from({ length: 40 }, (_, i) => i), []);
 
   if (!rect || rect.width === 0) return null;
 
   return (
     <div
-      className="pointer-events-none"
       style={{
         position: 'fixed',
-        zIndex: 9999,
         top: rect.top,
         left: rect.left,
         width: rect.width,
         height: rect.height,
-        borderRadius: '20px',
+        zIndex: 50,
+        pointerEvents: 'none',
         overflow: 'hidden',
-        border: '2px solid red',
-        background: 'rgba(255,0,0,0.05)',
+        borderRadius: 20,
       }}
     >
-      {rain.map((i) => <RainItem key={`rain-${i}`} index={i} />)}
-      {petals.map((i) => <PetalItem key={`petal-${i}`} index={i} />)}
+      {rain.map((i) => <Rain key={`r-${i}`} delay={Math.random() * 2} />)}
+      {petals.map((i) => <Petal key={`p-${i}`} delay={i * 0.3} />)}
     </div>
   );
 }
