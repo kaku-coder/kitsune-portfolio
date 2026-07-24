@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import {
   Play,
   Sparkles,
@@ -24,25 +24,6 @@ import cardimage1 from '../assets/cardimage1.jpg';
 import AtmosphereLayer from './AtmosphereLayer';
 
 export default function HeroSection() {
-  const heroRef = useRef(null);
-  const [rect, setRect] = useState(null);
-
-  useEffect(() => {
-    const update = () => {
-      if (heroRef.current) {
-        const r = heroRef.current.getBoundingClientRect();
-        setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
-      }
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, []);
-
   const techStack = [
     { name: 'React', icon: Layers, color: 'text-cyan-400' },
     { name: 'Next.js', icon: FileCode2, color: 'text-gray-100' },
@@ -69,7 +50,7 @@ export default function HeroSection() {
     <div className="w-full flex flex-col gap-4 sm:gap-5 m-0 p-0">
 
       {/* ================= 1. HERO SECTION (Zero Borders on Image) ================= */}
-      <div ref={heroRef} id="home" className="relative w-full min-h-[480px] lg:min-h-[520px] rounded-[20px] border-0 outline-none m-0">
+      <div id="home" className="relative w-full min-h-[480px] lg:min-h-[520px] rounded-[20px] border-0 outline-none m-0">
 
         {/* Background Image (No Border) */}
         <div className="absolute inset-0 z-0 rounded-[20px] overflow-hidden border-0 outline-none">
@@ -84,7 +65,7 @@ export default function HeroSection() {
         </div>
 
         {/* Atmospheric Effects */}
-        <AtmosphereLayer rect={rect} />
+        <AtmosphereLayer />
 
         {/* Hero Content */}
         <div className="relative z-10 w-full h-full min-h-[480px] lg:min-h-[520px] flex flex-col lg:flex-row items-center p-6 sm:p-10 lg:p-12 gap-8 lg:gap-6">

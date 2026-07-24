@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@600;700;800&family=Noto+Serif+JP:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -9,20 +10,55 @@
   }
 }
 
+.font-japanese {
+  font-family: 'Noto Serif JP', serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-signature {
+  font-family: 'Caveat', cursive;
+}
+
+/* Purple brush text effect */
+.purple-brush-text {
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Glassmorphism Card styling */
+.glass-card {
+  background: rgba(13, 9, 20, 0.9);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card-hover:hover {
+  border-color: rgba(168, 85, 247, 0.45);
+  box-shadow: 0 8px 30px rgba(147, 51, 234, 0.15);
+}
+
 /* ─── CSS Keyframes for Atmosphere Animations ─── */
 @keyframes fallRain {
   0% {
     transform: translateY(-80px) translateX(0px);
     opacity: 0;
   }
-  15% {
-    opacity: 0.95;
+  10% {
+    opacity: 0.7;
   }
-  85% {
-    opacity: 0.95;
+  90% {
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(105vh) translateX(-50px);
+    transform: translateY(105vh) translateX(-30px);
     opacity: 0;
   }
 }
@@ -53,18 +89,18 @@
     transform: translateY(-60px) translateX(0px) rotate(0deg);
     opacity: 0;
   }
-  20% {
-    opacity: 1;
+  15% {
+    opacity: 0.85;
   }
   50% {
-    transform: translateY(50vh) translateX(-70px) rotate(-180deg);
-    opacity: 1;
+    transform: translateY(50vh) translateX(-50px) rotate(-180deg);
+    opacity: 0.85;
   }
-  80% {
-    opacity: 1;
+  85% {
+    opacity: 0.85;
   }
   100% {
-    transform: translateY(105vh) translateX(60px) rotate(-360deg);
+    transform: translateY(105vh) translateX(40px) rotate(-360deg);
     opacity: 0;
   }
 }
