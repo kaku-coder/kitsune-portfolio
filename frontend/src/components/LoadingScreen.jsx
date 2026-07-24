@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../assets/logo.png';
 
 export default function LoadingScreen({ onComplete }) {
@@ -9,81 +8,82 @@ export default function LoadingScreen({ onComplete }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        const next = prev + Math.random() * 8 + 2;
+        if (next >= 100) {
           clearInterval(interval);
           setPhase('split');
-          setTimeout(() => onComplete(), 800);
+          setTimeout(() => onComplete(), 900);
           return 100;
         }
-        return prev + Math.random() * 8 + 2;
+        return next;
       });
-    }, 60);
+    }, 50);
     return () => clearInterval(interval);
   }, [onComplete]);
 
   return (
-    <AnimatePresence>
-      {phase !== 'done' && (
-        <motion.div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#09090B]"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-        >
-          <div className="flex flex-col items-center gap-6">
+    <div className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black ${phase === 'split' ? 'ls-exit' : ''}`}>
 
-            {/* Logo — splits into two halves */}
-            <div className="relative w-24 h-24">
-              {/* Top half — goes up */}
-              <motion.div
-                className="absolute inset-0 overflow-hidden"
-                style={{ clipPath: 'inset(0 0 50% 0)' }}
-                animate={phase === 'split' ? { y: '-120vh', opacity: 0 } : { y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-              >
-                <img src={logoImg} alt="" className="w-24 h-24 object-contain" />
-              </motion.div>
+      {/* Background glow pulse */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[300px] h-[300px] bg-purple-600/15 rounded-full blur-[120px] ls-pulse" />
+      </div>
 
-              {/* Bottom half — goes down */}
-              <motion.div
-                className="absolute inset-0 overflow-hidden"
-                style={{ clipPath: 'inset(50% 0 0 0)' }}
-                animate={phase === 'split' ? { y: '120vh', opacity: 0 } : { y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-              >
-                <img src={logoImg} alt="" className="w-24 h-24 object-contain" />
-              </motion.div>
+      <div className="flex flex-col items-center gap-8 relative">
 
-              {/* Full logo — visible during loading, hides on split */}
-              <motion.div
-                className="absolute inset-0"
-                animate={phase === 'split' ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img src={logoImg} alt="Logo" className="w-24 h-24 object-contain" />
-              </motion.div>
-            </div>
+        {/* Logo container */}
+        <div className="relative w-28 h-28 ls-logo-in">
 
-            {/* Loading Bar */}
-            <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-purple-500 rounded-full"
-                initial={{ width: '0%' }}
-                animate={{ width: `${Math.min(progress, 100)}%` }}
-                transition={{ duration: 0.1 }}
-              />
-            </div>
-
-            {/* Loading Text */}
-            <motion.span
-              className="text-[10px] text-gray-500 font-mono tracking-[0.3em] uppercase"
-              animate={phase === 'split' ? { opacity: 0 } : { opacity: 1 }}
-            >
-              {phase === 'loading' ? 'Loading' : 'Welcome'}
-            </motion.span>
-
+          {/* Top half clip */}
+          <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(0 0 50% 0)' }}>
+            <img
+              src={logoImg}
+              alt=""
+              className={`w-28 h-28 object-contain ${phase === 'split' ? 'ls-split-up' : ''}`}
+            />
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+
+          {/* Bottom half clip */}
+          <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(50% 0 0 0)' }}>
+            <img
+              src={logoImg}
+              alt=""
+              className={`w-28 h-28 object-contain ${phase === 'split' ? 'ls-split-down' : ''}`}
+            />
+          </div>
+
+          {/* Full logo during loading */}
+          {phase === 'loading' && (
+            <div className="absolute inset-0 ls-logo-glow">
+              <img src={logoImg} alt="Logo" className="w-28 h-28 object-contain" />
+            </div>
+          )}
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-52 h-[2px] bg-white/10 rounded-full overflow-hidden ls-fade-in">
+          <div
+            className="h-full bg-gradient-to-r from-purple-600 via-purple-400 to-fuchsia-400 rounded-full ls-bar-glow"
+            style={{ width: `${Math.min(progress, 100)}%`, transition: 'width 0.1s ease-out' }}
+          />
+        </div>
+
+        {/* Text */}
+        <div className="flex flex-col items-center gap-2 ls-fade-in">
+          <span className="text-[10px] text-white font-mono tracking-[0.35em] uppercase">
+            {phase === 'loading' ? 'Loading' : 'Welcome'}
+          </span>
+          <span className="text-[9px] text-purple-400 font-mono tracking-[0.2em]">
+            {Math.round(Math.min(progress, 100))}%
+          </span>
+        </div>
+
+        {/* Bottom tagline */}
+        <span className="text-[8px] text-purple-300/60 font-mono tracking-[0.4em] uppercase ls-fade-in-delay">
+          Kitsune Developer
+        </span>
+
+      </div>
+    </div>
   );
 }

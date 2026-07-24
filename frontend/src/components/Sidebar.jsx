@@ -42,7 +42,6 @@ export default function Sidebar({ activeSection = 'home', setActiveSection }) {
     { id: 'about', label: 'ABOUT', icon: User },
     { id: 'projects', label: 'PROJECTS', icon: FolderKanban },
     { id: 'skills', label: 'SKILLS', icon: Code2 },
-    { id: 'journey', label: 'JOURNEY', icon: Milestone },
     { id: 'blog', label: 'BLOG', icon: FileText },
     { id: 'contact', label: 'CONTACT', icon: Mail },
   ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Play,
+  Download,
   Sparkles,
   Code2,
   Calendar,
@@ -113,12 +113,12 @@ export default function HeroSection() {
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
 
-              <button className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
+              <a href="/Prakash_Das_Resume.pdf" download className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
                 <div className="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center">
-                  <Play size={10} className="fill-purple-300 text-purple-300 ml-0.5" />
+                  <Download size={11} className="text-purple-300" />
                 </div>
-                <span>Watch Intro</span>
-              </button>
+                <span>Download CV</span>
+              </a>
             </div>
 
           </div>

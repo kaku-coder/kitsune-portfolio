@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
-    Play,
     MapPin,
     Sparkles,
     Code2,
@@ -24,13 +23,13 @@ import {
     CheckCircle2,
     BookOpen,
     Star,
-    Flame,
-    Milestone
+    Flame
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
 import cardimage1 from '../assets/cardimage1.jpg';
 import logoImg from '../assets/logo.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
+import useGitHub from '../hooks/useGitHub';
 
 const GithubIcon = ({ size = 18, className = "" }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -39,25 +38,50 @@ const GithubIcon = ({ size = 18, className = "" }) => (
     </svg>
 );
 
-const HomePage = () => {
-    const heroRef = useRef(null);
-    const [rect, setRect] = useState(null);
+const BrushUnderline = () => (
+    <svg viewBox="0 0 140 10" className="w-28 h-2.5 my-1" fill="none">
+        <path
+            d="M2 5C25 2.5 70 2 138 4.5C110 6 75 7.5 2 5Z"
+            fill="url(#purpleBrush)"
+            className="filter drop-shadow-[0_0_6px_rgba(168,85,247,0.6)]"
+        />
+        <defs>
+            <linearGradient id="purpleBrush" x1="0" y1="0" x2="140" y2="0" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#8b5cf6" />
+                <stop offset="0.5" stopColor="#c084fc" />
+                <stop offset="1" stopColor="#6d28d9" />
+            </linearGradient>
+        </defs>
+    </svg>
+);
+
+const HomePage = ({ setActiveSection }) => {
+    const gh = useGitHub();
+    const [theme, setTheme] = useState('dark');
+    const [transPhase, setTransPhase] = useState(''); // '' | 'enter' | 'split' | 'done'
 
     useEffect(() => {
-        const update = () => {
-            if (heroRef.current) {
-                const r = heroRef.current.getBoundingClientRect();
-                setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
-            }
-        };
-        update();
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', update);
-            window.removeEventListener('resize', update);
-        };
-    }, []);
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        if (transPhase) return;
+        const goingLight = theme === 'dark';
+        setTransPhase('enter');
+
+        setTimeout(() => {
+            setTheme(goingLight ? 'light' : 'dark');
+            setTransPhase('split');
+        }, 450);
+
+        setTimeout(() => {
+            setTransPhase('done');
+        }, 1000);
+
+        setTimeout(() => {
+            setTransPhase('');
+        }, 1050);
+    };
 
     // Pure Black, White & Purple Theme Tech Stack
     const techStack = [
@@ -74,9 +98,61 @@ const HomePage = () => {
     return (
         <div className="w-full flex flex-col gap-6 py-4 select-none">
 
+            {/* Theme Transition Overlay */}
+            {transPhase && transPhase !== 'done' && (
+                <div className="fixed inset-0 z-[9998] pointer-events-none flex items-center justify-center">
+                    {/* Background flash */}
+                    <div className={`absolute inset-0 ${transPhase === 'enter' ? 'tt-bg-enter' : 'tt-bg-split'} ${theme === 'dark' ? 'bg-white' : 'bg-[#09090B]'}`} />
+
+                    {/* Center vertical line - enters */}
+                    {transPhase === 'enter' && (
+                        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] tt-line-in">
+                            <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
+                        </div>
+                    )}
+
+                    {/* Split lines - left and right */}
+                    {transPhase === 'split' && (
+                        <>
+                            <div className="absolute top-0 bottom-0 w-[2px] tt-line-left">
+                                <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
+                            </div>
+                            <div className="absolute top-0 bottom-0 w-[2px] tt-line-right">
+                                <div className="w-full h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent shadow-[0_0_20px_#a855f7,0_0_60px_#7c3aed]" />
+                            </div>
+                        </>
+                    )}
+
+                    {/* Logo - splits top/bottom */}
+                    <div className="relative z-10">
+                        {/* Top half */}
+                        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(0 0 50% 0)' }}>
+                            <img
+                                src={logoImg}
+                                alt=""
+                                className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-up' : ''}`}
+                            />
+                        </div>
+                        {/* Bottom half */}
+                        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(50% 0 0 0)' }}>
+                            <img
+                                src={logoImg}
+                                alt=""
+                                className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-down' : ''}`}
+                            />
+                        </div>
+                        {/* Full logo during enter */}
+                        <img
+                            src={logoImg}
+                            alt="Logo"
+                            className={`w-16 h-16 object-contain ${transPhase === 'split' ? 'tt-logo-fade' : 'tt-logo-in'}`}
+                        />
+                    </div>
+                </div>
+            )}
+
             {/* ================= 1. HERO SECTION (NO BORDER) ================= */}
             <div
-                ref={heroRef}
                 id="home"
                 className="relative w-full min-h-[580px] lg:min-h-[620px] rounded-3xl overflow-hidden bg-[#0a0714] flex flex-col justify-between p-6 sm:p-10 lg:p-12 group shadow-2xl"
             >
@@ -86,15 +162,40 @@ const HomePage = () => {
                     <img
                         src={mainimage}
                         alt="Hero Background Kitsune"
-                        className="w-full h-full object-cover object-right sm:object-center filter brightness-[0.82] contrast-105 group-hover:scale-102 transition-transform duration-1000"
+                        className="w-full h-full object-cover object-[85%_center] sm:object-right filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-1000 opacity-95"
                     />
                     {/* Dark Blending Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a0714]/95 via-[#0a0714]/75 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-transparent to-black/50" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0a0714] via-[#0a0714]/80 via-45% to-transparent/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-transparent to-black/30" />
                 </div>
 
                 {/* Atmospheric Falling Particles */}
-                <AtmosphereLayer rect={rect} />
+                <AtmosphereLayer />
+
+                {/* Theme Toggle Button */}
+                <button
+                    onClick={toggleTheme}
+                    className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-purple-950/60 hover:bg-purple-900/80 border border-purple-500/30 hover:border-purple-400/60 flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+                    title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
+                >
+                    {theme === 'dark' ? (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                    ) : (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                    )}
+                </button>
 
                 {/* Top Right Japanese Quote */}
                 <div className="relative z-10 self-end max-w-[260px] text-right pointer-events-none hidden sm:block">
@@ -146,27 +247,33 @@ const HomePage = () => {
                                 <span className="text-purple-400 font-mono text-sm group-hover/btn:translate-x-1 transition-transform">⊣</span>
                             </a>
 
-                            {/* Secondary Button - WATCH INTRO */}
-                            <button className="px-4 py-2.5 rounded-xl bg-purple-950/30 hover:bg-purple-900/40 border border-purple-500/20 text-gray-200 text-xs font-bold flex items-center gap-3 transition-all cursor-pointer">
-                                <div className="w-8 h-8 rounded-full bg-purple-600/40 border border-purple-400/50 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)]">
-                                    <Play size={13} className="fill-purple-300 ml-0.5" />
+                            {/* Secondary Button - DOWNLOAD CV */}
+                            <a
+                                href="/Prakash_Das_Resume.pdf"
+                                download="Prakash_Das_Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-2.5 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 text-gray-200 text-xs font-bold flex items-center gap-3 transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group/cv"
+                            >
+                                <div className="w-8 h-8 rounded-full bg-purple-600/40 border border-purple-400/50 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover/cv:scale-110 transition-transform">
+                                    <Download size={14} className="text-purple-300" />
                                 </div>
                                 <div className="flex flex-col text-left">
-                                    <span className="text-[11px] font-bold text-purple-200 uppercase tracking-wider">WATCH INTRO</span>
-                                    <span className="text-[9px] text-gray-400">30 sec</span>
+                                    <span className="text-[11px] font-bold text-purple-200 uppercase tracking-wider">DOWNLOAD CV</span>
+                                    <span className="text-[9px] text-gray-400 font-mono">PDF File</span>
                                 </div>
-                            </button>
+                            </a>
                         </div>
 
                     </div>
                 </div>
 
-                {/* Bottom Row: Scroll Indicator & Status Card */}
-                <div className="relative z-10 flex items-end justify-between pt-4">
+                {/* Bottom Row: Status Card & Centered Scroll Down Indicator */}
+                <div className="relative z-10 flex items-end justify-end pt-4">
 
-                    {/* Scroll Down Indicator */}
-                    <div className="hidden sm:flex flex-col items-center mx-auto text-gray-400 text-[10px] font-mono tracking-widest uppercase gap-1.5 pointer-events-none">
-                        <div className="w-5 h-8 rounded-full border-2 border-purple-500/40 flex justify-center pt-1.5">
+                    {/* Perfectly Centered Scroll Down Indicator */}
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-6 sm:bottom-8 z-20 hidden sm:flex flex-col items-center text-gray-400 text-[10px] font-mono tracking-widest uppercase gap-1.5 pointer-events-none">
+                        <div className="w-5 h-8 rounded-full border-2 border-purple-500/40 flex justify-center pt-1.5 shadow-[0_0_10px_rgba(168,85,247,0.3)]">
                             <div className="w-1 h-2 rounded-full bg-purple-400 animate-bounce" />
                         </div>
                         <span>SCROLL DOWN</span>
@@ -184,7 +291,7 @@ const HomePage = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
                             </span>
-                            <span>Available for new opportunities</span>
+                            <span>Actively seeking full-time developer roles</span>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-purple-900/40">
@@ -198,9 +305,9 @@ const HomePage = () => {
                             <div className="flex flex-col gap-0.5">
                                 <div className="text-[9px] uppercase tracking-widest font-extrabold text-purple-300/70 flex items-center gap-1">
                                     <Calendar size={10} className="text-purple-400" />
-                                    EXPERIENCE
+                                    AVAILABILITY
                                 </div>
-                                <div className="text-xs font-bold text-gray-100">2+ Years</div>
+                                <div className="text-xs font-bold text-gray-100">Open For Work</div>
                             </div>
                         </div>
                     </div>
@@ -213,7 +320,11 @@ const HomePage = () => {
             <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
                 {/* CARD 1: ABOUT ME */}
-                <div className="lg:col-span-4 rounded-2xl bg-[#0a0714] border border-purple-900/30 p-6 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/40 transition-all duration-300 shadow-xl min-h-[280px]">
+                <div
+                    id="about"
+                    onClick={() => setActiveSection && setActiveSection('about')}
+                    className="lg:col-span-4 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between relative overflow-hidden group hover:bg-[#0e0a1c] transition-all duration-300 shadow-2xl min-h-[280px] cursor-pointer"
+                >
                     {/* Background Overlay */}
                     <div className="absolute inset-0 z-0 overflow-hidden">
                         <img
@@ -221,7 +332,7 @@ const HomePage = () => {
                             alt="About Me Background"
                             className="w-full h-full object-cover object-center opacity-35 group-hover:scale-105 transition-transform duration-700 filter brightness-90"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-[#0a0714]/85 to-[#0a0714]/30" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0916] via-[#0c0916]/85 to-[#0c0916]/30" />
                     </div>
 
                     <div className="relative z-10 flex items-center justify-between mb-3">
@@ -244,18 +355,18 @@ const HomePage = () => {
                     </div>
 
                     {/* Bottom Prakash Signature + Stamp */}
-                    <div className="relative z-10 pt-3 flex items-center justify-between border-t border-purple-900/40">
+                    <div className="relative z-10 pt-3 flex items-center justify-between border-t border-purple-900/30">
                         <span className="font-signature text-purple-300 text-2xl font-bold tracking-wide">
                             Prakash
                         </span>
-                        <div className="w-7 h-7 rounded-full bg-purple-950/60 border border-purple-500/40 flex items-center justify-center text-[10px] text-purple-400 font-serif">
+                        <div className="w-7 h-7 rounded-full bg-purple-950/60 border border-purple-500/30 flex items-center justify-center text-[10px] text-purple-400 font-serif">
                             顔
                         </div>
                     </div>
                 </div>
 
                 {/* CARD 2: FEATURED PROJECT (AI BATTLE ARENA) */}
-                <div id="projects" className="lg:col-span-5 rounded-2xl bg-[#0a0714] border border-purple-900/30 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-all shadow-xl">
+                <div id="projects" className="lg:col-span-5 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
@@ -271,10 +382,10 @@ const HomePage = () => {
                         {/* Left Info */}
                         <div className="sm:col-span-6 flex flex-col justify-between h-full">
                             <div>
-                                <h3 className="text-xl font-black text-white mb-1">
+                                <h3 className="text-xl font-black text-white mb-0.5">
                                     AI Battle Arena
                                 </h3>
-                                <div className="w-12 h-1 rounded-full bg-gradient-to-r from-purple-500 to-purple-800 mb-2" />
+                                <BrushUnderline />
 
                                 <p className="text-gray-300 text-xs leading-relaxed mb-3">
                                     Real-time AI battle platform where different AI models compete and users vote for the best response.
@@ -282,7 +393,7 @@ const HomePage = () => {
 
                                 <div className="flex flex-wrap gap-1.5 mb-4">
                                     {['MERN', 'Socket.io', 'AI', 'Tailwind', 'MongoDB'].map((tag) => (
-                                        <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 border border-purple-500/25 text-[10px] font-bold text-purple-300">
+                                        <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 border border-purple-500/20 text-[10px] font-bold text-purple-300">
                                             {tag}
                                         </span>
                                     ))}
@@ -299,7 +410,7 @@ const HomePage = () => {
                         </div>
 
                         {/* Right Mockup Screen Frame (Pure Purple Theme) */}
-                        <div className="sm:col-span-6 relative w-full h-44 rounded-xl bg-[#06040a] border border-purple-500/30 p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame hover:border-purple-400/60 transition-colors">
+                        <div className="sm:col-span-6 relative w-full h-44 rounded-xl bg-[#06040a] border border-purple-500/20 p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame hover:border-purple-400/50 transition-colors">
                             <div className="flex items-center justify-between text-[9px] text-purple-300 font-mono border-b border-purple-900/40 pb-1.5">
                                 <span className="font-bold tracking-widest">AI BATTLE ARENA</span>
                                 <span className="text-purple-400 flex items-center gap-1 font-bold">
@@ -337,7 +448,7 @@ const HomePage = () => {
                 </div>
 
                 {/* CARD 3: TECH STACK (STYLED CARDS - PURPLE THEME) */}
-                <div id="skills" className="lg:col-span-3 rounded-2xl bg-[#0a0714] border border-purple-900/30 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-all shadow-xl">
+                <div id="skills" className="lg:col-span-3 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
@@ -354,7 +465,7 @@ const HomePage = () => {
                                 return (
                                     <div
                                         key={tech.name}
-                                        className="p-2.5 rounded-xl bg-[#110b24]/90 border border-purple-500/25 hover:border-purple-400/60 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
+                                        className="p-2.5 rounded-xl bg-[#110b24]/90 border border-purple-500/20 hover:border-purple-400/50 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
                                     >
                                         <Icon size={20} className={`${tech.color} group-hover:scale-110 transition-transform`} />
                                         <span className="text-[9.5px] font-bold text-gray-300 group-hover:text-purple-200 truncate max-w-full">
@@ -375,141 +486,139 @@ const HomePage = () => {
 
             </div>
 
-            {/* ================= 3. JOURNEY & STATS SECTION ================= */}
-            <div id="journey" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* ================= 3. BENTO GRID ROW 2: GITHUB & BLOGS ================= */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                {/* CARD 4: JOURNEY TIMELINE */}
-                <div className="lg:col-span-4 rounded-2xl bg-[#0a0714] border border-purple-900/30 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-all shadow-xl">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
-                            <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
-                            <span>JOURNEY TIMELINE</span>
+                {/* GITHUB ACTIVITY CARD */}
+                <div className="lg:col-span-7 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                            <GithubIcon size={18} className="text-purple-400" />
+                            <span className="text-xs font-bold tracking-widest text-purple-400 uppercase">
+                                GITHUB ACTIVITY
+                            </span>
                         </div>
-                        <Milestone size={18} className="text-purple-400" />
-                    </div>
-
-                    <div className="flex flex-col gap-5 my-auto relative pl-5 border-l-2 border-purple-900/60 ml-2">
-
-                        <div className="relative group/time">
-                            <span className="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-purple-500 ring-4 ring-[#0a0714] shadow-[0_0_10px_#a855f7] transition-transform group-hover/time:scale-125" />
-                            <div className="inline-block px-2 py-0.5 rounded-md bg-purple-950/70 border border-purple-500/30 text-[9.5px] font-bold text-purple-300 uppercase tracking-wider mb-1.5">
-                                2024 - Present
-                            </div>
-                            <h4 className="text-sm font-black text-white group-hover/time:text-purple-300 transition-colors">
-                                Full Stack Engineer & AI Integration
-                            </h4>
-                            <p className="text-gray-300 text-xs mt-1 leading-relaxed font-normal">
-                                Building high-performance, scalable MERN stack web applications and integrating modern AI model APIs.
-                            </p>
-                        </div>
-
-                        <div className="relative group/time">
-                            <span className="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-purple-800 ring-4 ring-[#0a0714] transition-transform group-hover/time:scale-125" />
-                            <div className="inline-block px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/20 text-[9.5px] font-bold text-purple-400 uppercase tracking-wider mb-1.5">
-                                2023
-                            </div>
-                            <h4 className="text-sm font-black text-white group-hover/time:text-purple-300 transition-colors">
-                                Leveling Up & System Design
-                            </h4>
-                            <p className="text-gray-300 text-xs mt-1 leading-relaxed font-normal">
-                                Deepened expertise in full stack development, database modeling, Socket.io real-time architecture, and clean UI engineering.
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* BOTTOM STATS BAR */}
-                <div className="lg:col-span-8 rounded-2xl bg-[#0a0714] border border-purple-900/30 p-5 sm:p-6 shadow-xl grid grid-cols-2 md:grid-cols-3 gap-4 items-center">
-
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 rounded-xl bg-purple-950/50 border border-purple-500/20 text-purple-400">
-                            <Code2 size={20} />
-                        </div>
-                        <div>
-                            <div className="text-xl font-black text-white">10+</div>
-                            <div className="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider">
-                                PROJECTS COMPLETED
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 rounded-xl bg-purple-950/50 border border-purple-500/20 text-purple-400">
-                            <Calendar size={20} />
-                        </div>
-                        <div>
-                            <div className="text-xl font-black text-white">2+</div>
-                            <div className="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider">
-                                YEARS OF EXPERIENCE
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 rounded-xl bg-purple-950/50 border border-purple-500/20 text-purple-400">
-                            <Braces size={20} />
-                        </div>
-                        <div>
-                            <div className="text-xl font-black text-white">15K+</div>
-                            <div className="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider">
-                                LINES OF CODE
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 rounded-xl bg-purple-950/50 border border-purple-500/20 text-purple-400">
-                            <Coffee size={20} />
-                        </div>
-                        <div>
-                            <div className="text-xl font-black text-white">∞</div>
-                            <div className="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider">
-                                CUPS OF COFFEE
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <div className="p-3 rounded-xl bg-purple-950/50 border border-purple-500/20 text-purple-400">
-                            <Heart size={20} className="text-purple-400 fill-purple-500/20" />
-                        </div>
-                        <div>
-                            <div className="text-xl font-black text-white">100%</div>
-                            <div className="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider">
-                                PASSION FOR CODE
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* LET'S BUILD SOMETHING GREAT Card */}
-                    <div id="contact" className="p-3 rounded-xl bg-gradient-to-br from-purple-950/80 to-[#120d24] border border-purple-500/40 flex items-center justify-between gap-3 group cursor-pointer hover:border-purple-400 transition-all shadow-lg">
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-lg bg-purple-900/50 p-1 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
-                                <img src={logoImg} alt="Kitsune Mask" className="w-full h-full object-contain" />
-                            </div>
-                            <div>
-                                <div className="text-[9px] font-extrabold text-purple-300 uppercase tracking-wider">
-                                    LET'S BUILD
-                                </div>
-                                <div className="text-xs font-black text-white tracking-tight leading-none">
-                                    SOMETHING GREAT
-                                </div>
-                            </div>
-                        </div>
-
-                        <a
-                            href="mailto:contact@prakash.dev"
-                            className="w-7 h-7 rounded-full bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110 shadow-lg shadow-purple-600/40"
-                            aria-label="Send email"
-                        >
-                            <ArrowRight size={14} />
+                        <a href="https://github.com/kaku-coder" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">
+                            <ArrowUpRight size={18} />
                         </a>
                     </div>
 
+                    <div className="flex items-center gap-2 text-xs font-semibold text-gray-300 mb-2">
+                        <span className="text-purple-400 font-mono">@kaku-coder</span>
+                        <span className="text-gray-500">•</span>
+                        <span className="text-gray-400">{gh.followers} followers</span>
+                    </div>
+
+                    {/* Recent Repos */}
+                    <div className="flex flex-col gap-2 my-3">
+                        {gh.loading ? (
+                            <div className="flex flex-col gap-2">
+                                {[1,2,3].map(i => (
+                                    <div key={i} className="h-12 rounded-lg bg-purple-950/20 animate-pulse" />
+                                ))}
+                            </div>
+                        ) : (
+                            gh.recentRepos.map((repo) => (
+                                <a
+                                    key={repo.name}
+                                    href={repo.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-between p-2.5 rounded-lg bg-[#06040a] border border-purple-900/20 hover:border-purple-500/40 transition-all group"
+                                >
+                                    <div className="flex flex-col gap-0.5 min-w-0">
+                                        <span className="text-[11px] font-bold text-purple-300 group-hover:text-purple-200 transition-colors font-mono truncate">
+                                            {repo.name}
+                                        </span>
+                                        <span className="text-[9px] text-gray-500 truncate max-w-[200px]">
+                                            {repo.description}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-2 flex-shrink-0">
+                                        {repo.language && (
+                                            <span className="text-[9px] text-gray-400 font-mono">{repo.language}</span>
+                                        )}
+                                        {repo.stars > 0 && (
+                                            <span className="text-[9px] text-yellow-400/80 flex items-center gap-0.5">
+                                                <Star size={9} /> {repo.stars}
+                                            </span>
+                                        )}
+                                    </div>
+                                </a>
+                            ))
+                        )}
+                    </div>
+
+                    {/* Stats Summary Row */}
+                    <div className="grid grid-cols-3 gap-2 pt-3 border-t border-purple-900/30 text-center">
+                        <div>
+                            <div className="text-sm font-extrabold text-white">{gh.repos}</div>
+                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Repos</div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-extrabold text-white">{gh.followers}</div>
+                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Followers</div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-extrabold text-white">{gh.stars}</div>
+                            <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Stars</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* RECENT BLOGS CARD */}
+                <div id="blog" className="lg:col-span-5 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
+                            <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
+                            <span>RECENT BLOGS</span>
+                        </div>
+                        <a href="#blog" className="text-purple-400 hover:text-purple-300 transition-colors">
+                            <ArrowUpRight size={18} />
+                        </a>
+                    </div>
+
+                    <div className="flex flex-col gap-3 my-auto">
+                        {[
+                            {
+                                title: 'How I Built AI Battle Arena',
+                                date: 'May 12, 2024',
+                                readTime: '5 min read',
+                                img: cardimage1
+                            },
+                            {
+                                title: 'My Journey with Docker',
+                                date: 'Apr 25, 2024',
+                                readTime: '6 min read',
+                                img: cardimage1
+                            },
+                            {
+                                title: 'Authentication in MERN Stack',
+                                date: 'Apr 10, 2024',
+                                readTime: '4 min read',
+                                img: cardimage1
+                            }
+                        ].map((blog, bIdx) => (
+                            <div key={bIdx} className="flex items-center gap-3 p-2 rounded-xl hover:bg-purple-950/30 transition-all group cursor-pointer border border-transparent hover:border-purple-500/20">
+                                <div className="w-12 h-10 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                    <img src={blog.img} alt={blog.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                                    <div className="absolute inset-0 bg-purple-950/40" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <h5 className="text-xs font-extrabold text-gray-200 group-hover:text-purple-300 transition-colors line-clamp-1">
+                                        {blog.title}
+                                    </h5>
+                                    <span className="text-[10px] text-gray-400 font-medium">
+                                        {blog.date} • {blog.readTime}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
             </div>
+
 
         </div>
     );
