@@ -49,16 +49,15 @@ export default function HeroSection() {
   ];
 
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="w-full flex flex-col gap-4 sm:gap-5 m-0 p-0">
 
-      {/* ================= 1. HERO SECTION ================= */}
-      {/* Wrapper — relative, NO overflow-hidden, clips nothing */}
+      {/* ================= 1. HERO SECTION (Compact Height, No Outer Margins) ================= */}
       <div className="relative w-full rounded-[20px]">
 
-        {/* Hero Card — overflow-hidden only for bg image rounded corners */}
-        <div id="home" className="relative w-full min-h-[560px] lg:min-h-[620px] rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.06)]">
+        {/* Hero Card */}
+        <div id="home" className="relative w-full min-h-[480px] lg:min-h-[520px] rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.06)] m-0">
 
-        {/* Background Image */}
+          {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img
               src={mainimage}
@@ -71,114 +70,113 @@ export default function HeroSection() {
           </div>
 
           {/* Hero Content */}
-        <div className="relative z-10 w-full h-full min-h-[560px] lg:min-h-[620px] flex flex-col lg:flex-row items-center p-8 sm:p-12 lg:p-16 gap-10 lg:gap-6">
+          <div className="relative z-10 w-full h-full min-h-[480px] lg:min-h-[520px] flex flex-col lg:flex-row items-center p-6 sm:p-10 lg:p-12 gap-8 lg:gap-6">
 
-          {/* LEFT — Text Content */}
-          <div className="flex-1 flex flex-col justify-center max-w-xl">
+            {/* LEFT — Text Content */}
+            <div className="flex-1 flex flex-col justify-center max-w-xl">
 
-            {/* Japanese Subtitle */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-8 h-[1px] bg-purple-500/60" />
-              <span className="text-purple-400 text-xs font-medium tracking-[0.3em] uppercase font-sans">
-                キツネの道 — The Way of the Fox
-              </span>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-white leading-[1.08] mb-5">
-              I Build
-              <br />
-              <span className="text-purple-400">Digital</span>{' '}
-              Experiences
-            </h1>
-
-            {/* Description */}
-            <p className="text-gray-400 text-sm sm:text-[15px] leading-relaxed max-w-md mb-6">
-              Full Stack Developer crafting fast, scalable, and beautiful web applications with clean code and thoughtful design.
-            </p>
-
-            {/* Tech Tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {['React', 'Node.js', 'MongoDB', 'Tailwind'].map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-purple-500/10 border border-purple-500/20 text-purple-300"
-                >
-                  {tag}
+              {/* Japanese Subtitle */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-[1px] bg-purple-500/60" />
+                <span className="text-purple-400 text-xs font-medium tracking-[0.3em] uppercase font-sans">
+                  キツネの道 — The Way of the Fox
                 </span>
-              ))}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
-              <button className="group px-7 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)]">
-                <span>Explore Work</span>
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button className="px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
-                <div className="w-7 h-7 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center">
-                  <Play size={11} className="fill-purple-300 text-purple-300 ml-0.5" />
-                </div>
-                <span>Watch Intro</span>
-              </button>
-            </div>
-
-          </div>
-
-          {/* RIGHT — Fox Samurai Artwork + Status Card */}
-          <div className="flex-1 flex flex-col items-center justify-center relative w-full max-w-lg">
-
-            {/* Main Image — cinematic framed */}
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-purple-500/15 shadow-[0_0_60px_rgba(139,92,246,0.08)]">
-              <img
-                src={mainimage}
-                alt="Fox Samurai"
-                className="w-full h-full object-cover brightness-[0.7] contrast-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-[#09090B]/20" />
-              {/* Purple edge glow */}
-              <div className="absolute inset-0 border border-purple-500/10 rounded-2xl" />
-            </div>
-
-            {/* Floating Status Card */}
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-bottom-4 sm:right-6 z-20 px-5 py-3.5 rounded-2xl bg-[#120f1c]/80 backdrop-blur-xl border border-purple-500/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 min-w-[220px]">
-              <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <div className="flex flex-col">
-                <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">Status</span>
-                <span className="text-xs font-bold text-gray-100">Available for Work</span>
               </div>
+
+              {/* Main Heading */}
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-white leading-[1.08] mb-4">
+                I Build
+                <br />
+                <span className="text-purple-400">Digital</span>{' '}
+                Experiences
+              </h1>
+
+              {/* Description */}
+              <p className="text-gray-400 text-sm sm:text-[14px] leading-relaxed max-w-md mb-5">
+                Full Stack Developer crafting fast, scalable, and beautiful web applications with clean code and thoughtful design.
+              </p>
+
+              {/* Tech Tags */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {['React', 'Node.js', 'MongoDB', 'Tailwind'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-purple-500/10 border border-purple-500/20 text-purple-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap items-center gap-4">
+                <button className="group px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)]">
+                  <span>Explore Work</span>
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+
+                <button className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 backdrop-blur-sm">
+                  <div className="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center">
+                    <Play size={10} className="fill-purple-300 text-purple-300 ml-0.5" />
+                  </div>
+                  <span>Watch Intro</span>
+                </button>
+              </div>
+
+            </div>
+
+            {/* RIGHT — Fox Samurai Artwork + Status Card */}
+            <div className="flex-1 flex flex-col items-center justify-center relative w-full max-w-md">
+
+              {/* Main Image — cinematic framed */}
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-purple-500/15 shadow-[0_0_60px_rgba(139,92,246,0.08)]">
+                <img
+                  src={mainimage}
+                  alt="Fox Samurai"
+                  className="w-full h-full object-cover brightness-[0.7] contrast-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/80 via-transparent to-[#09090B]/20" />
+                <div className="absolute inset-0 border border-purple-500/10 rounded-2xl" />
+              </div>
+
+              {/* Floating Status Card */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-bottom-3 sm:right-4 z-20 px-4 py-3 rounded-2xl bg-[#120f1c]/80 backdrop-blur-xl border border-purple-500/20 shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 min-w-[200px]">
+                <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <div className="flex flex-col">
+                  <span className="text-[9px] text-gray-500 font-medium tracking-wider uppercase">Status</span>
+                  <span className="text-[11px] font-bold text-gray-100">Available for Work</span>
+                </div>
+              </div>
+
             </div>
 
           </div>
 
-        </div>
-
-        {/* Bottom Scroll Indicator — centered */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-2">
-          <div className="w-5 h-8 rounded-full border-2 border-purple-500/30 flex justify-center pt-1.5">
-            <div className="w-1 h-2 rounded-full bg-purple-400 animate-bounce" />
+          {/* Bottom Scroll Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1.5">
+            <div className="w-4 h-7 rounded-full border-2 border-purple-500/30 flex justify-center pt-1">
+              <div className="w-1 h-2 rounded-full bg-purple-400 animate-bounce" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-mono tracking-[0.25em] uppercase">Scroll</span>
           </div>
-          <span className="text-[9px] text-gray-500 font-mono tracking-[0.25em] uppercase">Scroll</span>
+
         </div>
 
-      </div>
-
-      {/* Atmosphere — absolute inside wrapper, over the hero image only */}
-      <AtmosphereLayer />
+        {/* Atmosphere Overlay */}
+        <AtmosphereLayer />
 
       </div>
 
       {/* ================= 2. BENTO GRID — THREE CARDS ================= */}
-      <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 m-0">
 
         {/* CARD 1 — ABOUT ME */}
-        <div className="lg:col-span-4 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500 group">
+        <div className="lg:col-span-4 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-5 sm:p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500 group">
           <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-5">
+            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
               About Me
             </div>
@@ -194,7 +192,7 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <div className="flex items-center justify-between pt-5 mt-5 border-t border-purple-500/10">
+          <div className="flex items-center justify-between pt-4 mt-4 border-t border-purple-500/10">
             <div className="flex items-baseline gap-2">
               <span className="font-handwriting text-2xl text-purple-300 font-bold">
                 Prakash
@@ -210,9 +208,9 @@ export default function HeroSection() {
         </div>
 
         {/* CARD 2 — FEATURED PROJECT */}
-        <div id="projects" className="lg:col-span-5 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500">
+        <div id="projects" className="lg:col-span-5 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-5 sm:p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500">
           <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-4">
+            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
               Featured Project
             </div>
@@ -221,11 +219,11 @@ export default function HeroSection() {
               AI Battle Arena
             </h3>
 
-            <p className="text-gray-400 text-[13px] leading-relaxed mb-4">
+            <p className="text-gray-400 text-[13px] leading-relaxed mb-3">
               Real-time AI battle platform where different AI models compete and users vote for the best response.
             </p>
 
-            <div className="flex flex-wrap gap-1.5 mb-5">
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {['MERN', 'Socket.io', 'AI', 'Tailwind'].map((tag) => (
                 <span key={tag} className="px-2.5 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/15 text-[10px] font-semibold text-purple-300 tracking-wider">
                   {tag}
@@ -235,7 +233,7 @@ export default function HeroSection() {
           </div>
 
           {/* Preview Frame */}
-          <div className="relative w-full h-40 rounded-xl bg-[#090712] border border-purple-500/15 p-3 overflow-hidden flex flex-col justify-between">
+          <div className="relative w-full h-36 rounded-xl bg-[#090712] border border-purple-500/15 p-3 overflow-hidden flex flex-col justify-between">
             <div className="flex items-center justify-between text-[9px] text-purple-300/60 font-mono pb-2 border-b border-purple-500/10">
               <span className="font-bold tracking-wider uppercase">AI Battle Arena</span>
               <span className="text-emerald-400 flex items-center gap-1">
@@ -246,19 +244,19 @@ export default function HeroSection() {
 
             <div className="relative grid grid-cols-2 gap-3 my-auto items-center">
               <div className="p-2 rounded-lg bg-[#140f26] border border-purple-500/20 text-center flex flex-col items-center">
-                <div className="w-6 h-6 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center text-purple-300 text-[9px] font-bold mb-1">
+                <div className="w-5 h-5 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center text-purple-300 text-[8px] font-bold mb-1">
                   GPT
                 </div>
                 <span className="text-[10px] font-bold text-gray-200">GPT-4</span>
                 <span className="text-[8px] text-purple-400">Winner</span>
               </div>
 
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-purple-600 text-white font-bold text-[9px] flex items-center justify-center shadow-lg shadow-purple-950">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-purple-600 text-white font-bold text-[8px] flex items-center justify-center shadow-lg shadow-purple-950">
                 VS
               </div>
 
               <div className="p-2 rounded-lg bg-[#140f26] border border-purple-500/20 text-center flex flex-col items-center">
-                <div className="w-6 h-6 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center text-purple-300 text-[9px] font-bold mb-1">
+                <div className="w-5 h-5 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center text-purple-300 text-[8px] font-bold mb-1">
                   GEM
                 </div>
                 <span className="text-[10px] font-bold text-gray-200">Gemini Pro</span>
@@ -271,7 +269,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="pt-4">
+          <div className="pt-3">
             <a href="#projects" className="inline-flex items-center gap-2 text-[11px] font-bold tracking-wider text-purple-400 hover:text-purple-300 transition-colors uppercase group">
               <span>View Project</span>
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -280,22 +278,22 @@ export default function HeroSection() {
         </div>
 
         {/* CARD 3 — TECH STACK */}
-        <div id="skills" className="lg:col-span-3 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500">
+        <div id="skills" className="lg:col-span-3 rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-5 sm:p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-500">
           <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-5">
+            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
               Tech Stack
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-2">
               {techStack.map((tech) => {
                 const Icon = tech.icon;
                 return (
                   <div
                     key={tech.name}
-                    className="p-2.5 rounded-xl bg-white/[0.02] border border-purple-500/10 hover:border-purple-500/30 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:bg-purple-500/5 group cursor-default"
+                    className="p-2 rounded-xl bg-white/[0.02] border border-purple-500/10 hover:border-purple-500/30 flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:bg-purple-500/5 group cursor-default"
                   >
-                    <Icon size={16} className={`${tech.color} group-hover:scale-110 transition-transform`} />
+                    <Icon size={15} className={`${tech.color} group-hover:scale-110 transition-transform`} />
                     <span className="text-[9px] font-semibold text-gray-400 group-hover:text-gray-200 transition-colors">
                       {tech.name}
                     </span>
@@ -305,7 +303,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="text-center pt-3 mt-3 border-t border-purple-500/10">
+          <div className="text-center pt-2 mt-2 border-t border-purple-500/10">
             <span className="text-[10px] text-purple-400/60 font-medium tracking-wider">
               + More Technologies
             </span>
@@ -315,19 +313,19 @@ export default function HeroSection() {
       </div>
 
       {/* ================= 3. STATS BAR — SIX CARDS ================= */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 m-0">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (
             <div
               key={i}
-              className="rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-5 flex flex-col items-center text-center gap-3 hover:border-purple-500/25 transition-all duration-500 group"
+              className="rounded-[20px] bg-[#110d1f]/70 backdrop-blur-xl border border-purple-500/10 p-4 flex flex-col items-center text-center gap-2.5 hover:border-purple-500/25 transition-all duration-500 group"
             >
-              <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/15 text-purple-400 group-hover:bg-purple-500/15 transition-colors">
-                <Icon size={20} />
+              <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/15 text-purple-400 group-hover:bg-purple-500/15 transition-colors">
+                <Icon size={18} />
               </div>
               <div>
-                <div className="text-xl font-black text-gray-100 leading-none mb-1">{stat.value}</div>
+                <div className="text-lg font-black text-gray-100 leading-none mb-1">{stat.value}</div>
                 <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider leading-tight">
                   {stat.label}
                 </div>
