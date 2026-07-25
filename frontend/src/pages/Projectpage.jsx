@@ -21,6 +21,7 @@ import projectAiArena from '../assets/project_ai_arena.png';
 import projectEcommerce from '../assets/project_ecommerce.png';
 import projectDashboard from '../assets/project_dashboard.png';
 import ImagePetals from '../components/ImagePetals';
+import TextReveal from '../components/TextReveal';
 
 const GithubIcon = ({ size = 14, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -375,18 +376,17 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
 
             {/* Stylized Brush Header Title */}
             <div className="flex flex-col select-none w-full">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-brush text-2xl xs:text-3xl sm:text-6xl lg:text-7xl font-bold tracking-wider text-white leading-tight">
-                  PRO
-                </span>
-                <span className="font-brush text-2xl xs:text-3xl sm:text-6xl lg:text-7xl font-bold tracking-wider purple-brush-text italic leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                  JECTS
-                </span>
-              </div>
+              <TextReveal
+                as="h1"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-wide uppercase font-cinzel leading-none drop-shadow-md"
+                stagger={0.04}
+              >
+                PRO<span className="purple-brush-text font-brush italic">JECTS</span>
+              </TextReveal>
 
               {/* Purple Brush Underline Graphic */}
-              <div className="relative inline-block mt-0.5">
-                <svg className="w-28 xs:w-36 sm:w-64 h-2.5 sm:h-3.5 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
+              <div className="relative inline-block mt-1">
+                <svg className="w-28 sm:w-44 lg:w-64 h-2.5 sm:h-3 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
                   <path d="M 2 10 Q 50 2, 198 6 C 150 12, 50 14, 2 10 Z" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
