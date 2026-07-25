@@ -89,12 +89,12 @@ const Aboutpage = ({ theme, toggleTheme }) => {
     ];
 
     return (
-        <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-6 sm:gap-8 py-4 sm:py-6 select-none px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-6 sm:gap-8 py-4 sm:py-6 pt-16 sm:pt-6 select-none px-3 sm:px-4 md:px-6 lg:px-8">
             
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle Button (Desktop Only - Mobile Has Header Bar) */}
             <button
                 onClick={toggleTheme}
-                className="fixed top-4 right-4 z-[9990] w-10 h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+                className="hidden lg:flex fixed top-4 right-4 z-[9990] w-10 h-10 rounded-full tt-toggle-btn items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
                 title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
             >
                 {theme === 'dark' ? (

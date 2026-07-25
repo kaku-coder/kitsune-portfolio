@@ -52,10 +52,10 @@ import StaggerCards from '../components/StaggerCards';
 const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
   const isLight = theme === 'light';
 
-  // EmailJS Config — Replace these with your own from emailjs.com
-  const EMAILJS_SERVICE_ID = 'service_portfolio';    // Your Service ID
-  const EMAILJS_TEMPLATE_ID = 'template_portfolio';  // Your Template ID
-  const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';      // Your Public Key
+  // Secure EmailJS Configuration from .env file
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_hkke994';
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_qnv4gq9';
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'l6Z7zk-GLe43tJKMv';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -66,6 +66,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [copiedIndex, setCopiedIndex] = useState(null);
 
   const quickContacts = [
@@ -134,6 +135,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
     if (!formData.name || !formData.email || !formData.message) return;
 
     setSending(true);
+    setErrorMessage('');
 
     try {
       await emailjs.send(
@@ -142,7 +144,12 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
         {
           from_name: formData.name,
           from_email: formData.email,
+          reply_to: formData.email,
+          name: formData.name,
+          email: formData.email,
           subject: formData.subject || 'New Portfolio Inquiry',
+          title: formData.subject || 'New Portfolio Inquiry',
+          time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
           message: formData.message,
         },
         EMAILJS_PUBLIC_KEY
@@ -152,8 +159,9 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      console.error('Failed to send email:', error);
-      alert('Failed to send message. Please try again or email me directly.');
+      console.error('EmailJS error:', error);
+      const msg = error?.text || error?.message || 'Failed to connect to EmailJS service';
+      setErrorMessage(msg);
     } finally {
       setSending(false);
     }
@@ -170,12 +178,12 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
   };
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
+    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 pt-16 sm:pt-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
 
-      {/* Floating Theme Toggle Button */}
+      {/* Floating Theme Toggle Button (Desktop Only - Mobile Has Header Bar) */}
       <button
         onClick={toggleTheme}
-        className="fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+        className="hidden lg:flex fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
         title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
       >
         {theme === 'dark' ? (
@@ -488,6 +496,30 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                   className="p-3 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 text-xs font-bold flex items-center gap-2 justify-center"
                 >
                   <CheckCircle2 size={16} /> Message sent to your inbox! I will reply soon.
+                </motion.div>
+              )}
+
+              {/* Inline Error Feedback with Mailto Fallback */}
+              {errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex flex-col gap-2"
+                >
+                  <div className="flex items-center gap-2 font-bold text-red-300">
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                    <span>EmailJS Status: {errorMessage}</span>
+                  </div>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">
+                    Make sure Service ID <code className="text-purple-300 font-mono">service_hkke994</code> is connected to your Gmail account in your <a href="https://dashboard.emailjs.com" target="_blank" rel="noreferrer" className="text-purple-400 underline font-bold">EmailJS Dashboard</a>.
+                  </p>
+                  <a
+                    href={`mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`}
+                    className="inline-flex items-center gap-1.5 text-xs text-orange-400 hover:text-orange-300 font-bold underline mt-1"
+                  >
+                    <span>Click to send message directly via Email</span>
+                    <ExternalLink size={12} />
+                  </a>
                 </motion.div>
               )}
 

@@ -334,12 +334,12 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
+    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 pt-16 sm:pt-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border max-w-full overflow-x-hidden">
 
-      {/* Floating Theme Toggle Button */}
+      {/* Floating Theme Toggle Button (Desktop Only - Mobile Has Header Bar) */}
       <button
         onClick={toggleTheme}
-        className="fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+        className="hidden lg:flex fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
         title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
       >
         {theme === 'dark' ? (
@@ -367,7 +367,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
         initial={{ opacity: 0, y: 30 }}
         animate={headerInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full min-h-[240px] sm:min-h-[340px] flex items-center mb-1 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#0a0714] shadow-2xl"
+        className="relative w-full min-h-[180px] sm:min-h-[260px] lg:min-h-[340px] flex items-center mb-1 overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl bg-[#0a0714] shadow-2xl max-w-full"
       >
         {/* Background Samurai Kitsune Artwork */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -401,7 +401,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 w-full flex flex-col justify-center py-6 px-4 sm:px-8 pt-8 sm:pt-6">
+        <div className="relative z-10 w-full flex flex-col justify-center py-6 px-4 sm:px-8 pt-8 sm:pt-6 max-w-full">
           <div className="flex flex-col items-start gap-2.5 sm:gap-4 max-w-full sm:max-w-2xl">
             
             {/* Tag */}
@@ -412,8 +412,8 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             </ScrollReveal>
 
             {/* Stylized Title */}
-            <div className="flex flex-col select-none w-full">
-              <div className="flex items-baseline gap-2 flex-wrap relative">
+            <div className="flex flex-col select-none w-full max-w-full">
+              <div className="flex items-baseline gap-2 flex-wrap relative max-w-full">
                 <h1 className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
                   isLight ? 'text-stone-900' : 'text-white'
                 }`}>
@@ -434,8 +434,8 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
               </div>
 
               {/* Brush Underline Graphic */}
-              <div className="relative inline-block mt-1">
-                <svg className={`w-40 sm:w-64 h-2.5 sm:h-3 ${
+              <div className="relative inline-block mt-1 max-w-full">
+                <svg className={`w-40 sm:w-64 h-2.5 sm:h-3 max-w-full ${
                   isLight ? 'text-orange-500' : 'text-purple-500'
                 }`} viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
                   <path d="M 2 10 Q 50 2, 198 6 C 150 12, 50 14, 2 10 Z" fill="currentColor" opacity="0.9" />
@@ -452,32 +452,32 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
             {/* Stats Pills Row */}
             <ScrollReveal y={20} delay={0.4}>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-6 mt-1">
-                <div className="flex items-center gap-2 text-xs font-semibold">
-                  <div className={`w-7 h-7 rounded-lg border flex items-center justify-center ${
+              <div className="flex flex-wrap items-center gap-2 sm:gap-6 mt-1 max-w-full">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
                     isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
                   }`}>
-                    <FileText size={14} />
+                    <FileText size={13} />
                   </div>
-                  <span><strong className="text-sm">25+</strong> Articles</span>
+                  <span><strong className="text-xs sm:text-sm">25+</strong> Articles</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-semibold">
-                  <div className={`w-7 h-7 rounded-lg border flex items-center justify-center ${
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
                     isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
                   }`}>
-                    <BookOpen size={14} />
+                    <BookOpen size={13} />
                   </div>
-                  <span><strong className="text-sm">50K+</strong> Words Written</span>
+                  <span><strong className="text-xs sm:text-sm">50K+</strong> Words</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-semibold">
-                  <div className={`w-7 h-7 rounded-lg border flex items-center justify-center ${
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
                     isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
                   }`}>
-                    <Sparkles size={14} />
+                    <Sparkles size={13} />
                   </div>
-                  <span><strong className="text-sm">7</strong> Categories</span>
+                  <span><strong className="text-xs sm:text-sm">7</strong> Categories</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -488,18 +488,18 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
       {/* ================= 2. CATEGORY FILTER TABS & SEARCH BAR ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-2xl p-3 sm:p-4 border flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl ${
+        <div className={`w-full max-w-full overflow-hidden rounded-xl sm:rounded-2xl p-2.5 sm:p-3 lg:p-4 border flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-3 lg:gap-4 shadow-xl ${
           isLight ? 'bg-white border-orange-200 shadow-orange-200/30' : 'bg-[#0c0916] border-purple-900/30 shadow-purple-950/20'
         }`}>
           {/* Scrollable Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto max-w-full w-full md:w-auto pb-1 md:pb-0 scrollbar-none flex-nowrap">
             {categories.map((cat) => {
               const active = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                  className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 cursor-pointer flex-shrink-0 ${
                     active
                       ? isLight
                         ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30 scale-105'
@@ -517,7 +517,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
           {/* Search Bar Input */}
           <div className="relative w-full md:w-72 flex-shrink-0">
-            <Search size={15} className={`absolute left-3.5 top-1/2 -translate-y-1/2 ${
+            <Search size={14} className={`absolute left-3 top-1/2 -translate-y-1/2 ${
               isLight ? 'text-stone-400' : 'text-purple-400/80'
             }`} />
             <input
@@ -525,7 +525,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
               placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-9 pr-4 py-2 rounded-xl text-xs font-medium outline-none border transition-all ${
+              className={`w-full pl-8 sm:pl-9 pr-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-medium outline-none border transition-all ${
                 isLight
                   ? 'bg-orange-50/50 border-orange-200 text-stone-900 focus:border-orange-400 placeholder:text-stone-400'
                   : 'bg-[#140f29] border-purple-900/40 text-gray-200 focus:border-purple-500/60 placeholder:text-gray-500'
@@ -534,9 +534,9 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs opacity-60 hover:opacity-100 cursor-pointer"
+                className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs opacity-60 hover:opacity-100 cursor-pointer"
               >
-                <X size={13} />
+                <X size={12} />
               </button>
             )}
           </div>
@@ -544,71 +544,71 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
       </ScrollReveal>
 
       {/* ================= 3. TWO-COLUMN LAYOUT ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
         
         {/* LEFT COLUMN: FEATURED STORY & LATEST ARTICLES (8 COLS) */}
-        <div className="lg:col-span-8 flex flex-col gap-6 sm:gap-8 w-full">
+        <div className="lg:col-span-8 flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full">
           
-          {/* FEATURED STORY HERO CARD (AI BATTLE ARENA REAL PROJECT) */}
+          {/* FEATURED STORY HERO CARD */}
           <ScrollReveal>
             <div
               onClick={() => setSelectedArticle(featuredArticle)}
-              className={`w-full rounded-3xl border p-5 sm:p-7 relative overflow-hidden group cursor-pointer transition-all duration-500 shadow-2xl ${
+              className={`w-full rounded-2xl sm:rounded-3xl border p-4 sm:p-6 lg:p-7 relative overflow-hidden group cursor-pointer transition-all duration-500 shadow-2xl ${
                 isLight
                   ? 'bg-white border-orange-200 hover:border-orange-300 shadow-orange-200/40'
                   : 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.2)] hover:border-purple-400 hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)]'
               }`}
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center z-10 relative">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center z-10 relative">
                 
                 {/* Left Content Details */}
-                <div className="md:col-span-7 flex flex-col gap-3">
+                <div className="md:col-span-7 flex flex-col gap-2 sm:gap-3">
                   
                   {/* Badge */}
                   <div className="flex items-center gap-2">
-                    <span className={`px-2.5 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase ${
+                    <span className={`px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-black tracking-widest uppercase ${
                       isLight ? 'bg-orange-100 text-orange-700' : 'bg-purple-950/80 text-purple-300 border border-purple-500/30'
                     }`}>
                       FEATURED
                     </span>
                   </div>
 
-                  <span className="text-xs font-medium text-purple-400">
+                  <span className="text-[10px] sm:text-xs font-medium text-purple-400">
                     {featuredArticle.prefix}
                   </span>
 
-                  <h2 className={`text-xl sm:text-3xl font-black tracking-tight leading-snug transition-colors ${
+                  <h2 className={`text-base sm:text-2xl lg:text-3xl font-black tracking-tight leading-snug transition-colors ${
                     isLight ? 'text-stone-900 group-hover:text-orange-600' : 'text-white group-hover:text-purple-400'
                   }`}>
                     {featuredArticle.title}
                   </h2>
 
-                  <p className={`text-xs leading-relaxed line-clamp-3 font-normal ${
+                  <p className={`text-[11px] sm:text-xs leading-relaxed line-clamp-2 sm:line-clamp-3 font-normal ${
                     isLight ? 'text-stone-600' : 'text-gray-300'
                   }`}>
                     {featuredArticle.description}
                   </p>
 
-                  <div className="flex items-center justify-between pt-3">
-                    <div className="flex items-center gap-2 text-[11px] font-medium opacity-60">
+                  <div className="flex items-center justify-between pt-2 sm:pt-3">
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-medium opacity-60">
                       <span>{featuredArticle.readTime}</span>
                       <span>â€¢</span>
-                      <span>{featuredArticle.category}</span>
+                      <span className="hidden sm:inline">{featuredArticle.category}</span>
                       <span>â€¢</span>
                       <span>{featuredArticle.date}</span>
                     </div>
 
-                    <button className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
+                    <button className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
                       isLight ? 'bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100' : 'bg-purple-950/60 border-purple-500/40 text-purple-300 hover:bg-purple-900/60'
                     }`}>
-                      <span>Read Story</span>
-                      <ArrowRight size={13} />
+                      <span>Read</span>
+                      <ArrowRight size={12} />
                     </button>
                   </div>
                 </div>
 
-                {/* Right Image Feature: Real Project Cover Image */}
-                <div className="hidden md:block md:col-span-5 relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden border border-purple-500/20 shadow-md">
+                {/* Right Image â€” Desktop only */}
+                <div className="hidden md:block md:col-span-5 relative w-full h-44 sm:h-52 lg:h-60 rounded-2xl overflow-hidden border border-purple-500/20 shadow-md">
                   <img
                     src={featuredArticle.image}
                     alt={featuredArticle.title}
@@ -621,33 +621,32 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             </div>
           </ScrollReveal>
 
-          {/* LATEST ARTICLES HEADER & 3-COLUMN GRID */}
-          <div className="flex flex-col gap-4">
+          {/* LATEST ARTICLES HEADER & GRID */}
+          <div className="flex flex-col gap-3 sm:gap-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                {/* Ninja Shuriken Icon */}
-                <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
                 </svg>
-                <h2 className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
+                <h2 className={`text-[11px] sm:text-xs md:text-sm font-black tracking-widest uppercase ${
                   isLight ? 'text-stone-800' : 'text-purple-300'
                 }`}>
                   LATEST ARTICLES
                 </h2>
               </div>
-              <span className="text-xs font-bold text-purple-400 cursor-pointer hover:underline">
+              <span className="text-[10px] sm:text-xs font-bold text-purple-400 cursor-pointer hover:underline">
                 View all ({filteredArticles.length}) â†’
               </span>
             </div>
 
-            {/* Articles 3-Column Grid */}
+            {/* Articles Grid â€” 1 col mobile, 2 col tablet, 3 col desktop */}
             {gridArticles.length > 0 ? (
-              <StaggerCards className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" stagger={0.08}>
+              <StaggerCards className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" stagger={0.08}>
                 {gridArticles.map((art) => (
                   <div
                     key={art.id}
                     onClick={() => !art.comingSoon && setSelectedArticle(art)}
-                    className={`rounded-2xl p-4 border flex flex-col justify-between transition-all duration-300 group shadow-lg ${
+                    className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 border flex flex-col justify-between transition-all duration-300 group shadow-lg ${
                       art.comingSoon
                         ? 'cursor-default opacity-60'
                         : 'cursor-pointer hover:-translate-y-1'
@@ -659,23 +658,23 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                   >
                     <div>
                       {/* Category Badge + Coming Soon */}
-                      <div className="flex items-center justify-between mb-3">
-                        <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
+                        <span className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold uppercase tracking-wider ${
                           isLight ? 'bg-orange-100 text-orange-700' : 'bg-purple-950/80 text-purple-300 border border-purple-500/30'
                         }`}>
                           {art.category}
                         </span>
                         {art.comingSoon && (
-                          <span className={`px-2 py-0.5 rounded-md text-[8px] font-bold ${
+                          <span className={`px-1.5 sm:px-2 py-0.5 rounded-md text-[7px] sm:text-[8px] font-bold ${
                             isLight ? 'bg-stone-100 text-stone-400' : 'bg-gray-800 text-gray-500'
                           }`}>
-                            COMING SOON
+                            SOON
                           </span>
                         )}
                       </div>
 
-                      {/* Real Project Image Cover */}
-                      <div className="w-full h-32 rounded-xl overflow-hidden mb-3 relative border border-purple-500/10">
+                      {/* Image â€” Hidden on mobile, show on sm+ */}
+                      <div className="hidden sm:block w-full h-28 md:h-32 rounded-xl overflow-hidden mb-3 relative border border-purple-500/10">
                         <img
                           src={art.image}
                           alt={art.title}
@@ -685,7 +684,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                       </div>
 
                       {/* Title */}
-                      <h3 className={`text-xs sm:text-sm font-extrabold leading-snug mb-1.5 transition-colors line-clamp-2 ${
+                      <h3 className={`text-[11px] sm:text-xs md:text-sm font-extrabold leading-snug mb-1 sm:mb-1.5 transition-colors line-clamp-2 ${
                         art.comingSoon
                           ? isLight ? 'text-stone-500' : 'text-gray-500'
                           : isLight ? 'text-stone-900 group-hover:text-orange-600' : 'text-white group-hover:text-purple-400'
@@ -694,7 +693,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                       </h3>
 
                       {/* Snippet */}
-                      <p className={`text-[11px] leading-relaxed line-clamp-2 mb-3 ${
+                      <p className={`text-[10px] sm:text-[11px] leading-relaxed line-clamp-2 mb-2 sm:mb-3 ${
                         art.comingSoon
                           ? isLight ? 'text-stone-400' : 'text-gray-600'
                           : isLight ? 'text-stone-500' : 'text-gray-400'
@@ -704,24 +703,24 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                     </div>
 
                     {/* Bottom Meta Bar */}
-                    <div className="flex items-center justify-between pt-2 border-t border-purple-900/20 text-[10.5px] font-semibold text-gray-400">
+                    <div className="flex items-center justify-between pt-2 border-t border-purple-900/20 text-[9px] sm:text-[10.5px] font-semibold text-gray-400">
                       <span>{art.comingSoon ? 'Coming Soon' : art.readTime}</span>
                       {!art.comingSoon && (
-                        <ArrowRight size={12} className="text-purple-400 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={11} className="text-purple-400 group-hover:translate-x-1 transition-transform" />
                       )}
                     </div>
                   </div>
                 ))}
               </StaggerCards>
             ) : (
-              <div className="text-center py-12 opacity-60 text-xs font-medium">
+              <div className="text-center py-8 sm:py-12 opacity-60 text-[11px] sm:text-xs font-medium">
                 No articles found matching "{searchQuery}".
               </div>
             )}
 
             <button
               onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
-              className={`w-full py-3 rounded-2xl border text-xs font-bold transition-all cursor-pointer mt-2 text-center ${
+              className={`w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl border text-[11px] sm:text-xs font-bold transition-all cursor-pointer mt-1 sm:mt-2 text-center ${
                 isLight ? 'bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100' : 'bg-[#140f29] border-purple-900/30 text-purple-300 hover:bg-[#1a1435]'
               }`}
             >
@@ -731,8 +730,8 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
         </div>
 
-        {/* RIGHT SIDEBAR COLUMN (4 COLS) */}
-        <div className="lg:col-span-4 flex flex-col gap-6 w-full">
+        {/* RIGHT SIDEBAR COLUMN (4 COLS) â€” Hidden on mobile, show on sm+ */}
+        <div className="hidden sm:flex lg:col-span-4 flex-col gap-4 sm:gap-5 lg:gap-6 w-full">
           
           {/* SIDEBAR CARD 1: ARTICLES STATS */}
           <ScrollReveal>
@@ -786,7 +785,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
           {/* SIDEBAR CARD 2: LEARNING TIMELINE */}
           <ScrollReveal delay={0.1}>
-            <div className={`rounded-3xl p-5 border shadow-xl flex flex-col gap-4 ${
+            <div className={`rounded-3xl p-5 border shadow-xl flex flex-col gap-4 overflow-hidden ${
               isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
             }`}>
               <div className="flex items-center gap-2 border-b border-purple-900/20 pb-3">
@@ -861,49 +860,49 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
       {/* ================= 5. ARTICLE READER MODAL ================= */}
       <AnimatePresence>
         {selectedArticle && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border shadow-2xl relative ${
+              className={`w-full max-w-3xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border shadow-2xl relative ${
                 isLight ? 'bg-white border-orange-200 text-stone-900' : 'bg-[#0e0a1b] border-purple-500/40 text-gray-100'
               }`}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedArticle(null)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full border flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-900/40 cursor-pointer"
+                className="absolute top-3 right-3 sm:top-5 sm:right-5 w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-900/40 cursor-pointer"
               >
-                <X size={16} />
+                <X size={14} />
               </button>
 
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-purple-950 text-purple-300 border border-purple-500/30">
+              <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[9px] sm:text-[10px] font-bold uppercase bg-purple-950 text-purple-300 border border-purple-500/30">
                   {selectedArticle.category}
                 </span>
-                <span className="text-xs opacity-60">â€¢ {selectedArticle.readTime}</span>
+                <span className="text-[10px] sm:text-xs opacity-60">â€¢ {selectedArticle.readTime}</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-black mb-2">{selectedArticle.title}</h1>
+              <h1 className="text-lg sm:text-2xl lg:text-3xl font-black mb-2 leading-tight">{selectedArticle.title}</h1>
 
               {/* Real Project Cover Image inside Modal */}
-              <div className="w-full h-56 rounded-2xl overflow-hidden mb-6 border border-purple-500/20">
+              <div className="w-full h-36 sm:h-48 lg:h-56 rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6 border border-purple-500/20">
                 <img src={selectedArticle.image} alt="" className="w-full h-full object-cover" />
               </div>
 
               {/* Article Content */}
-              <div className="prose prose-invert max-w-none text-xs sm:text-sm leading-relaxed space-y-4">
+              <div className="prose prose-invert max-w-none text-[11px] sm:text-xs lg:text-sm leading-relaxed space-y-3 sm:space-y-4">
                 <p className="font-normal opacity-90">{selectedArticle.description}</p>
-                <div className="p-4 rounded-2xl bg-purple-950/30 border border-purple-500/20 my-4 text-xs font-mono whitespace-pre-wrap">
+                <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-purple-950/30 border border-purple-500/20 my-3 sm:my-4 text-[10px] sm:text-xs font-mono whitespace-pre-wrap">
                   {selectedArticle.content}
                 </div>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-purple-900/30 flex justify-end">
+              <div className="mt-5 sm:mt-8 pt-3 sm:pt-4 border-t border-purple-900/30 flex justify-end">
                 <button
                   onClick={() => setSelectedArticle(null)}
-                  className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs cursor-pointer"
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-[11px] sm:text-xs cursor-pointer"
                 >
                   Close Article
                 </button>

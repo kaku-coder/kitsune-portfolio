@@ -81,10 +81,10 @@ function App() {
         </div>
       )}
 
-      <div className={`min-h-screen text-gray-100 flex selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
+      <div className={`min-h-screen text-gray-100 flex selection:text-white max-w-full overflow-x-hidden ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
         <div className="hidden md:block w-[120px] flex-shrink-0" />
-        <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} theme={theme} />
-        <main className="flex-1 min-h-screen">
+        <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} theme={theme} toggleTheme={toggleTheme} />
+        <main className="flex-1 min-h-screen min-w-0 max-w-full overflow-x-hidden">
           {activeSection === 'about' ? (
             <Aboutpage theme={theme} toggleTheme={toggleTheme} />
           ) : activeSection === 'projects' ? (

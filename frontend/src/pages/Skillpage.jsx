@@ -342,12 +342,12 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
+    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 pt-16 sm:pt-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
 
-      {/* Theme Toggle Floating Button */}
+      {/* Theme Toggle Floating Button (Desktop Only - Mobile Has Header Bar) */}
       <button
         onClick={toggleTheme}
-        className="fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+        className="hidden lg:flex fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
         title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
       >
         {theme === 'dark' ? (

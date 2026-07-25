@@ -107,10 +107,10 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 {/* Atmospheric Falling Particles */}
                 <AtmosphereLayer theme={theme} />
 
-                {/* Theme Toggle Button */}
+                {/* Theme Toggle Button (Desktop Only - Mobile Has Header Bar) */}
                 <button
                     onClick={toggleTheme}
-                    className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+                    className="hidden lg:flex absolute top-4 right-4 z-20 w-10 h-10 rounded-full tt-toggle-btn items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
                     title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
                 >
                     {theme === 'dark' ? (
