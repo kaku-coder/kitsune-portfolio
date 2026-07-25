@@ -21,6 +21,7 @@ import aboutUserimagesummer from '../assets/aboutUserimagesummer.png';
 import cardimage1 from '../assets/cardimage1.jpg';
 import cardimage1summer from '../assets/cardimage1summer.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
+import ImagePetals from '../components/ImagePetals';
 
 const Aboutpage = ({ theme, toggleTheme }) => {
     return (
@@ -73,6 +74,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-[#09090B] tt-dark-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 via-35% to-transparent/10 tt-light-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white tt-light-overlay" />
+                    <ImagePetals theme={theme} />
                 </div>
 
                 {/* Content Grid (No Card Box, Pure Open Text Layout) */}

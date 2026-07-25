@@ -335,6 +335,54 @@
   }
 }
 
+@keyframes imgFallPetal {
+  0% {
+    top: -5%;
+    transform: translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    top: 55%;
+    transform: translateX(35px) rotate(180deg);
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 105%;
+    transform: translateX(-25px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes imgFallLeaf {
+  0% {
+    top: -5%;
+    transform: translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    top: 55%;
+    transform: translateX(-30px) rotate(-180deg);
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 105%;
+    transform: translateX(25px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
 .animate-rain {
   animation: fallRain linear infinite;
 }
