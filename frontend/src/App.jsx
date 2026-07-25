@@ -7,6 +7,7 @@ import MagneticCursor from './components/MagneticCursor';
 import logoImg from './assets/logo.png';
 
 import Projectpage from './pages/Projectpage';
+import Skillpage from './pages/Skillpage';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -78,7 +79,7 @@ function App() {
         </div>
       )}
 
-      <div className={`min-h-screen text-gray-100 flex overflow-x-clip selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
+      <div className={`min-h-screen text-gray-100 flex selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
         <div className="hidden md:block w-[120px] flex-shrink-0" />
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} theme={theme} />
         <main className="flex-1 min-h-screen">
@@ -86,6 +87,8 @@ function App() {
             <Aboutpage theme={theme} toggleTheme={toggleTheme} />
           ) : activeSection === 'projects' ? (
             <Projectpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
+          ) : activeSection === 'skills' ? (
+            <Skillpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           ) : (
             <HomePage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           )}

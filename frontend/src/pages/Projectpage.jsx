@@ -144,142 +144,149 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-40px' });
 
+  // Top sticky offset calculation so each card stacks cleanly over the previous card
+  const stickyTopOffset = 80 + index * 24;
+
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative lg:sticky w-full rounded-2xl sm:rounded-3xl p-4 sm:p-7 lg:p-10 border grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-center box-border transition-all duration-500 ${
-        isLight
-          ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/40 hover:border-orange-300'
-          : project.featured
-            ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400/80 hover:shadow-[0_25px_60px_rgba(168,85,247,0.4)]'
-            : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/50 hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]'
-      }`}
-      style={{ top: `${75 + index * 20}px`, zIndex: index + 10 }}
+      className="w-full pointer-events-auto lg:sticky lg:mb-14 mb-4 sm:mb-6"
+      style={{ top: `${stickyTopOffset}px`, zIndex: index + 10 }}
     >
-      {/* Background Japanese Kanji Watermark */}
-      {project.featured && (
-        <div className={`absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 text-[100px] sm:text-[220px] lg:text-[280px] font-serif font-black pointer-events-none select-none z-0 leading-none ${
-          isLight ? 'text-orange-500/5' : 'text-purple-500/10'
-        }`}>
-          道
-        </div>
-      )}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={`w-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 border grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center box-border transition-all duration-500 shadow-2xl ${
+          isLight
+            ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/40 hover:border-orange-300'
+            : project.featured
+              ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400/80 hover:shadow-[0_25px_60px_rgba(168,85,247,0.4)]'
+              : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/50 hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]'
+        }`}
+      >
+        {/* Background Japanese Kanji Watermark */}
+        {project.featured && (
+          <div className={`absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 text-[100px] sm:text-[220px] lg:text-[280px] font-serif font-black pointer-events-none select-none z-0 leading-none ${
+            isLight ? 'text-orange-500/5' : 'text-purple-500/10'
+          }`}>
+            道
+          </div>
+        )}
 
-      {/* Details Section - Full width on mobile (no image), half on desktop */}
-      <div className="col-span-full lg:col-span-6 flex flex-col justify-between gap-3 sm:gap-5 relative z-10 w-full">
-        <div className="flex flex-col gap-1.5 sm:gap-2">
-          
-          {/* Badge Tag */}
-          {project.featured ? (
-            <div className={`flex items-center gap-1.5 text-[10px] sm:text-xs font-black tracking-widest uppercase ${
-              isLight ? 'text-orange-500' : 'text-purple-400'
-            }`}>
-              <Star size={12} className="fill-current" />
-              <span>FEATURED PROJECT</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1.5">
-              <div className={`w-1.5 h-1.5 rounded-full ${isLight ? 'bg-orange-500' : 'bg-purple-500'}`} />
-              <span className={`text-[10px] sm:text-xs font-extrabold tracking-widest uppercase ${
-                isLight ? 'text-orange-500' : 'text-purple-400/90'
+        {/* Details Section */}
+        <div className="col-span-full lg:col-span-6 flex flex-col justify-between gap-3 sm:gap-5 relative z-10 w-full">
+          <div className="flex flex-col gap-1.5 sm:gap-2">
+            
+            {/* Badge Tag */}
+            {project.featured ? (
+              <div className={`flex items-center gap-1.5 text-[10px] sm:text-xs font-black tracking-widest uppercase ${
+                isLight ? 'text-orange-500' : 'text-purple-400'
               }`}>
-                {project.subtitle}
+                <Star size={12} className="fill-current" />
+                <span>FEATURED PROJECT</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <div className={`w-1.5 h-1.5 rounded-full ${isLight ? 'bg-orange-500' : 'bg-purple-500'}`} />
+                <span className={`text-[10px] sm:text-xs font-extrabold tracking-widest uppercase ${
+                  isLight ? 'text-orange-500' : 'text-purple-400/90'
+                }`}>
+                  {project.subtitle}
+                </span>
+              </div>
+            )}
+
+            {/* Title */}
+            <h2 className={`text-lg sm:text-3xl lg:text-4xl font-black italic tracking-wide uppercase break-words ${
+              isLight ? 'text-stone-900' : 'text-white'
+            }`}>
+              {project.title}
+            </h2>
+
+            {/* Full Description */}
+            <p className={`text-[11px] sm:text-sm leading-relaxed font-normal ${
+              isLight ? 'text-stone-600' : 'text-gray-300'
+            }`}>
+              {project.description}
+            </p>
+
+          </div>
+
+          {/* Tech Stack Pills */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className={`px-2 py-0.5 sm:px-3.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-semibold border transition-all ${
+                  isLight
+                    ? 'bg-orange-50 border-orange-200 text-orange-800'
+                    : 'bg-[#140f29] border-purple-500/25 text-purple-300 hover:border-purple-500/50'
+                }`}
+              >
+                {tag}
               </span>
+            ))}
+          </div>
+
+          {/* Footer Metadata */}
+          <div className={`flex flex-wrap items-center gap-2.5 sm:gap-6 text-[10.5px] sm:text-xs font-medium pt-1 ${
+            isLight ? 'text-stone-500' : 'text-gray-400'
+          }`}>
+            <div className="flex items-center gap-1">
+              <Calendar size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+              <span>{project.date}</span>
             </div>
-          )}
+            <div className="flex items-center gap-1">
+              <Clock size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+              <span>{project.duration}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <User size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+              <span>{project.projectType}</span>
+            </div>
+          </div>
 
-          {/* Title */}
-          <h2 className={`text-base sm:text-3xl lg:text-4xl font-black italic tracking-wide uppercase break-words ${
-            isLight ? 'text-stone-900' : 'text-white'
-          }`}>
-            {project.title}
-          </h2>
-
-          {/* Full Description */}
-          <p className={`text-[11px] sm:text-sm leading-snug sm:leading-relaxed font-normal line-clamp-3 sm:line-clamp-none ${
-            isLight ? 'text-stone-600' : 'text-gray-300'
-          }`}>
-            {project.description}
-          </p>
-
-        </div>
-
-        {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className={`px-2 py-0.5 sm:px-3.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-semibold border transition-all ${
+          {/* Action Buttons Row */}
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1 w-full">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
                 isLight
-                  ? 'bg-orange-50 border-orange-200 text-orange-800'
-                  : 'bg-[#140f29] border-purple-500/25 text-purple-300 hover:border-purple-500/50'
+                  ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
+                  : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
               }`}
             >
-              {tag}
-            </span>
-          ))}
+              <span>Live Demo</span>
+              <ArrowRight size={12} />
+            </a>
+
+            <a
+              href={project.caseStudyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 border transition-all active:scale-95 cursor-pointer ${
+                isLight
+                  ? 'bg-orange-50 border-orange-200 text-stone-700 hover:bg-orange-100'
+                  : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 cursor-pointer'
+              }`}
+            >
+              <span>View Code</span>
+              <GithubIcon size={12} />
+            </a>
+          </div>
+
         </div>
 
-        {/* Footer Metadata */}
-        <div className={`flex flex-wrap items-center gap-2.5 sm:gap-6 text-[10.5px] sm:text-xs font-medium pt-1 ${
-          isLight ? 'text-stone-500' : 'text-gray-400'
-        }`}>
-          <div className="flex items-center gap-1">
-            <Calendar size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
-            <span>{project.date}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Clock size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
-            <span>{project.duration}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <User size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
-            <span>{project.projectType}</span>
-          </div>
+        {/* Right Column: MacBook Laptop Showcase (Desktop Only) */}
+        <div className="hidden lg:block col-span-1 lg:col-span-6 relative z-10 w-full">
+          <LaptopMockup image={project.image} alt={project.title} isLight={isLight} />
         </div>
 
-        {/* Action Buttons Row */}
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1 w-full">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
-              isLight
-                ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
-                : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
-            }`}
-          >
-            <span>Live Demo</span>
-            <ArrowRight size={12} />
-          </a>
-
-          <a
-            href={project.caseStudyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 border transition-all active:scale-95 cursor-pointer ${
-              isLight
-                ? 'bg-orange-50 border-orange-200 text-stone-700 hover:bg-orange-100'
-                : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 cursor-pointer'
-            }`}
-          >
-            <span>View Code</span>
-            <GithubIcon size={12} />
-          </a>
-        </div>
-
-      </div>
-
-      {/* Right Column: MacBook Laptop Showcase (Desktop Only) */}
-      <div className="hidden lg:block col-span-1 lg:col-span-6 relative z-10 w-full">
-        <LaptopMockup image={project.image} alt={project.title} isLight={isLight} />
-      </div>
-
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
@@ -534,7 +541,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
       </div>
 
       {/* ================= 3. STACKING OVERLAPPING PROJECT CARDS ================= */}
-      <div className="flex flex-col gap-3 sm:gap-0 pb-8 sm:pb-16 relative w-full">
+      <div className="flex flex-col gap-0 pb-8 sm:pb-16 relative w-full">
         {filteredProjects.map((project, index) => (
           <HorizontalProjectCard
             key={project.id}
