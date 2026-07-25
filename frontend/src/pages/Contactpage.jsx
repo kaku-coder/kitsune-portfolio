@@ -239,7 +239,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
             共に何かを創ろう。
           </div>
 
-          <div className="w-9 h-9 rounded-lg border border-purple-500/40 bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+          <div className="w-9 h-9 rounded-lg bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
             創
           </div>
         </div>
@@ -258,15 +258,24 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
             {/* Stylized Title */}
             <div className="flex flex-col select-none w-full">
               <div className="flex items-baseline gap-2 flex-wrap relative">
-                <h1 className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
-                  isLight ? 'text-stone-900' : 'text-white'
-                }`}>
+                <TextReveal
+                  as="h1"
+                  className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
+                    isLight ? 'text-stone-900' : 'text-white'
+                  }`}
+                  stagger={0.04}
+                >
                   LET'S CREATE
-                </h1>
+                </TextReveal>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none">
+                  <TextReveal
+                    as="h1"
+                    className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none"
+                    stagger={0.04}
+                    delay={0.12}
+                  >
                     SOMETHING AMAZING
-                  </h1>
+                  </TextReveal>
                   {/* Ninja Shuriken Star Graphic */}
                   <svg className={`w-4 h-4 sm:w-6 sm:h-6 -mt-1 ${
                     isLight ? 'text-orange-500' : 'text-purple-400'
@@ -308,15 +317,15 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
               href={qc.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`p-4 sm:p-5 rounded-2xl border flex flex-col justify-between gap-3 transition-all duration-300 group shadow-lg ${
+              className={`p-4 sm:p-5 rounded-2xl flex flex-col justify-between gap-3 transition-all duration-300 group shadow-lg ${
                 isLight
-                  ? 'bg-white border-orange-200 hover:border-orange-300 hover:shadow-orange-200/40'
-                  : 'bg-[#0c0916] border-purple-900/30 hover:border-purple-500/40 hover:shadow-[0_12px_35px_rgba(168,85,247,0.18)]'
+                  ? 'bg-white hover:shadow-orange-200/40'
+                  : 'bg-[#0c0916] hover:shadow-[0_12px_35px_rgba(168,85,247,0.18)]'
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shadow-sm ${
-                  isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm ${
+                  isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                 }`}>
                   <Icon size={18} />
                 </div>
@@ -348,8 +357,8 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
         <ScrollReveal className="lg:col-span-7 w-full">
           <div
             ref={formRef}
-            className={`rounded-3xl p-6 sm:p-8 border shadow-2xl relative overflow-hidden flex flex-col gap-6 ${
-              isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/40 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
+            className={`rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col gap-6 ${
+              isLight ? 'bg-white' : 'bg-[#0c0916] shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
             }`}
           >
             {/* Background Japanese Watermark Graphic */}
@@ -361,11 +370,15 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
             {/* Header */}
             <div className="flex items-center gap-2 relative z-10">
-              <h2 className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
-                isLight ? 'text-stone-800' : 'text-purple-300'
-              }`}>
+              <TextReveal
+                as="h2"
+                className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
+                  isLight ? 'text-stone-800' : 'text-purple-300'
+                }`}
+                stagger={0.03}
+              >
                 SEND ME A MESSAGE
-              </h2>
+              </TextReveal>
               {/* Ninja Shuriken Star Graphic */}
               <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
@@ -493,7 +506,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-3 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 text-xs font-bold flex items-center gap-2 justify-center"
+                  className="p-3 rounded-xl bg-green-500/20 text-green-400 text-xs font-bold flex items-center gap-2 justify-center"
                 >
                   <CheckCircle2 size={16} /> Message sent to your inbox! I will reply soon.
                 </motion.div>
@@ -504,7 +517,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex flex-col gap-2"
+                  className="p-3.5 rounded-2xl bg-red-500/10 text-red-400 text-xs flex flex-col gap-2"
                 >
                   <div className="flex items-center gap-2 font-bold text-red-300">
                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -532,15 +545,19 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
           
           {/* CONNECT PLATFORMS CARD */}
           <ScrollReveal>
-            <div className={`rounded-3xl p-6 sm:p-7 border shadow-xl flex flex-col gap-5 ${
-              isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+            <div className={`rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col gap-5 ${
+              isLight ? 'bg-white' : 'bg-[#0c0916]'
             }`}>
               <div>
-                <h3 className={`text-xs sm:text-sm font-black tracking-widest uppercase mb-1 ${
-                  isLight ? 'text-stone-800' : 'text-purple-300'
-                }`}>
+                <TextReveal
+                  as="h3"
+                  className={`text-xs sm:text-sm font-black tracking-widest uppercase mb-1 ${
+                    isLight ? 'text-stone-800' : 'text-purple-300'
+                  }`}
+                  stagger={0.03}
+                >
                   LET'S CONNECT —
-                </h3>
+                </TextReveal>
                 <p className={`text-xs leading-relaxed ${
                   isLight ? 'text-stone-500' : 'text-gray-400'
                 }`}>
@@ -558,15 +575,15 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                       href={cp.link || '#'}
                       target={cp.link ? '_blank' : '_self'}
                       rel="noopener noreferrer"
-                      className={`flex items-center justify-between p-3 rounded-2xl border transition-all duration-300 group ${
+                      className={`flex items-center justify-between p-3 rounded-2xl transition-all duration-300 group ${
                         isLight
-                          ? 'bg-orange-50/50 border-orange-100 hover:bg-orange-100/60'
-                          : 'bg-[#140f29]/70 border-purple-900/20 hover:border-purple-500/30 hover:bg-[#1a1435]'
+                          ? 'bg-orange-50/50 hover:bg-orange-100/60'
+                          : 'bg-[#140f29]/70 hover:bg-[#1a1435]'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shadow-sm ${
-                          isLight ? 'bg-orange-100 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center shadow-sm ${
+                          isLight ? 'bg-orange-100 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                         }`}>
                           <CpIcon size={16} />
                         </div>
@@ -595,11 +612,11 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
           {/* STEVE JOBS QUOTE CARD */}
           <ScrollReveal delay={0.1}>
-            <div className={`rounded-3xl p-5 border shadow-xl flex items-center gap-4 ${
-              isLight ? 'bg-orange-50/70 border-orange-200' : 'bg-[#120e24] border-purple-900/30'
+            <div className={`rounded-3xl p-5 shadow-xl flex items-center gap-4 ${
+              isLight ? 'bg-orange-50/70' : 'bg-[#120e24]'
             }`}>
               {/* Kitsune Logo Avatar */}
-              <div className="w-12 h-12 rounded-2xl overflow-hidden border border-purple-500/30 flex-shrink-0 bg-purple-950/40 p-1 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0 bg-purple-950/40 p-1 flex items-center justify-center">
                 <img src={isLight ? logosummer : logoImg} alt="Kitsune" className="w-full h-full object-contain" />
               </div>
 
@@ -622,8 +639,8 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 4. WHAT I CAN HELP YOU WITH (5-COLUMN GRID) ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 sm:p-8 border shadow-xl flex flex-col gap-6 ${
-          isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+        <div className={`w-full rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col gap-6 ${
+          isLight ? 'bg-white' : 'bg-[#0c0916]'
         }`}>
           
           <div className="flex items-center gap-2">
@@ -641,14 +658,14 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
               return (
                 <div
                   key={sIdx}
-                  className={`p-4 rounded-2xl border flex flex-col gap-3 transition-all duration-300 hover:scale-[1.02] ${
+                  className={`p-4 rounded-2xl flex flex-col gap-3 transition-all duration-300 hover:scale-[1.02] ${
                     isLight
-                      ? 'bg-orange-50/50 border-orange-100 hover:border-orange-200'
-                      : 'bg-[#140f29]/60 border-purple-900/25 hover:border-purple-500/40 hover:bg-[#1a1435]'
+                      ? 'bg-orange-50/50'
+                      : 'bg-[#140f29]/60 hover:bg-[#1a1435]'
                   }`}
                 >
-                  <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 shadow-sm ${
-                    isLight ? 'bg-orange-100 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm ${
+                    isLight ? 'bg-orange-100 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <SrvIcon size={18} />
                   </div>
@@ -675,15 +692,15 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 5. BOTTOM CALL TO ACTION BANNER ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 sm:p-8 border shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 ${
+        <div className={`w-full rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 ${
           isLight
-            ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/30'
-            : 'bg-[#0c0916] border-purple-500/30 shadow-[0_20px_50px_rgba(168,85,247,0.2)]'
+            ? 'bg-[#fff7ed] shadow-orange-200/30'
+            : 'bg-[#0c0916] shadow-[0_20px_50px_rgba(168,85,247,0.2)]'
         }`}>
           
           <div className="flex items-center gap-5 z-10">
             {/* Prominent Bottom Logo Avatar */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-purple-500/40 bg-purple-950/40 p-1 flex items-center justify-center flex-shrink-0 shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-purple-950/40 p-1 flex items-center justify-center flex-shrink-0 shadow-[0_0_25px_rgba(168,85,247,0.4)]">
               <img src={isLight ? bottomlogoSummer : bottomlogo} alt="Kitsune Bottom Logo" className="w-full h-full object-contain filter drop-shadow" />
             </div>
 

@@ -157,12 +157,12 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={`w-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 border grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center box-border transition-all duration-500 shadow-2xl ${
+        className={`w-full rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 border-0 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center box-border transition-all duration-500 shadow-2xl ${
           isLight
-            ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/40 hover:border-orange-300'
+            ? 'bg-[#fff7ed] shadow-orange-200/40'
             : project.featured
-              ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400/80 hover:shadow-[0_25px_60px_rgba(168,85,247,0.4)]'
-              : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/50 hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]'
+              ? 'bg-[#0c0916] shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:shadow-[0_25px_60px_rgba(168,85,247,0.4)]'
+              : 'bg-[#0a0714] shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]'
         }`}
       >
         {/* Background Japanese Kanji Watermark */}
@@ -218,10 +218,10 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className={`px-2 py-0.5 sm:px-3.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-semibold border transition-all ${
+                className={`px-2 py-0.5 sm:px-3.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-semibold transition-all ${
                   isLight
-                    ? 'bg-orange-50 border-orange-200 text-orange-800'
-                    : 'bg-[#140f29] border-purple-500/25 text-purple-300 hover:border-purple-500/50'
+                    ? 'bg-orange-50 text-orange-800'
+                    : 'bg-[#140f29] text-purple-300'
                 }`}
               >
                 {tag}
@@ -267,10 +267,10 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
               href={project.caseStudyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 border transition-all active:scale-95 cursor-pointer ${
+              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer ${
                 isLight
-                  ? 'bg-orange-50 border-orange-200 text-stone-700 hover:bg-orange-100'
-                  : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 cursor-pointer'
+                  ? 'bg-orange-50 text-stone-700 hover:bg-orange-100'
+                  : 'bg-[#140f29] text-gray-300 hover:bg-purple-900/40 cursor-pointer'
               }`}
             >
               <span>View Code</span>
@@ -367,7 +367,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
             静けさの中に、最も強い力が宿る。
           </div>
 
-          <div className="w-9 h-9 rounded-lg border border-purple-500/40 bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+          <div className="w-9 h-9 rounded-lg bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
             鬼
           </div>
         </div>
@@ -411,10 +411,10 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
       {/* ================= 2. FILTER & SORT CONTROL BAR ================= */}
 
       {/* Desktop: Sticky horizontal bar */}
-      <div className={`hidden lg:flex lg:sticky lg:top-3 z-[990] w-full rounded-2xl p-2.5 shadow-2xl items-center justify-between gap-4 border backdrop-blur-xl ${
+      <div className={`hidden lg:flex lg:sticky lg:top-3 z-[990] w-full rounded-2xl p-2.5 shadow-2xl items-center justify-between gap-4 backdrop-blur-xl ${
         isLight
-          ? 'bg-white/90 border-orange-200'
-          : 'bg-[#0c0916]/90 border-purple-900/40'
+          ? 'bg-white/90'
+          : 'bg-[#0c0916]/90'
       }`}>
         
         {/* Left: Filter Tabs */}
@@ -448,10 +448,10 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
           <span>Sort by :</span>
           <button
             onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               isLight
-                ? 'bg-orange-50 border-orange-200 text-stone-800'
-                : 'bg-[#140f29] border-purple-500/20 text-gray-300 hover:border-purple-500/40'
+                ? 'bg-orange-50 text-stone-800'
+                : 'bg-[#140f29] text-gray-300'
             }`}
           >
             <span className="capitalize">{sortBy}</span>
@@ -480,16 +480,16 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
               <button
                 key={tab.id}
                 onClick={() => { setActiveTab(tab.id); setMobileFilterOpen(false); }}
-                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border transition-all duration-200 cursor-pointer ${
+                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl transition-all duration-200 cursor-pointer ${
                   mobileFilterOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
                 } ${
                   isActive
                     ? isLight
-                      ? 'bg-orange-500 text-white border-orange-400'
-                      : 'bg-purple-600 text-white border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]'
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]'
                     : isLight
-                      ? 'bg-white/95 text-stone-700 border-orange-200 hover:bg-orange-50'
-                      : 'bg-[#140f29]/95 text-gray-300 border-purple-500/30 hover:bg-purple-900/50 hover:text-white'
+                      ? 'bg-white/95 text-stone-700 hover:bg-orange-50'
+                      : 'bg-[#140f29]/95 text-gray-300 hover:bg-purple-900/50 hover:text-white'
                 }`}
                 style={{
                   transitionDelay: mobileFilterOpen ? `${i * 50}ms` : `${(categories.length - i) * 30}ms`,
@@ -505,12 +505,12 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
           {/* Sort toggle */}
           <button
             onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
-            className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border transition-all duration-200 cursor-pointer ${
+            className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl transition-all duration-200 cursor-pointer ${
               mobileFilterOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             } ${
               isLight
-                ? 'bg-white/95 text-stone-700 border-orange-200'
-                : 'bg-[#140f29]/95 text-gray-300 border-purple-500/30'
+                ? 'bg-white/95 text-stone-700'
+                : 'bg-[#140f29]/95 text-gray-300'
             }`}
             style={{
               transitionDelay: mobileFilterOpen ? `${categories.length * 50}ms` : '0ms',
@@ -524,12 +524,12 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
         {/* FAB Circle Button */}
         <button
           onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-          className={`w-13 h-13 rounded-full flex items-center justify-center shadow-2xl border transition-all duration-300 cursor-pointer active:scale-90 ${
+          className={`w-13 h-13 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 cursor-pointer active:scale-90 ${
             mobileFilterOpen ? 'rotate-45' : 'rotate-0'
           } ${
             isLight
-              ? 'bg-orange-500 border-orange-400 text-white shadow-orange-500/30'
-              : 'bg-purple-600 border-purple-400 text-white shadow-purple-600/40'
+              ? 'bg-orange-500 text-white shadow-orange-500/30'
+              : 'bg-purple-600 text-white shadow-purple-600/40'
           }`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

@@ -404,7 +404,7 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
             技術は力なり。
           </div>
 
-          <div className="w-9 h-9 rounded-lg border border-purple-500/40 bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+          <div className="w-9 h-9 rounded-lg bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
             術
           </div>
         </div>
@@ -420,18 +420,27 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
               </div>
             </ScrollReveal>
 
-            {/* Stylized Title - Clean Homepage Style */}
+            {/* Stylized Title */}
             <div className="flex flex-col select-none w-full">
               <div className="flex items-baseline gap-2 flex-wrap relative">
-                <h1 className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
-                  isLight ? 'text-stone-900' : 'text-white'
-                }`}>
+                <TextReveal
+                  as="h1"
+                  className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
+                    isLight ? 'text-stone-900' : 'text-white'
+                  }`}
+                  stagger={0.04}
+                >
                   ENGINEERING
-                </h1>
+                </TextReveal>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none">
+                  <TextReveal
+                    as="h1"
+                    className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none"
+                    stagger={0.04}
+                    delay={0.12}
+                  >
                     TOOLKIT
-                  </h1>
+                  </TextReveal>
                   {/* Ninja Shuriken Star Graphic */}
                   <svg className={`w-4 h-4 sm:w-6 sm:h-6 -mt-1 ${
                     isLight ? 'text-orange-500' : 'text-purple-400'
@@ -465,8 +474,8 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 2. STATS COUNTER BAR ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-2xl p-4 sm:p-5 shadow-xl border ${
-          isLight ? 'bg-white border-orange-200 shadow-orange-200/30' : 'bg-[#0c0916] border-purple-900/30 shadow-purple-950/20'
+        <div className={`w-full rounded-2xl p-4 sm:p-5 shadow-xl border-0 ${
+          isLight ? 'bg-white shadow-orange-200/30' : 'bg-[#0c0916] shadow-purple-950/20'
         }`}>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-900/20">
             {statsData.map((stat, idx) => {
@@ -478,8 +487,8 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
                     idx !== 0 ? 'sm:pl-4 lg:pl-6' : ''
                   }`}
                 >
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-md flex-shrink-0 ${
-                    isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/40 border-purple-500/30 text-purple-400'
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-md flex-shrink-0 ${
+                    isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/40 text-purple-400'
                   }`}>
                     <Icon size={18} />
                   </div>
@@ -509,25 +518,29 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
           return (
             <div
               key={idx}
-              className={`rounded-2xl p-5 border flex flex-col justify-between transition-all duration-500 group shadow-xl ${
+              className={`rounded-2xl p-5 border-0 flex flex-col justify-between transition-all duration-500 group shadow-xl ${
                 isLight
-                  ? 'bg-white border-orange-200 hover:border-orange-300 hover:shadow-orange-200/40'
-                  : 'bg-[#0c0916] border-purple-900/30 hover:border-purple-500/40 hover:shadow-[0_15px_45px_rgba(168,85,247,0.15)]'
+                  ? 'bg-white hover:shadow-orange-200/40'
+                  : 'bg-[#0c0916] hover:shadow-[0_15px_45px_rgba(168,85,247,0.15)]'
               }`}
             >
               <div>
                 {/* Category Header */}
                 <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-purple-900/20">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center border shadow-sm ${
-                    isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shadow-sm ${
+                    isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <CategoryIcon size={16} />
                   </div>
-                  <h2 className={`text-xs font-black tracking-widest uppercase ${
-                    isLight ? 'text-stone-800' : 'text-purple-300'
-                  }`}>
+                  <TextReveal
+                    as="h2"
+                    className={`text-xs font-black tracking-widest uppercase ${
+                      isLight ? 'text-stone-800' : 'text-purple-300'
+                    }`}
+                    stagger={0.03}
+                  >
                     {cat.title}
-                  </h2>
+                  </TextReveal>
                 </div>
 
                 {/* Skill Items List */}
@@ -535,10 +548,10 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
                   {cat.skills.map((skill, sIdx) => (
                     <div
                       key={sIdx}
-                      className={`flex items-center justify-between p-2.5 rounded-xl border transition-all duration-300 group/tech ${
+                      className={`flex items-center justify-between p-2.5 rounded-xl border-0 transition-all duration-300 group/tech ${
                         isLight
-                          ? 'bg-orange-50/50 border-orange-100 hover:bg-orange-100/60'
-                          : 'bg-[#140f29]/70 border-purple-900/20 hover:border-purple-500/30 hover:bg-[#1a1435]'
+                          ? 'bg-orange-50/50 hover:bg-orange-100/60'
+                          : 'bg-[#140f29]/70 hover:bg-[#1a1435]'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -564,16 +577,16 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 4. CURRENT FOCUS BANNER ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 sm:p-8 border relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6 ${
+        <div className={`w-full rounded-3xl p-6 sm:p-8 border-0 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6 ${
           isLight
-            ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/30'
-            : 'bg-[#0c0916] border-purple-500/30 shadow-[0_20px_50px_rgba(168,85,247,0.2)]'
+            ? 'bg-[#fff7ed] shadow-orange-200/30'
+            : 'bg-[#0c0916] shadow-[0_20px_50px_rgba(168,85,247,0.2)]'
         }`}>
           
           {/* Swirling Graphic + Quote */}
           <div className="flex items-center gap-6 z-10 w-full lg:w-auto">
             {/* Swirling Neon Portal Graphic */}
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden border border-purple-500/40 shadow-[0_0_25px_rgba(168,85,247,0.4)] bg-[#120e24]">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden shadow-[0_0_25px_rgba(168,85,247,0.4)] bg-[#120e24]">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-600/40 via-purple-950/60 to-black animate-spin [animation-duration:12s]" />
               <Sparkles size={24} className="text-purple-300 relative z-10 animate-pulse" />
             </div>
@@ -581,7 +594,9 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest text-purple-400 uppercase">
                 <Sparkles size={14} />
-                <span>CURRENT FOCUS</span>
+                <TextReveal as="span" stagger={0.03}>
+                  CURRENT FOCUS
+                </TextReveal>
               </div>
               <p className={`text-xs sm:text-sm font-medium italic ${
                 isLight ? 'text-stone-800' : 'text-gray-200'
@@ -601,10 +616,10 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
               return (
                 <div
                   key={pIdx}
-                  className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border text-center transition-all duration-300 hover:scale-105 ${
+                  className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border-0 text-center transition-all duration-300 hover:scale-105 ${
                     isLight
-                      ? 'bg-white border-orange-200 text-stone-800 shadow-sm'
-                      : 'bg-[#140f29] border-purple-500/25 text-purple-200 shadow-lg hover:border-purple-500/50'
+                      ? 'bg-white text-stone-800 shadow-sm'
+                      : 'bg-[#140f29] text-purple-200 shadow-lg'
                   }`}
                 >
                   <PillIcon size={20} className="text-purple-400 mb-1.5" />
@@ -619,17 +634,21 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 5. TECH PROFICIENCY CIRCULAR PROGRESS ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 sm:p-8 border shadow-xl flex flex-col gap-6 ${
-          isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+        <div className={`w-full rounded-3xl p-6 sm:p-8 border-0 shadow-xl flex flex-col gap-6 ${
+          isLight ? 'bg-white' : 'bg-[#0c0916]'
         }`}>
           
           {/* Header */}
           <div className="flex items-center gap-2">
-            <h2 className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
-              isLight ? 'text-stone-800' : 'text-purple-300'
-            }`}>
+            <TextReveal
+              as="h2"
+              className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
+                isLight ? 'text-stone-800' : 'text-purple-300'
+              }`}
+              stagger={0.03}
+            >
               TECH PROFICIENCY
-            </h2>
+            </TextReveal>
             <Sparkles size={14} className="text-purple-400" />
           </div>
 
@@ -643,10 +662,10 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
               return (
                 <div
                   key={pIdx}
-                  className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 hover:scale-105 ${
+                  className={`flex flex-col items-center justify-center p-4 rounded-2xl border-0 transition-all duration-300 hover:scale-105 ${
                     isLight
-                      ? 'bg-orange-50/50 border-orange-100'
-                      : 'bg-[#140f29]/60 border-purple-900/25 hover:border-purple-500/40'
+                      ? 'bg-orange-50/50'
+                      : 'bg-[#140f29]/60'
                   }`}
                 >
                   {/* Circular SVG Ring */}
@@ -697,16 +716,20 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
 
       {/* ================= 6. WHAT I CAN BUILD SECTION ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 sm:p-8 border shadow-xl flex flex-col gap-6 ${
-          isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+        <div className={`w-full rounded-3xl p-6 sm:p-8 border-0 shadow-xl flex flex-col gap-6 ${
+          isLight ? 'bg-white' : 'bg-[#0c0916]'
         }`}>
           
           <div className="flex items-center gap-2">
-            <h2 className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
-              isLight ? 'text-stone-800' : 'text-purple-300'
-            }`}>
+            <TextReveal
+              as="h2"
+              className={`text-xs sm:text-sm font-black tracking-widest uppercase ${
+                isLight ? 'text-stone-800' : 'text-purple-300'
+              }`}
+              stagger={0.03}
+            >
               WHAT I CAN BUILD
-            </h2>
+            </TextReveal>
             <Sparkles size={14} className="text-purple-400" />
           </div>
 
@@ -716,14 +739,14 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
               return (
                 <div
                   key={cIdx}
-                  className={`p-4 rounded-2xl border flex items-start gap-3.5 transition-all duration-300 hover:scale-[1.02] ${
+                  className={`p-4 rounded-2xl border-0 flex items-start gap-3.5 transition-all duration-300 hover:scale-[1.02] ${
                     isLight
-                      ? 'bg-orange-50/50 border-orange-100 hover:border-orange-200'
-                      : 'bg-[#140f29]/60 border-purple-900/25 hover:border-purple-500/40 hover:bg-[#1a1435]'
+                      ? 'bg-orange-50/50'
+                      : 'bg-[#140f29]/60 hover:bg-[#1a1435]'
                   }`}
                 >
-                  <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 shadow-sm ${
-                    isLight ? 'bg-orange-100 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm ${
+                    isLight ? 'bg-orange-100 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <CapIcon size={18} />
                   </div>

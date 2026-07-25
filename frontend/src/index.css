@@ -263,19 +263,23 @@
   font-family: 'Caveat', cursive;
 }
 
-/* Purple brush text effect */
-.purple-brush-text {
-  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #9333ea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+/* Purple brush text effect - Glowing, Sharp & Visible in Dark & Light themes */
+.purple-brush-text,
+.purple-brush-text span {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #e9d5ff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.45));
 }
 
-[data-theme="light"] .purple-brush-text {
+[data-theme="light"] .purple-brush-text,
+[data-theme="light"] .purple-brush-text span {
   background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #c2410c 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-shadow: 0 0 15px rgba(249, 115, 22, 0.3) !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.35)) !important;
 }
 
 /* Glassmorphism Card styling */

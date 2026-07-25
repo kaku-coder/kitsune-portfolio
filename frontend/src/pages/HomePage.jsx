@@ -190,7 +190,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                             {/* Primary Button */}
                             <div
                                 onClick={() => setActiveSection && setActiveSection('projects')}
-                                className="px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl bg-[#140e29] hover:bg-purple-950/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 text-[10.5px] sm:text-xs font-bold tracking-widest uppercase flex items-center gap-2 sm:gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn cursor-pointer"
+                                className="px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl bg-[#140e29] hover:bg-purple-950/80 hover:border-purple-400 text-purple-200 text-[10.5px] sm:text-xs font-bold tracking-widest uppercase flex items-center gap-2 sm:gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn cursor-pointer"
                             >
                                 <span>EXPLORE MY WORK</span>
                                 <span className="text-purple-400 font-mono text-xs sm:text-sm group-hover/btn:translate-x-1 transition-transform">⊣</span>
@@ -199,9 +199,9 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                             {/* Secondary Button - VIEW RESUME */}
                             <div
                                 onClick={() => setActiveSection && setActiveSection('about')}
-                                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 text-gray-200 text-[10.5px] sm:text-xs font-bold flex items-center gap-2 sm:gap-3 transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group/cv"
+                                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl bg-purple-950/40 hover:bg-purple-900/60 hover:border-purple-400 text-gray-200 text-[10.5px] sm:text-xs font-bold flex items-center gap-2 sm:gap-3 transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group/cv"
                             >
-                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-600/40 border border-purple-400/50 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover/cv:scale-110 transition-transform">
+                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-600/40 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover/cv:scale-110 transition-transform">
                                     <Download size={12} className="text-purple-300" />
                                 </div>
                                 <div className="flex flex-col text-left">
@@ -228,13 +228,13 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
 
                     {/* CURRENT STATUS & EXPERIENCE Card */}
                     <ScrollReveal y={20} delay={0.3}>
-                    <div className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-[#0d091a]/95 backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex flex-col gap-2 sm:gap-3 w-full sm:min-w-[240px] sm:ml-auto">
+                    <div className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-[#0d091a]/95 backdrop-blur-xl border-0 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex flex-col gap-2 sm:gap-3 w-full sm:min-w-[240px] sm:ml-auto">
                         <div className="text-[10px] uppercase font-bold tracking-widest text-purple-400 flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7]" />
                             CURRENT STATUS
                         </div>
 
-                        <div className="flex items-center gap-2 text-xs font-extrabold text-white bg-purple-950/40 p-2 rounded-xl border border-purple-500/20">
+                        <div className="flex items-center gap-2 text-xs font-extrabold text-white bg-purple-950/40 p-2 rounded-xl border-0">
                             <span className="relative flex h-2.5 w-2.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500"></span>
@@ -272,7 +272,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 <div
                     id="about"
                     onClick={() => setActiveSection && setActiveSection('about')}
-                    className="lg:col-span-4 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden group hover:bg-[#0e0a1c] transition-all duration-300 shadow-2xl min-h-[220px] sm:min-h-[280px] cursor-pointer"
+                    className="lg:col-span-4 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden group hover:bg-[#0e0a1c] transition-all duration-300 shadow-2xl min-h-[220px] sm:min-h-[280px] cursor-pointer"
                 >
                     {/* Background Overlay */}
                     <div className="absolute inset-0 z-0 overflow-hidden">
@@ -314,7 +314,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         <span className="font-signature text-purple-300 text-2xl font-bold tracking-wide">
                             Prakash
                         </span>
-                        <div className="w-7 h-7 rounded-full bg-purple-950/60 border border-purple-500/30 flex items-center justify-center text-[10px] text-purple-400 font-serif">
+                        <div className="w-7 h-7 rounded-full bg-purple-950/60 border-0 flex items-center justify-center text-[10px] text-purple-400 font-serif">
                             顔
                         </div>
                     </div>
@@ -323,7 +323,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 {/* CARD 2: FEATURED PROJECT (AI BATTLE ARENA) */}
                 <div
                     onClick={() => setActiveSection && setActiveSection('projects')}
-                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
                 >
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
@@ -349,7 +349,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
 
                                 <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-4">
                                     {['MERN', 'Socket.io', 'AI', 'Tailwind', 'MongoDB'].map((tag) => (
-                                        <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 border border-purple-500/20 text-[10px] font-bold text-purple-300">
+                                        <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 text-[10px] font-bold text-purple-300">
                                             {tag}
                                         </span>
                                     ))}
@@ -365,7 +365,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         </div>
 
                         {/* Right Mockup Screen Frame (Pure Purple Theme) */}
-                        <div className="sm:col-span-6 relative w-full h-32 sm:h-44 rounded-lg sm:rounded-xl bg-[#06040a] border border-purple-500/20 p-2 sm:p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame hover:border-purple-400/50 transition-colors">
+                        <div className="sm:col-span-6 relative w-full h-32 sm:h-44 rounded-lg sm:rounded-xl bg-[#06040a] border-0 p-2 sm:p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame transition-colors">
                             <div className="flex items-center justify-between text-[9px] text-purple-300 font-mono border-b border-purple-900/40 pb-1.5">
                                 <span className="font-bold tracking-widest">AI BATTLE ARENA</span>
                                 <span className="text-purple-400 flex items-center gap-1 font-bold">
@@ -375,19 +375,19 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                             </div>
 
                             <div className="grid grid-cols-2 gap-2 my-auto items-center relative py-1">
-                                <div className="p-2 rounded-lg bg-[#120d24] border border-purple-500/30 text-center flex flex-col items-center shadow-lg">
-                                    <div className="w-7 h-7 rounded-full bg-purple-900/60 border border-purple-400/50 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
+                                <div className="p-2 rounded-lg bg-[#120d24] border-0 text-center flex flex-col items-center shadow-lg">
+                                    <div className="w-7 h-7 rounded-full bg-purple-900/60 border-0 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
                                         GPT
                                     </div>
                                     <span className="text-[10px] font-extrabold text-gray-100">GPT-4</span>
                                 </div>
 
-                                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-purple-600 text-white font-black text-[10px] flex items-center justify-center shadow-xl shadow-purple-950 border border-purple-400/60">
+                                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-purple-600 text-white font-black text-[10px] flex items-center justify-center shadow-xl shadow-purple-950 border-0">
                                     VS
                                 </div>
 
-                                <div className="p-2 rounded-lg bg-[#120d24] border border-purple-500/30 text-center flex flex-col items-center shadow-lg">
-                                    <div className="w-7 h-7 rounded-full bg-purple-900/60 border border-purple-400/50 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
+                                <div className="p-2 rounded-lg bg-[#120d24] border-0 text-center flex flex-col items-center shadow-lg">
+                                    <div className="w-7 h-7 rounded-full bg-purple-900/60 border-0 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
                                         GEM
                                     </div>
                                     <span className="text-[10px] font-extrabold text-gray-100">Gemini Pro</span>
@@ -405,7 +405,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 {/* CARD 3: TECH STACK (STYLED CARDS - PURPLE THEME) */}
                 <div
                     onClick={() => setActiveSection && setActiveSection('skills')}
-                    className="lg:col-span-3 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                    className="lg:col-span-3 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
                 >
                     <div>
                         <div className="flex items-center justify-between mb-4">
@@ -423,7 +423,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 return (
                                     <div
                                         key={tech.name}
-                                        className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#110b24]/90 border border-purple-500/20 hover:border-purple-400/50 flex flex-col items-center justify-center gap-1 sm:gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
+                                        className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#110b24]/90 border-0 flex flex-col items-center justify-center gap-1 sm:gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
                                     >
                                         <Icon size={16} className={`${tech.color} group-hover:scale-110 transition-transform`} />
                                         <span className="text-[8px] sm:text-[9.5px] font-bold text-gray-300 group-hover:text-purple-200 truncate max-w-full">
@@ -448,7 +448,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
             <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6" stagger={0.15}>
 
                 {/* GITHUB ACTIVITY CARD */}
-                <div className="lg:col-span-7 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div className="lg:col-span-7 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                             <GithubIcon size={18} className="text-purple-400" />
@@ -482,7 +482,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                     href={repo.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-between p-2 rounded-lg bg-[#06040a] border border-purple-900/20 hover:border-purple-500/40 transition-all group"
+                                    className="flex items-center justify-between p-2 rounded-lg bg-[#06040a] border-0 transition-all group"
                                 >
                                     <div className="flex flex-col gap-0.5 min-w-0">
                                         <span className="text-[11px] font-bold text-purple-300 group-hover:text-purple-200 transition-colors font-mono truncate">
@@ -527,7 +527,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 {/* RECENT BLOGS CARD */}
                 <div
                     onClick={() => setActiveSection && setActiveSection('blog')}
-                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
                 >
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
@@ -558,7 +558,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 img: cardimage1
                             }
                         ].map((blog, bIdx) => (
-                            <div key={bIdx} className="flex items-center gap-3 p-2 rounded-xl hover:bg-purple-950/30 transition-all group cursor-pointer border border-transparent hover:border-purple-500/20">
+                            <div key={bIdx} className="flex items-center gap-3 p-2 rounded-xl hover:bg-purple-950/30 transition-all group cursor-pointer">
                                 <div className="w-12 h-10 rounded-lg overflow-hidden flex-shrink-0 relative">
                                     <img src={blog.img} alt={blog.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                                     <div className="absolute inset-0 bg-purple-950/40" />

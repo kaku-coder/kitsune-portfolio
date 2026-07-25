@@ -194,7 +194,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         <a
                             href="/Prakash_Das_Resume.pdf"
                             download="Prakash_Das_Resume.pdf"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-purple-500/40 bg-purple-950/50 hover:bg-purple-900/60 text-white text-xs font-extrabold tracking-wider transition-all duration-300 shadow-md shadow-purple-950/40 group cursor-pointer mt-1"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-950/50 hover:bg-purple-900/60 text-white text-xs font-extrabold tracking-wider transition-all duration-300 shadow-md shadow-purple-950/40 group cursor-pointer mt-1"
                         >
                             <span>Download Resume</span>
                             <Download size={14} className="text-purple-400 group-hover:translate-y-0.5 transition-transform" />
@@ -207,7 +207,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
 
             {/* ================= 2. STATS COUNTER BAR ================= */}
             <ScrollReveal>
-                <div className="w-full rounded-2xl bg-[#0c0916] border border-purple-900/30 p-4 sm:p-5 shadow-xl shadow-purple-950/20">
+                <div className="w-full rounded-2xl bg-[#0c0916] border-0 p-4 sm:p-5 shadow-xl shadow-purple-950/20">
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-900/20">
                         {statsData.map((stat, idx) => {
                             const Icon = stat.icon;
@@ -218,7 +218,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                                         idx !== 0 ? 'sm:pl-4 lg:pl-6' : ''
                                     }`}
                                 >
-                                    <div className="w-10 h-10 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.2)] flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full border-0 bg-purple-950/40 text-purple-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.2)] flex-shrink-0">
                                         <Icon size={18} />
                                     </div>
                                     <div className="flex flex-col">
@@ -240,7 +240,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
             <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15}>
 
                 {/* CARD 1: WHO I AM */}
-                <div className="lg:col-span-4 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl min-h-[380px]">
+                <div className="lg:col-span-4 rounded-3xl bg-[#0c0916] border-0 p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl min-h-[380px]">
                     <div className="absolute inset-0 z-0 overflow-hidden">
                         <img
                             src={aboutUserimage}
@@ -276,7 +276,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         {['MERN Stack Developer', 'Problem Solver', 'Fast Learner', 'Team Player'].map((tag) => (
                             <span
                                 key={tag}
-                                className="px-3 py-1.5 rounded-lg bg-[#140f29] border border-purple-500/20 text-gray-300 text-[10.5px] font-medium shadow-sm"
+                                className="px-3 py-1.5 rounded-lg bg-[#140f29] border-0 text-gray-300 text-[10.5px] font-medium shadow-sm"
                             >
                                 {tag}
                             </span>
@@ -285,7 +285,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 2: WHAT DRIVES ME */}
-                <div className="lg:col-span-4 rounded-2xl bg-[#0c0916] p-6 sm:p-7 flex flex-col justify-between shadow-xl border border-purple-900/30 hover:border-purple-500/30 transition-all">
+                <div className="lg:col-span-4 rounded-2xl bg-[#0c0916] border-0 p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all">
                     <div className="text-purple-400 text-xs font-bold tracking-widest uppercase flex items-center gap-2 mb-6">
                         <Zap size={14} className="text-purple-400" />
                         <span>WHAT DRIVES ME</span>
@@ -295,7 +295,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                     <div className="flex flex-col gap-5 my-auto">
                         
                         <div className="flex gap-3.5 items-start">
-                            <div className="p-2.5 rounded-xl bg-[#140f29] border border-purple-500/20 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
+                            <div className="p-2.5 rounded-xl bg-[#140f29] border-0 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
                                 <Zap size={18} />
                             </div>
                             <div>
@@ -309,7 +309,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         </div>
 
                         <div className="flex gap-3.5 items-start">
-                            <div className="p-2.5 rounded-xl bg-[#140f29] border border-purple-500/20 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
+                            <div className="p-2.5 rounded-xl bg-[#140f29] border-0 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
                                 <Code2 size={18} />
                             </div>
                             <div>
@@ -323,7 +323,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         </div>
 
                         <div className="flex gap-3.5 items-start">
-                            <div className="p-2.5 rounded-xl bg-[#140f29] border border-purple-500/20 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
+                            <div className="p-2.5 rounded-xl bg-[#140f29] border-0 text-purple-400 flex-shrink-0 mt-0.5 shadow-sm">
                                 <Sprout size={18} />
                             </div>
                             <div>
@@ -340,7 +340,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 3: CURRENTLY FOCUSED */}
-                <div className="lg:col-span-4 rounded-2xl bg-[#0c0916] p-6 sm:p-7 flex flex-col justify-between shadow-xl border border-purple-900/30 hover:border-purple-500/30 transition-all">
+                <div className="lg:col-span-4 rounded-2xl bg-[#0c0916] border-0 p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all">
                     <div className="text-purple-400 text-xs font-bold tracking-widest uppercase flex items-center gap-2 mb-6">
                         <span className="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
                         <span>CURRENTLY FOCUSED</span>
@@ -348,7 +348,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
 
                     <div className="flex flex-col gap-4 my-auto">
                         
-                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border border-purple-500/15">
+                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border-0">
                             <div className="flex gap-3 items-center">
                                 <div className="p-2 rounded-lg bg-purple-950/70 text-purple-300 flex-shrink-0">
                                     <Terminal size={16} />
@@ -360,12 +360,12 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                                     </p>
                                 </div>
                             </div>
-                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 border border-purple-500/30 rounded uppercase">
+                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 rounded uppercase">
                                 MERN
                             </span>
                         </div>
 
-                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border border-purple-500/15">
+                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border-0">
                             <div className="flex gap-3 items-center">
                                 <div className="p-2 rounded-lg bg-purple-950/70 text-purple-300 flex-shrink-0">
                                     <Brain size={16} />
@@ -377,12 +377,12 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                                     </p>
                                 </div>
                             </div>
-                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 border border-purple-500/30 rounded uppercase">
+                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 rounded uppercase">
                                 AI
                             </span>
                         </div>
 
-                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border border-purple-500/15">
+                        <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#140f29]/70 border-0">
                             <div className="flex gap-3 items-center">
                                 <div className="p-2 rounded-lg bg-purple-950/70 text-purple-300 flex-shrink-0">
                                     <Cloud size={16} />
@@ -394,7 +394,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                                     </p>
                                 </div>
                             </div>
-                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 border border-purple-500/30 rounded uppercase">
+                            <span className="px-2 py-0.5 text-[10px] font-bold text-purple-300 bg-purple-950/80 rounded uppercase">
                                 DEVOPS
                             </span>
                         </div>
@@ -409,7 +409,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
                 {/* MY JOURNEY SO FAR (Left Column) */}
-                <div className="lg:col-span-7 rounded-2xl bg-[#0c0916] p-6 sm:p-7 shadow-xl border border-purple-900/30 relative overflow-hidden">
+                <div className="lg:col-span-7 rounded-2xl bg-[#0c0916] border-0 p-6 sm:p-7 shadow-xl relative overflow-hidden">
                     <div className="text-purple-400 text-xs font-bold tracking-widest uppercase flex items-center gap-2 mb-6">
                         <span className="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
                         <span>MY JOURNEY SO FAR</span>
@@ -425,7 +425,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                                 const Icon = item.icon;
                                 return (
                                     <div key={idx} className="flex flex-col items-center text-center group">
-                                        <div className="w-10 h-10 rounded-full border border-purple-500/50 bg-[#140f29] text-purple-300 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform mb-2.5 z-10">
+                                        <div className="w-10 h-10 rounded-full border-0 bg-[#140f29] text-purple-300 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform mb-2.5 z-10">
                                             <Icon size={18} />
                                         </div>
 
@@ -448,7 +448,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 </div>
 
                 {/* MY PHILOSOPHY (Right Column) */}
-                <div className="lg:col-span-5 rounded-2xl bg-[#0c0916] p-6 sm:p-7 shadow-xl border border-purple-900/30 flex flex-col justify-between relative overflow-hidden">
+                <div className="lg:col-span-5 rounded-2xl bg-[#0c0916] border-0 p-6 sm:p-7 shadow-xl flex flex-col justify-between relative overflow-hidden">
                     <div>
                         <div className="text-purple-400 text-xs font-bold tracking-widest uppercase flex items-center gap-2 mb-4">
                             <span className="w-1.5 h-1.5 rounded-full bg-purple-400 inline-block"></span>
@@ -457,7 +457,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
                             {/* Quote Box */}
-                            <div className="sm:col-span-8 p-4 rounded-xl bg-[#140f29]/70 border border-purple-500/15 relative">
+                            <div className="sm:col-span-8 p-4 rounded-xl bg-[#140f29]/70 relative">
                                 <div className="text-purple-400 text-2xl font-serif leading-none mb-1">“</div>
                                 <p className="text-gray-200 text-xs font-normal leading-relaxed">
                                     Every expert was once a beginner. I focus on consistent learning, clean code, and building projects that solve real-world problems.

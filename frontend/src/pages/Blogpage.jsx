@@ -395,7 +395,7 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
             Áü•Ë≠ò„ÅØÂäõ„Å™„Çä„ÄÇ
           </div>
 
-          <div className="w-9 h-9 rounded-lg border border-purple-500/40 bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+          <div className="w-9 h-9 rounded-lg bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
             Áü•
           </div>
         </div>
@@ -414,15 +414,24 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
             {/* Stylized Title */}
             <div className="flex flex-col select-none w-full max-w-full">
               <div className="flex items-baseline gap-2 flex-wrap relative max-w-full">
-                <h1 className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
-                  isLight ? 'text-stone-900' : 'text-white'
-                }`}>
+                <TextReveal
+                  as="h1"
+                  className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
+                    isLight ? 'text-stone-900' : 'text-white'
+                  }`}
+                  stagger={0.04}
+                >
                   KNOWLEDGE
-                </h1>
+                </TextReveal>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none">
+                  <TextReveal
+                    as="h1"
+                    className="purple-brush-text font-brush italic text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wide leading-none"
+                    stagger={0.04}
+                    delay={0.12}
+                  >
                     ARCHIVE
-                  </h1>
+                  </TextReveal>
                   {/* Ninja Shuriken Star Graphic */}
                   <svg className={`w-4 h-4 sm:w-6 sm:h-6 -mt-1 ${
                     isLight ? 'text-orange-500' : 'text-purple-400'
@@ -454,8 +463,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
             <ScrollReveal y={20} delay={0.4}>
               <div className="flex flex-wrap items-center gap-2 sm:gap-6 mt-1 max-w-full">
                 <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
-                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
-                    isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <FileText size={13} />
                   </div>
@@ -463,8 +472,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                 </div>
 
                 <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
-                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
-                    isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <BookOpen size={13} />
                   </div>
@@ -472,8 +481,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                 </div>
 
                 <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
-                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg border flex items-center justify-center flex-shrink-0 ${
-                    isLight ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-purple-950/60 border-purple-500/30 text-purple-400'
+                  <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    isLight ? 'bg-orange-50 text-orange-600' : 'bg-purple-950/60 text-purple-400'
                   }`}>
                     <Sparkles size={13} />
                   </div>
@@ -488,8 +497,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
 
       {/* ================= 2. CATEGORY FILTER TABS & SEARCH BAR ================= */}
       <ScrollReveal>
-        <div className={`w-full max-w-full overflow-hidden rounded-xl sm:rounded-2xl p-2.5 sm:p-3 lg:p-4 border flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-3 lg:gap-4 shadow-xl ${
-          isLight ? 'bg-white border-orange-200 shadow-orange-200/30' : 'bg-[#0c0916] border-purple-900/30 shadow-purple-950/20'
+        <div className={`w-full max-w-full overflow-hidden rounded-xl sm:rounded-2xl p-2.5 sm:p-3 lg:p-4 flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-3 lg:gap-4 shadow-xl ${
+          isLight ? 'bg-white shadow-orange-200/30' : 'bg-[#0c0916] shadow-purple-950/20'
         }`}>
           {/* Scrollable Category Filter Pills */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto max-w-full w-full md:w-auto pb-1 md:pb-0 scrollbar-none flex-nowrap">
@@ -506,7 +515,7 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                         : 'bg-purple-600 text-white shadow-lg shadow-purple-600/40 scale-105'
                       : isLight
                         ? 'bg-orange-50/60 text-stone-700 hover:bg-orange-100'
-                        : 'bg-[#140f29] text-gray-300 border border-purple-900/30 hover:border-purple-500/40 hover:bg-[#1a1435]'
+                        : 'bg-[#140f29] text-gray-300 hover:bg-[#1a1435]'
                   }`}
                 >
                   {cat}
@@ -553,10 +562,10 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
           <ScrollReveal>
             <div
               onClick={() => setSelectedArticle(featuredArticle)}
-              className={`w-full rounded-2xl sm:rounded-3xl border p-4 sm:p-6 lg:p-7 relative overflow-hidden group cursor-pointer transition-all duration-500 shadow-2xl ${
+              className={`w-full rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 relative overflow-hidden group cursor-pointer transition-all duration-500 shadow-2xl ${
                 isLight
-                  ? 'bg-white border-orange-200 hover:border-orange-300 shadow-orange-200/40'
-                  : 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.2)] hover:border-purple-400 hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)]'
+                  ? 'bg-white shadow-orange-200/40'
+                  : 'bg-[#0c0916] shadow-[0_20px_50px_rgba(168,85,247,0.2)] hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)]'
               }`}
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center z-10 relative">
@@ -598,8 +607,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                       <span>{featuredArticle.date}</span>
                     </div>
 
-                    <button className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
-                      isLight ? 'bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100' : 'bg-purple-950/60 border-purple-500/40 text-purple-300 hover:bg-purple-900/60'
+                    <button className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      isLight ? 'bg-orange-50 text-orange-700 hover:bg-orange-100' : 'bg-purple-950/60 text-purple-300 hover:bg-purple-900/60'
                     }`}>
                       <span>Read</span>
                       <ArrowRight size={12} />
@@ -608,7 +617,7 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                 </div>
 
                 {/* Right Image ‚Äî Desktop only */}
-                <div className="hidden md:block md:col-span-5 relative w-full h-44 sm:h-52 lg:h-60 rounded-2xl overflow-hidden border border-purple-500/20 shadow-md">
+                <div className="hidden md:block md:col-span-5 relative w-full h-44 sm:h-52 lg:h-60 rounded-2xl overflow-hidden shadow-md">
                   <img
                     src={featuredArticle.image}
                     alt={featuredArticle.title}
@@ -646,21 +655,21 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                   <div
                     key={art.id}
                     onClick={() => !art.comingSoon && setSelectedArticle(art)}
-                    className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 border flex flex-col justify-between transition-all duration-300 group shadow-lg ${
+                    className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 group shadow-lg ${
                       art.comingSoon
                         ? 'cursor-default opacity-60'
                         : 'cursor-pointer hover:-translate-y-1'
                     } ${
                       isLight
-                        ? `bg-white border-orange-200 ${!art.comingSoon ? 'hover:border-orange-300 hover:shadow-orange-200/40' : ''}`
-                        : `bg-[#0c0916] border-purple-900/30 ${!art.comingSoon ? 'hover:border-purple-500/40 hover:shadow-[0_12px_35px_rgba(168,85,247,0.18)]' : ''}`
+                        ? `bg-white ${!art.comingSoon ? 'hover:shadow-orange-200/40' : ''}`
+                        : `bg-[#0c0916] ${!art.comingSoon ? 'hover:shadow-[0_12px_35px_rgba(168,85,247,0.18)]' : ''}`
                     }`}
                   >
                     <div>
                       {/* Category Badge + Coming Soon */}
                       <div className="flex items-center justify-between mb-2 sm:mb-3">
                         <span className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold uppercase tracking-wider ${
-                          isLight ? 'bg-orange-100 text-orange-700' : 'bg-purple-950/80 text-purple-300 border border-purple-500/30'
+                      isLight ? 'bg-orange-100 text-orange-700' : 'bg-purple-950/80 text-purple-300'
                         }`}>
                           {art.category}
                         </span>
@@ -674,7 +683,7 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
                       </div>
 
                       {/* Image ‚Äî Hidden on mobile, show on sm+ */}
-                      <div className="hidden sm:block w-full h-28 md:h-32 rounded-xl overflow-hidden mb-3 relative border border-purple-500/10">
+                      <div className="hidden sm:block w-full h-28 md:h-32 rounded-xl overflow-hidden mb-3 relative">
                         <img
                           src={art.image}
                           alt={art.title}
@@ -720,8 +729,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
 
             <button
               onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
-              className={`w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl border text-[11px] sm:text-xs font-bold transition-all cursor-pointer mt-1 sm:mt-2 text-center ${
-                isLight ? 'bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100' : 'bg-[#140f29] border-purple-900/30 text-purple-300 hover:bg-[#1a1435]'
+              className={`w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer mt-1 sm:mt-2 text-center ${
+                isLight ? 'bg-orange-50 text-orange-700 hover:bg-orange-100' : 'bg-[#140f29] text-purple-300 hover:bg-[#1a1435]'
               }`}
             >
               Explore More Articles ‚Üí
@@ -735,16 +744,20 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
           
           {/* SIDEBAR CARD 1: ARTICLES STATS */}
           <ScrollReveal>
-            <div className={`rounded-3xl p-5 border shadow-xl flex flex-col gap-4 ${
-              isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+            <div className={`rounded-3xl p-5 shadow-xl flex flex-col gap-4 ${
+              isLight ? 'bg-white' : 'bg-[#0c0916]'
             }`}>
               <div className="flex items-center gap-2 border-b border-purple-900/20 pb-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                <h3 className={`text-xs font-extrabold tracking-widest uppercase ${
-                  isLight ? 'text-stone-800' : 'text-purple-300'
-                }`}>
+                <TextReveal
+                  as="h3"
+                  className={`text-xs font-extrabold tracking-widest uppercase ${
+                    isLight ? 'text-stone-800' : 'text-purple-300'
+                  }`}
+                  stagger={0.03}
+                >
                   ARTICLES STATS ‚Ä¢
-                </h3>
+                </TextReveal>
               </div>
 
               <div className="flex flex-col gap-3.5">
@@ -785,16 +798,20 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
 
           {/* SIDEBAR CARD 2: LEARNING TIMELINE */}
           <ScrollReveal delay={0.1}>
-            <div className={`rounded-3xl p-5 border shadow-xl flex flex-col gap-4 overflow-hidden ${
-              isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+            <div className={`rounded-3xl p-5 shadow-xl flex flex-col gap-4 overflow-hidden ${
+              isLight ? 'bg-white' : 'bg-[#0c0916]'
             }`}>
               <div className="flex items-center gap-2 border-b border-purple-900/20 pb-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                <h3 className={`text-xs font-extrabold tracking-widest uppercase ${
-                  isLight ? 'text-stone-800' : 'text-purple-300'
-                }`}>
+                <TextReveal
+                  as="h3"
+                  className={`text-xs font-extrabold tracking-widest uppercase ${
+                    isLight ? 'text-stone-800' : 'text-purple-300'
+                  }`}
+                  stagger={0.03}
+                >
                   LEARNING TIMELINE ‚Ä¢
-                </h3>
+                </TextReveal>
               </div>
 
               <div className="flex flex-col gap-4 relative pl-3 border-l-2 border-purple-900/40">
@@ -825,7 +842,7 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
 
               <button
                 onClick={() => setActiveSection && setActiveSection('about')}
-                className="w-full py-2.5 rounded-xl border text-[11px] font-bold text-purple-300 hover:bg-purple-950/40 transition-all cursor-pointer text-center border-purple-900/30"
+                className="w-full py-2.5 rounded-xl text-[11px] font-bold text-purple-300 hover:bg-purple-950/40 transition-all cursor-pointer text-center"
               >
                 View full journey ‚Üí
               </button>
@@ -838,8 +855,8 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
 
       {/* ================= 4. BOTTOM QUOTE BANNER ================= */}
       <ScrollReveal>
-        <div className={`w-full rounded-3xl p-6 border text-center shadow-xl relative overflow-hidden ${
-          isLight ? 'bg-white border-orange-200' : 'bg-[#0c0916] border-purple-900/30'
+        <div className={`w-full rounded-3xl p-6 text-center shadow-xl relative overflow-hidden ${
+          isLight ? 'bg-white' : 'bg-[#0c0916]'
         }`}>
           {/* Background Japanese Watermark */}
           <div className="absolute right-4 bottom-2 opacity-10 pointer-events-none text-purple-400 text-8xl font-serif">
@@ -865,20 +882,20 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={`w-full max-w-3xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border shadow-2xl relative ${
-                isLight ? 'bg-white border-orange-200 text-stone-900' : 'bg-[#0e0a1b] border-purple-500/40 text-gray-100'
+              className={`w-full max-w-3xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl relative ${
+                isLight ? 'bg-white text-stone-900' : 'bg-[#0e0a1b] text-gray-100'
               }`}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedArticle(null)}
-                className="absolute top-3 right-3 sm:top-5 sm:right-5 w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-900/40 cursor-pointer"
+                className="absolute top-3 right-3 sm:top-5 sm:right-5 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-900/40 cursor-pointer"
               >
                 <X size={14} />
               </button>
 
               <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[9px] sm:text-[10px] font-bold uppercase bg-purple-950 text-purple-300 border border-purple-500/30">
+                <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[9px] sm:text-[10px] font-bold uppercase bg-purple-950 text-purple-300">
                   {selectedArticle.category}
                 </span>
                 <span className="text-[10px] sm:text-xs opacity-60">‚Ä¢ {selectedArticle.readTime}</span>
@@ -887,14 +904,14 @@ I use **Default High Contrast** theme with a heavily customized color palette ‚Ä
               <h1 className="text-lg sm:text-2xl lg:text-3xl font-black mb-2 leading-tight">{selectedArticle.title}</h1>
 
               {/* Real Project Cover Image inside Modal */}
-              <div className="w-full h-36 sm:h-48 lg:h-56 rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6 border border-purple-500/20">
+              <div className="w-full h-36 sm:h-48 lg:h-56 rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6">
                 <img src={selectedArticle.image} alt="" className="w-full h-full object-cover" />
               </div>
 
               {/* Article Content */}
               <div className="prose prose-invert max-w-none text-[11px] sm:text-xs lg:text-sm leading-relaxed space-y-3 sm:space-y-4">
                 <p className="font-normal opacity-90">{selectedArticle.description}</p>
-                <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-purple-950/30 border border-purple-500/20 my-3 sm:my-4 text-[10px] sm:text-xs font-mono whitespace-pre-wrap">
+                <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-purple-950/30 my-3 sm:my-4 text-[10px] sm:text-xs font-mono whitespace-pre-wrap">
                   {selectedArticle.content}
                 </div>
               </div>

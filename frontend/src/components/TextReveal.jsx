@@ -1,8 +1,5 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function TextReveal({
   children,
@@ -10,61 +7,88 @@ export default function TextReveal({
   className = '',
   delay = 0,
   stagger = 0.03,
-  once = true,
 }) {
-  const ref = useRef(null);
-  const tweenRef = useRef(null);
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: stagger,
+        delayChildren: delay,
+      },
+    },
+  };
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const text = el.textContent;
-    el.textContent = '';
-    el.style.visibility = 'visible';
-
-    const chars = text.split('').map((char) => {
-      const span = document.createElement('span');
-      span.textContent = char === ' ' ? '\u00A0' : char;
-      span.style.display = 'inline-block';
-      span.style.opacity = '0';
-      span.style.transform = 'translateY(40px) rotateX(-40deg)';
-      span.style.transformOrigin = 'bottom';
-      el.appendChild(span);
-      return span;
-    });
-
-    tweenRef.current = gsap.to(chars, {
+  const charVariants = {
+    hidden: {
+      opacity: 0,
+      y: 35,
+      rotateX: -40,
+    },
+    visible: {
       opacity: 1,
       y: 0,
       rotateX: 0,
-      duration: 0.6,
-      stagger,
-      delay,
-      ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        once,
+      transition: {
+        type: 'spring',
+        damping: 14,
+        stiffness: 120,
       },
-    });
+    },
+  };
 
-    return () => {
-      if (tweenRef.current) {
-        tweenRef.current.scrollTrigger?.kill();
-        tweenRef.current.kill();
+  const renderAnimatedChildren = (node, keyPrefix = 'tr') => {
+    if (typeof node === 'string' || typeof node === 'number') {
+      const str = String(node);
+      return str.split('').map((char, i) => (
+        <motion.span
+          key={`${keyPrefix}-${i}`}
+          variants={charVariants}
+          className="inline-block"
+          style={{ perspective: '600px', transformOrigin: 'bottom' }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ));
+    }
+
+    if (React.isValidElement(node)) {
+      if (
+        node.type === 'svg' ||
+        (typeof node.type === 'string' && node.type.toLowerCase() === 'svg')
+      ) {
+        return (
+          <motion.span variants={charVariants} className="inline-block">
+            {node}
+          </motion.span>
+        );
       }
-      el.textContent = text;
-    };
-  }, []);
+
+      const childContent = React.Children.map(node.props.children, (child, idx) =>
+        renderAnimatedChildren(child, `${keyPrefix}-el-${idx}`)
+      );
+
+      return React.cloneElement(node, { ...node.props }, childContent);
+    }
+
+    return node;
+  };
+
+  const formattedContent = React.Children.map(children, (child, idx) =>
+    renderAnimatedChildren(child, `root-${idx}`)
+  );
+
+  const MotionTag = motion[Tag] || motion.h1;
 
   return (
-    <Tag
-      ref={ref}
+    <MotionTag
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
       className={className}
-      style={{ visibility: 'hidden', perspective: '600px' }}
+      style={{ perspective: '600px' }}
     >
-      {children}
-    </Tag>
+      {formattedContent}
+    </MotionTag>
   );
 }
