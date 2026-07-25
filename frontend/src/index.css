@@ -269,6 +269,13 @@
   text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
 }
 
+[data-theme="light"] .purple-brush-text {
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #c2410c 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 15px rgba(249, 115, 22, 0.3) !important;
+}
+
 /* Glassmorphism Card styling */
 .glass-card {
   background: rgba(13, 9, 20, 0.9);

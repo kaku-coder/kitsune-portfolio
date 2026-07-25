@@ -423,7 +423,9 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
             {/* Stylized Title - Clean Homepage Style */}
             <div className="flex flex-col select-none w-full">
               <div className="flex items-baseline gap-2 flex-wrap relative">
-                <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide text-white leading-none">
+                <h1 className={`font-cinzel text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none ${
+                  isLight ? 'text-stone-900' : 'text-white'
+                }`}>
                   ENGINEERING
                 </h1>
                 <div className="flex items-center gap-1.5">
@@ -431,16 +433,20 @@ const Skillpage = ({ theme, toggleTheme, setActiveSection }) => {
                     TOOLKIT
                   </h1>
                   {/* Ninja Shuriken Star Graphic */}
-                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-purple-400 -mt-1" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className={`w-4 h-4 sm:w-6 sm:h-6 -mt-1 ${
+                    isLight ? 'text-orange-500' : 'text-purple-400'
+                  }`} viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
-                    <circle cx="12" cy="12" r="2" fill="#0a0714" />
+                    <circle cx="12" cy="12" r="2" fill={isLight ? '#fff7ed' : '#0a0714'} />
                   </svg>
                 </div>
               </div>
 
-              {/* Purple Brush Underline Graphic */}
+              {/* Brush Underline Graphic */}
               <div className="relative inline-block mt-1">
-                <svg className="w-40 sm:w-64 h-2.5 sm:h-3 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
+                <svg className={`w-40 sm:w-64 h-2.5 sm:h-3 ${
+                  isLight ? 'text-orange-500' : 'text-purple-500'
+                }`} viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
                   <path d="M 2 10 Q 50 2, 198 6 C 150 12, 50 14, 2 10 Z" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>

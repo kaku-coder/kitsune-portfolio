@@ -188,13 +188,13 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         <ScrollReveal y={15} delay={0.4}>
                             <div className="flex flex-wrap items-center gap-2.5 sm:gap-5 pt-2 sm:pt-3">
                             {/* Primary Button */}
-                            <a
-                                href="#projects"
-                                className="px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl bg-[#140e29] hover:bg-purple-950/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 text-[10.5px] sm:text-xs font-bold tracking-widest uppercase flex items-center gap-2 sm:gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn"
+                            <div
+                                onClick={() => setActiveSection && setActiveSection('projects')}
+                                className="px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl bg-[#140e29] hover:bg-purple-950/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 text-[10.5px] sm:text-xs font-bold tracking-widest uppercase flex items-center gap-2 sm:gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn cursor-pointer"
                             >
                                 <span>EXPLORE MY WORK</span>
                                 <span className="text-purple-400 font-mono text-xs sm:text-sm group-hover/btn:translate-x-1 transition-transform">⊣</span>
-                            </a>
+                            </div>
 
                             {/* Secondary Button - VIEW RESUME */}
                             <div
@@ -321,15 +321,16 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 2: FEATURED PROJECT (AI BATTLE ARENA) */}
-                <div id="projects" className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div
+                    onClick={() => setActiveSection && setActiveSection('projects')}
+                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                >
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
                             <span>FEATURED PROJECT</span>
                         </div>
-                        <a href="#projects" className="text-purple-400 hover:text-purple-300 transition-colors">
-                            <ArrowUpRight size={18} />
-                        </a>
+                        <ArrowUpRight size={18} className="text-purple-400" />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-4 items-center my-auto">
@@ -355,13 +356,12 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 </div>
                             </div>
 
-                            <a
-                                href="#projects"
-                                className="inline-flex items-center gap-2 text-xs font-bold text-purple-400 hover:text-purple-200 transition-colors uppercase tracking-wider group/link"
+                            <div
+                                className="inline-flex items-center gap-2 text-xs font-bold text-purple-400 hover:text-purple-200 transition-colors uppercase tracking-wider group/link cursor-pointer"
                             >
                                 <span>VIEW PROJECT</span>
                                 <span className="font-mono text-sm group-hover/link:translate-x-1 transition-transform">⊣</span>
-                            </a>
+                            </div>
                         </div>
 
                         {/* Right Mockup Screen Frame (Pure Purple Theme) */}
@@ -403,7 +403,10 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 3: TECH STACK (STYLED CARDS - PURPLE THEME) */}
-                <div id="skills" className="lg:col-span-3 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div
+                    onClick={() => setActiveSection && setActiveSection('skills')}
+                    className="lg:col-span-3 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                >
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
@@ -522,15 +525,16 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* RECENT BLOGS CARD */}
-                <div id="blog" className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div
+                    onClick={() => setActiveSection && setActiveSection('blog')}
+                    className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
+                >
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
                             <span>RECENT BLOGS</span>
                         </div>
-                        <a href="#blog" className="text-purple-400 hover:text-purple-300 transition-colors">
-                            <ArrowUpRight size={18} />
-                        </a>
+                        <ArrowUpRight size={18} className="text-purple-400" />
                     </div>
 
                     <div className="flex flex-col gap-3 my-auto">

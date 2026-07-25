@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import cardimage1 from '../assets/cardimage1.jpg';
 import {
   Home,
   User,
   FolderKanban,
   Code2,
-  Milestone,
   FileText,
   Mail,
   Menu,
-  X
+  X,
+  MessageCircle
 } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 import logosummer from '../assets/logosummer.png';
+import AIAssistant from './AIAssistant';
 
 const GithubIcon = ({ size = 17 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -37,6 +37,7 @@ const TwitterIcon = ({ size = 17 }) => (
 
 export default function Sidebar({ activeSection = 'home', setActiveSection, theme = 'dark' }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
   const isLight = theme === 'light';
 
   const navItems = [
@@ -70,18 +71,18 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
 
       {/* Floating Card Sidebar */}
       <aside
-        className={`fixed z-40 flex flex-col justify-between items-center py-6 transition-all duration-300 shadow-2xl ${mobileOpen
-          ? `top-0 left-0 h-screen w-64 items-start px-6 rounded-none border-r ${isLight ? 'bg-orange-50 border-orange-200' : 'bg-[#09080e] border-purple-900/30'}`
-          : `top-0 left-3 h-screen w-[88px] backdrop-blur-2xl rounded-3xl -translate-x-full lg:translate-x-0 ${isLight ? 'bg-white/95 border border-orange-200' : 'bg-[#0b0816]/95 border border-purple-900/35'}`
+        className={`fixed z-40 flex flex-col items-center py-5 transition-all duration-300 shadow-2xl ${mobileOpen
+          ? `top-0 left-0 h-screen w-64 items-start px-6 rounded-none border-r justify-between ${isLight ? 'bg-orange-50 border-orange-200' : 'bg-[#09080e] border-purple-900/30'}`
+          : `top-0 left-3 h-screen w-[88px] backdrop-blur-2xl rounded-3xl -translate-x-full lg:translate-x-0 justify-between ${isLight ? 'bg-white/95 border border-orange-200' : 'bg-[#0b0816]/95 border border-purple-900/35'}`
           }`}
       >
-        {/* Logo */}
+        {/* Top: Logo */}
         <div className="flex flex-col items-center">
-          <img src={isLight ? logosummer : logoImg} alt="Logo" className={`w-[52px] h-[52px] object-contain hover:scale-110 transition-transform cursor-pointer ${isLight ? 'drop-shadow-[0_0_8px_rgba(234,88,12,0.3)]' : 'drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]'}`} />
+          <img src={isLight ? logosummer : logoImg} alt="Logo" className={`w-[48px] h-[48px] object-contain hover:scale-110 transition-transform cursor-pointer ${isLight ? 'drop-shadow-[0_0_8px_rgba(234,88,12,0.3)]' : 'drop-shadow-[0_0_10px_rgba(139,92,246,0.4)]'}`} />
         </div>
 
-        {/* Nav Links */}
-        <nav className="flex flex-col gap-7 w-full items-center">
+        {/* Middle: Nav Links */}
+        <nav className={`flex flex-col w-full items-center ${mobileOpen ? 'gap-1' : 'gap-5'}`}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -94,23 +95,23 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
                   const el = document.getElementById(item.id);
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start' : 'flex-col items-center'} group py-1 px-2 rounded-xl transition-all ${isActive
+                className={`relative flex ${mobileOpen ? 'flex-row gap-4 items-center w-full justify-start py-2 px-1' : 'flex-col items-center py-1 px-2'} group rounded-xl transition-all ${isActive
                     ? isLight ? 'text-orange-600' : 'text-purple-300'
                     : isLight ? 'text-stone-400 hover:text-orange-500' : 'text-gray-400 hover:text-purple-200'
                   }`}
               >
                 {isActive && (
-                  <span className={`absolute -left-3 lg:-left-2 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full ${isLight ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-purple-500 shadow-[0_0_10px_#a855f7]'}`} />
+                  <span className={`absolute -left-3 lg:-left-2 top-1/2 -translate-y-1/2 w-1 h-5 rounded-r-full ${isLight ? 'bg-orange-500 shadow-[0_0_10px_#f97316]' : 'bg-purple-500 shadow-[0_0_10px_#a855f7]'}`} />
                 )}
 
                 <div className={`p-2 rounded-xl transition-all ${isActive
                   ? isLight ? 'bg-orange-100 text-orange-600 shadow-[0_0_12px_rgba(234,88,12,0.2)]' : 'bg-purple-600/20 text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
                   : isLight ? 'group-hover:bg-orange-50' : 'group-hover:bg-purple-900/20'
                   }`}>
-                  <Icon size={18} />
+                  <Icon size={17} />
                 </div>
 
-                <span className={`text-[8.5px] tracking-widest font-bold mt-0.5 uppercase ${isActive
+                <span className={`text-[8px] tracking-widest font-bold mt-0.5 uppercase ${isActive
                   ? isLight ? 'text-orange-600' : 'text-purple-300'
                   : isLight ? 'text-stone-400 group-hover:text-orange-500' : 'text-gray-400 group-hover:text-purple-200'
                   }`}>
@@ -121,25 +122,50 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
           })}
         </nav>
 
-        {/* Socials & Copyright */}
-        <div className="flex flex-col items-center gap-3 w-full">
-          <div className={`flex flex-col gap-5 ${isLight ? 'text-stone-400' : 'text-gray-400'}`}>
+        {/* Bottom: Let's Talk + Socials */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Let's Talk Button */}
+          <button
+            onClick={() => setAiOpen(true)}
+            className={`group flex flex-col items-center gap-1.5 cursor-pointer transition-all`}
+          >
+            <div className={`p-2.5 rounded-xl transition-all duration-300 group-hover:scale-110 ${
+              isLight
+                ? 'bg-gradient-to-br from-orange-400 to-orange-600 text-white shadow-[0_0_20px_rgba(234,88,12,0.35)] group-hover:shadow-[0_0_30px_rgba(234,88,12,0.5)]'
+                : 'bg-gradient-to-br from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] group-hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]'
+            }`}>
+              <MessageCircle size={17} />
+            </div>
+            <span className={`text-[7.5px] tracking-widest font-extrabold uppercase ${
+              isLight ? 'text-orange-600' : 'text-purple-300'
+            }`}>
+              {mobileOpen ? "LET'S TALK" : "LET'S TALK"}
+            </span>
+          </button>
+
+          {/* Divider */}
+          <div className={`w-6 h-px ${isLight ? 'bg-orange-200' : 'bg-purple-900/50'}`} />
+
+          {/* Social Icons */}
+          <div className={`flex flex-col gap-3.5 ${isLight ? 'text-stone-400' : 'text-gray-500'}`}>
             <a href="https://github.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
-              <GithubIcon size={16} />
+              <GithubIcon size={15} />
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
-              <LinkedinIcon size={16} />
+              <LinkedinIcon size={15} />
             </a>
             <a href="https://x.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
-              <TwitterIcon size={16} />
+              <TwitterIcon size={15} />
             </a>
           </div>
 
-          <div className={`text-[8.5px] text-center font-mono ${isLight ? 'text-stone-400' : 'text-gray-400'}`}>
-            © 2026 Prakash.
+          <div className={`text-[7px] text-center font-mono ${isLight ? 'text-stone-300' : 'text-gray-600'}`}>
+            © 2026
           </div>
         </div>
       </aside>
+
+      <AIAssistant isOpen={aiOpen} onClose={() => setAiOpen(false)} theme={theme} />
     </>
   );
 }

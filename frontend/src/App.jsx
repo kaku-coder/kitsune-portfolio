@@ -8,6 +8,8 @@ import logoImg from './assets/logo.png';
 
 import Projectpage from './pages/Projectpage';
 import Skillpage from './pages/Skillpage';
+import Blogpage from './pages/Blogpage';
+import Contactpage from './pages/Contactpage';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -89,6 +91,10 @@ function App() {
             <Projectpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           ) : activeSection === 'skills' ? (
             <Skillpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
+          ) : activeSection === 'blog' ? (
+            <Blogpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
+          ) : activeSection === 'contact' ? (
+            <Contactpage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           ) : (
             <HomePage theme={theme} toggleTheme={toggleTheme} setActiveSection={setActiveSection} />
           )}
