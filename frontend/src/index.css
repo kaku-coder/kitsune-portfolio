@@ -12,6 +12,11 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
   }
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
 }
 
 /* ─── Light Theme ─── */
@@ -587,4 +592,32 @@
 
 .tt-logo-fade {
   animation: ttLogoFade 0.3s ease forwards;
+}
+
+/* GPU Acceleration for smooth mobile scrolling */
+.will-change-transform {
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Prevent layout shifts on mobile during scroll */
+@supports (overflow: clip) {
+  .overflow-clip-safe {
+    overflow: clip;
+  }
+}
+
+/* Smooth scroll behavior - disable on mobile for performance */
+@media (min-width: 1024px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Disable sticky on mobile to prevent jitter */
+@media (max-width: 1023px) {
+  .lg\:sticky {
+    position: relative !important;
+  }
 }

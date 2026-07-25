@@ -76,12 +76,12 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
     ];
 
     return (
-        <div className="w-full flex flex-col gap-6 py-4 select-none">
+        <div className="w-full flex flex-col gap-3 sm:gap-6 py-3 sm:py-4 select-none">
 
             {/* ================= 1. HERO SECTION (NO BORDER) ================= */}
             <div
                 id="home"
-                className="relative w-full min-h-[580px] lg:min-h-[620px] rounded-3xl overflow-hidden bg-[#0a0714] flex flex-col justify-between p-6 sm:p-10 lg:p-12 group shadow-2xl"
+                className="relative w-full min-h-[420px] sm:min-h-[580px] lg:min-h-[620px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0a0714] flex flex-col justify-between p-4 sm:p-10 lg:p-12 group shadow-2xl"
             >
 
                 {/* Hero Background Image */}
@@ -147,29 +147,29 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </ScrollReveal>
 
                 {/* Main Hero Content (Left Headline & Buttons) */}
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
-                    <div className="lg:col-span-8 flex flex-col gap-4">
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 items-center my-auto">
+                    <div className="lg:col-span-8 flex flex-col gap-2 sm:gap-4">
 
                         <ScrollReveal y={15}>
-                            <div className="text-purple-400 font-serif text-sm tracking-[0.25em] uppercase">
+                            <div className="text-purple-400 font-serif text-xs sm:text-sm tracking-[0.25em] uppercase">
                                 キツネの道
                             </div>
                         </ScrollReveal>
 
                         <TextReveal
                             as="h1"
-                            className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none"
+                            className="text-2xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none"
                             stagger={0.04}
                         >
                             I BUILD DIGITAL <br />
                         </TextReveal>
 
-                        <span className="font-signature text-purple-400 text-5xl sm:text-6xl lg:text-7xl block my-1 font-bold">
+                        <span className="font-signature text-purple-400 text-3xl sm:text-6xl lg:text-7xl block my-0.5 sm:my-1 font-bold">
                             EXPERIENCES
                         </span>
 
                         <ScrollReveal y={15} delay={0.2}>
-                            <div className="flex flex-wrap items-center gap-2 text-xs font-bold tracking-widest text-purple-300 uppercase py-0.5">
+                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold tracking-widest text-purple-300 uppercase py-0.5">
                                 <span>FULL STACK DEVELOPER</span>
                                 <span className="text-purple-500">•</span>
                                 <span>MERN STACK</span>
@@ -179,34 +179,34 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         </ScrollReveal>
 
                         <ScrollReveal y={15} delay={0.3}>
-                            <p className="text-gray-300 text-xs sm:text-sm max-w-lg leading-relaxed">
+                            <p className="text-gray-300 text-[11px] sm:text-sm max-w-lg leading-relaxed">
                                 I craft fast, scalable and beautiful web applications with clean code and thoughtful design.
                             </p>
                         </ScrollReveal>
 
                         {/* Buttons Row */}
                         <ScrollReveal y={15} delay={0.4}>
-                            <div className="flex flex-wrap items-center gap-5 pt-3">
+                            <div className="flex flex-wrap items-center gap-2.5 sm:gap-5 pt-2 sm:pt-3">
                             {/* Primary Button */}
                             <a
                                 href="#projects"
-                                className="px-6 py-3.5 rounded-xl bg-[#140e29] hover:bg-purple-950/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 text-xs font-bold tracking-widest uppercase flex items-center gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn"
+                                className="px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl bg-[#140e29] hover:bg-purple-950/80 border border-purple-500/40 hover:border-purple-400 text-purple-200 text-[10.5px] sm:text-xs font-bold tracking-widest uppercase flex items-center gap-2 sm:gap-3 transition-all duration-300 shadow-lg shadow-purple-950/60 active:scale-95 group/btn"
                             >
                                 <span>EXPLORE MY WORK</span>
-                                <span className="text-purple-400 font-mono text-sm group-hover/btn:translate-x-1 transition-transform">⊣</span>
+                                <span className="text-purple-400 font-mono text-xs sm:text-sm group-hover/btn:translate-x-1 transition-transform">⊣</span>
                             </a>
 
                             {/* Secondary Button - VIEW RESUME */}
                             <div
                                 onClick={() => setActiveSection && setActiveSection('about')}
-                                className="px-4 py-2.5 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 text-gray-200 text-xs font-bold flex items-center gap-3 transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group/cv"
+                                className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 hover:border-purple-400 text-gray-200 text-[10.5px] sm:text-xs font-bold flex items-center gap-2 sm:gap-3 transition-all duration-300 cursor-pointer shadow-lg active:scale-95 group/cv"
                             >
-                                <div className="w-8 h-8 rounded-full bg-purple-600/40 border border-purple-400/50 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover/cv:scale-110 transition-transform">
-                                    <Download size={14} className="text-purple-300" />
+                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-600/40 border border-purple-400/50 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.4)] group-hover/cv:scale-110 transition-transform">
+                                    <Download size={12} className="text-purple-300" />
                                 </div>
                                 <div className="flex flex-col text-left">
-                                    <span className="text-[11px] font-bold text-purple-200 uppercase tracking-wider">VIEW RESUME</span>
-                                    <span className="text-[9px] text-gray-400 font-mono">About Section</span>
+                                    <span className="text-[10px] sm:text-[11px] font-bold text-purple-200 uppercase tracking-wider">VIEW RESUME</span>
+                                    <span className="text-[8px] sm:text-[9px] text-gray-400 font-mono">About Section</span>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +228,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
 
                     {/* CURRENT STATUS & EXPERIENCE Card */}
                     <ScrollReveal y={20} delay={0.3}>
-                    <div className="p-4 sm:p-5 rounded-2xl bg-[#0d091a]/95 backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex flex-col gap-3 min-w-[240px] ml-auto">
+                    <div className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-[#0d091a]/95 backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex flex-col gap-2 sm:gap-3 w-full sm:min-w-[240px] sm:ml-auto">
                         <div className="text-[10px] uppercase font-bold tracking-widest text-purple-400 flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7]" />
                             CURRENT STATUS
@@ -266,13 +266,13 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
             </div>
 
             {/* ================= 2. BENTO GRID SECTION ================= */}
-            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15} id="about">
+            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6" stagger={0.15} id="about">
 
                 {/* CARD 1: ABOUT ME */}
                 <div
                     id="about"
                     onClick={() => setActiveSection && setActiveSection('about')}
-                    className="lg:col-span-4 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between relative overflow-hidden group hover:bg-[#0e0a1c] transition-all duration-300 shadow-2xl min-h-[280px] cursor-pointer"
+                    className="lg:col-span-4 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden group hover:bg-[#0e0a1c] transition-all duration-300 shadow-2xl min-h-[220px] sm:min-h-[280px] cursor-pointer"
                 >
                     {/* Background Overlay */}
                     <div className="absolute inset-0 z-0 overflow-hidden">
@@ -321,7 +321,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 2: FEATURED PROJECT (AI BATTLE ARENA) */}
-                <div id="projects" className="lg:col-span-5 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div id="projects" className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
@@ -332,21 +332,21 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         </a>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center my-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-4 items-center my-auto">
                         
                         {/* Left Info */}
                         <div className="sm:col-span-6 flex flex-col justify-between h-full">
                             <div>
-                                <h3 className="text-xl font-black text-white mb-0.5">
+                                <h3 className="text-lg sm:text-xl font-black text-white mb-0.5">
                                     AI Battle Arena
                                 </h3>
                                 <BrushUnderline />
 
-                                <p className="text-gray-300 text-xs leading-relaxed mb-3">
+                                <p className="text-gray-300 text-[11px] sm:text-xs leading-relaxed mb-2 sm:mb-3">
                                     Real-time AI battle platform where different AI models compete and users vote for the best response.
                                 </p>
 
-                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-4">
                                     {['MERN', 'Socket.io', 'AI', 'Tailwind', 'MongoDB'].map((tag) => (
                                         <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 border border-purple-500/20 text-[10px] font-bold text-purple-300">
                                             {tag}
@@ -365,7 +365,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         </div>
 
                         {/* Right Mockup Screen Frame (Pure Purple Theme) */}
-                        <div className="sm:col-span-6 relative w-full h-44 rounded-xl bg-[#06040a] border border-purple-500/20 p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame hover:border-purple-400/50 transition-colors">
+                        <div className="sm:col-span-6 relative w-full h-32 sm:h-44 rounded-lg sm:rounded-xl bg-[#06040a] border border-purple-500/20 p-2 sm:p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame hover:border-purple-400/50 transition-colors">
                             <div className="flex items-center justify-between text-[9px] text-purple-300 font-mono border-b border-purple-900/40 pb-1.5">
                                 <span className="font-bold tracking-widest">AI BATTLE ARENA</span>
                                 <span className="text-purple-400 flex items-center gap-1 font-bold">
@@ -403,7 +403,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* CARD 3: TECH STACK (STYLED CARDS - PURPLE THEME) */}
-                <div id="skills" className="lg:col-span-3 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div id="skills" className="lg:col-span-3 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
@@ -414,16 +414,16 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         </div>
 
                         {/* Tech Cards Grid */}
-                        <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-4 gap-2 mb-3">
+                        <div className="grid grid-cols-4 gap-1.5 sm:gap-2 mb-3">
                             {techStack.map((tech) => {
                                 const Icon = tech.icon;
                                 return (
                                     <div
                                         key={tech.name}
-                                        className="p-2.5 rounded-xl bg-[#110b24]/90 border border-purple-500/20 hover:border-purple-400/50 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
+                                        className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#110b24]/90 border border-purple-500/20 hover:border-purple-400/50 flex flex-col items-center justify-center gap-1 sm:gap-1.5 transition-all duration-300 hover:scale-105 group hover:shadow-lg hover:shadow-purple-950/50 cursor-pointer"
                                     >
-                                        <Icon size={20} className={`${tech.color} group-hover:scale-110 transition-transform`} />
-                                        <span className="text-[9.5px] font-bold text-gray-300 group-hover:text-purple-200 truncate max-w-full">
+                                        <Icon size={16} className={`${tech.color} group-hover:scale-110 transition-transform`} />
+                                        <span className="text-[8px] sm:text-[9.5px] font-bold text-gray-300 group-hover:text-purple-200 truncate max-w-full">
                                             {tech.name}
                                         </span>
                                     </div>
@@ -442,10 +442,10 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
             </StaggerCards>
 
             {/* ================= 3. BENTO GRID ROW 2: GITHUB & BLOGS ================= */}
-            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15}>
+            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6" stagger={0.15}>
 
                 {/* GITHUB ACTIVITY CARD */}
-                <div className="lg:col-span-7 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div className="lg:col-span-7 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                             <GithubIcon size={18} className="text-purple-400" />
@@ -479,7 +479,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                     href={repo.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-between p-2.5 rounded-lg bg-[#06040a] border border-purple-900/20 hover:border-purple-500/40 transition-all group"
+                                    className="flex items-center justify-between p-2 rounded-lg bg-[#06040a] border border-purple-900/20 hover:border-purple-500/40 transition-all group"
                                 >
                                     <div className="flex flex-col gap-0.5 min-w-0">
                                         <span className="text-[11px] font-bold text-purple-300 group-hover:text-purple-200 transition-colors font-mono truncate">
@@ -522,7 +522,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </div>
 
                 {/* RECENT BLOGS CARD */}
-                <div id="blog" className="lg:col-span-5 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
+                <div id="blog" className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-400 uppercase">
                             <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />

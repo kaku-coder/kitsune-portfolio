@@ -100,36 +100,37 @@ const categories = [
   { id: 'tools', label: 'Tools & Utilities', icon: Wrench },
 ];
 
-// Sleek & Perfected Laptop Device Mockup Component
+// Sleek Laptop Device Mockup Component (Responsive for Desktop & Mobile)
 const LaptopMockup = ({ image, alt, isLight }) => (
-  <div className="relative w-full max-w-[580px] mx-auto group/laptop transition-transform duration-500 hover:scale-[1.02]">
-    {/* Metallic Display Lid Frame */}
-    <div className={`relative rounded-t-[18px] sm:rounded-t-[22px] p-2.5 sm:p-3.5 pb-2 border border-b-0 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all ${
-      isLight ? 'bg-stone-800 border-stone-700' : 'bg-[#181426] border-purple-500/30'
+  <div className="relative w-full max-w-[260px] xs:max-w-[300px] sm:max-w-[580px] mx-auto group/laptop transition-transform duration-500 hover:scale-[1.03] will-change-transform mt-2 lg:mt-0">
+    {/* Display Lid Frame */}
+    <div className={`relative rounded-t-[12px] sm:rounded-t-[22px] p-1.5 sm:p-3.5 pb-1 sm:pb-2 border border-b-0 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-500 group-hover/laptop:shadow-[0_25px_60px_rgba(168,85,247,0.35)] ${
+      isLight ? 'bg-stone-800 border-stone-700' : 'bg-[#181426] border-purple-500/30 group-hover/laptop:border-purple-400/60'
     }`}>
       {/* Top Camera Dot */}
-      <div className="absolute top-1.5 sm:top-2 left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
-        <div className="w-1.5 h-1.5 rounded-full bg-[#08060f]" />
+      <div className="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+        <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#08060f]" />
       </div>
 
       {/* Screen Frame Display */}
-      <div className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-[16/10] bg-[#0c0916] border border-purple-900/40 shadow-inner">
+      <div className="relative rounded sm:rounded-xl overflow-hidden aspect-[16/10] bg-[#0c0916] border border-purple-900/40 shadow-inner">
         <img
           src={image}
           alt={alt}
-          className="w-full h-full object-cover object-top filter brightness-95 group-hover/laptop:brightness-105 transition-all duration-700"
+          className="w-full h-full object-cover object-top filter brightness-95 group-hover/laptop:brightness-110 group-hover/laptop:scale-[1.02] transition-all duration-700"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
       </div>
     </div>
 
-    {/* Sleek Laptop Base Hinge (Perfectly 100% Width Fit) */}
-    <div className={`w-full h-3.5 sm:h-4.5 rounded-b-[18px] sm:rounded-b-[22px] border-t flex items-center justify-center shadow-2xl relative ${
+    {/* Laptop Base Hinge */}
+    <div className={`w-full h-2.5 sm:h-4.5 rounded-b-[12px] sm:rounded-b-[22px] border-t flex items-center justify-center shadow-2xl relative ${
       isLight
         ? 'bg-gradient-to-b from-stone-700 via-stone-800 to-stone-900 border-stone-600'
         : 'bg-gradient-to-b from-[#241f36] via-[#161224] to-[#0c0916] border-purple-500/30'
     }`}>
-      <div className="w-16 sm:w-20 h-1 bg-[#080611] rounded-full opacity-80" />
+      <div className="w-12 sm:w-20 h-0.5 sm:h-1 bg-[#080611] rounded-full opacity-80" />
       <span className="absolute text-[8px] font-mono text-gray-400/60 uppercase tracking-widest pointer-events-none hidden sm:block">
         MacBook Pro
       </span>
@@ -137,57 +138,51 @@ const LaptopMockup = ({ image, alt, isLight }) => (
   </div>
 );
 
-// Stacking Horizontal Project Card Component (Sticky Scroll Stacking Cards Effect)
+// Horizontal Project Card Component (Sticky Scroll Stacking Cards Effect)
 const HorizontalProjectCard = ({ project, index, isLight }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-40px' });
 
-  // Top sticky offset calculation so each card stacks cleanly over the previous card
-  const stickyTopOffset = 100 + index * 30;
-
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      style={{
-        top: `${stickyTopOffset}px`,
-        zIndex: index + 10
-      }}
-      className={`sticky w-full rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden transition-all duration-500 border grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center shadow-[0_20px_60px_rgba(0,0,0,0.5)] ${
+      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative lg:sticky w-full rounded-2xl sm:rounded-3xl p-4 sm:p-7 lg:p-10 border grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-center box-border transition-all duration-500 ${
         isLight
           ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/40 hover:border-orange-300'
           : project.featured
-            ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400'
-            : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/40'
+            ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400/80 hover:shadow-[0_25px_60px_rgba(168,85,247,0.4)]'
+            : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/50 hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]'
       }`}
+      style={{ top: `${75 + index * 20}px`, zIndex: index + 10 }}
     >
-      {/* Background Japanese Kanji Watermark for Featured Project */}
+      {/* Background Japanese Kanji Watermark */}
       {project.featured && (
-        <div className={`absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 text-[160px] sm:text-[220px] lg:text-[280px] font-serif font-black pointer-events-none select-none z-0 leading-none ${
+        <div className={`absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 text-[100px] sm:text-[220px] lg:text-[280px] font-serif font-black pointer-events-none select-none z-0 leading-none ${
           isLight ? 'text-orange-500/5' : 'text-purple-500/10'
         }`}>
           道
         </div>
       )}
 
-      {/* Left Column: Details */}
-      <div className="lg:col-span-6 flex flex-col justify-between gap-5 relative z-10">
-        <div className="flex flex-col gap-2">
+      {/* Details Section - Full width on mobile (no image), half on desktop */}
+      <div className="col-span-full lg:col-span-6 flex flex-col justify-between gap-3 sm:gap-5 relative z-10 w-full">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           
           {/* Badge Tag */}
           {project.featured ? (
-            <div className={`flex items-center gap-2 text-xs font-black tracking-widest uppercase ${
+            <div className={`flex items-center gap-1.5 text-[10px] sm:text-xs font-black tracking-widest uppercase ${
               isLight ? 'text-orange-500' : 'text-purple-400'
             }`}>
-              <Star size={14} className="fill-current" />
+              <Star size={12} className="fill-current" />
               <span>FEATURED PROJECT</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <div className={`w-2.5 h-2.5 rounded-full ${isLight ? 'bg-orange-500' : 'bg-purple-500'}`} />
-              <span className={`text-xs font-extrabold tracking-widest uppercase ${
+            <div className="flex items-center gap-1.5">
+              <div className={`w-1.5 h-1.5 rounded-full ${isLight ? 'bg-orange-500' : 'bg-purple-500'}`} />
+              <span className={`text-[10px] sm:text-xs font-extrabold tracking-widest uppercase ${
                 isLight ? 'text-orange-500' : 'text-purple-400/90'
               }`}>
                 {project.subtitle}
@@ -196,14 +191,14 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
           )}
 
           {/* Title */}
-          <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black italic tracking-wide uppercase ${
+          <h2 className={`text-base sm:text-3xl lg:text-4xl font-black italic tracking-wide uppercase break-words ${
             isLight ? 'text-stone-900' : 'text-white'
           }`}>
             {project.title}
           </h2>
 
-          {/* Description */}
-          <p className={`text-xs sm:text-sm leading-relaxed font-normal max-w-xl ${
+          {/* Full Description */}
+          <p className={`text-[11px] sm:text-sm leading-snug sm:leading-relaxed font-normal line-clamp-3 sm:line-clamp-none ${
             isLight ? 'text-stone-600' : 'text-gray-300'
           }`}>
             {project.description}
@@ -212,11 +207,11 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
         </div>
 
         {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className={`px-3.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+              className={`px-2 py-0.5 sm:px-3.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-semibold border transition-all ${
                 isLight
                   ? 'bg-orange-50 border-orange-200 text-orange-800'
                   : 'bg-[#140f29] border-purple-500/25 text-purple-300 hover:border-purple-500/50'
@@ -228,58 +223,58 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
         </div>
 
         {/* Footer Metadata */}
-        <div className={`flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-medium pt-2 ${
+        <div className={`flex flex-wrap items-center gap-2.5 sm:gap-6 text-[10.5px] sm:text-xs font-medium pt-1 ${
           isLight ? 'text-stone-500' : 'text-gray-400'
         }`}>
-          <div className="flex items-center gap-1.5">
-            <Calendar size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+          <div className="flex items-center gap-1">
+            <Calendar size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
             <span>{project.date}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Clock size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+          <div className="flex items-center gap-1">
+            <Clock size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
             <span>{project.duration}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <User size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+          <div className="flex items-center gap-1">
+            <User size={12} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
             <span>{project.projectType}</span>
           </div>
         </div>
 
         {/* Action Buttons Row */}
-        <div className="flex flex-wrap items-center gap-3 pt-2">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1 w-full">
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shadow-lg active:scale-95 cursor-pointer ${
+            className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
               isLight
                 ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
                 : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
             }`}
           >
             <span>Live Demo</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={12} />
           </a>
 
           <a
             href={project.caseStudyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 border transition-all active:scale-95 cursor-pointer ${
+            className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 border transition-all active:scale-95 cursor-pointer ${
               isLight
                 ? 'bg-orange-50 border-orange-200 text-stone-700 hover:bg-orange-100'
-                : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 hover:text-white'
+                : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 cursor-pointer'
             }`}
           >
             <span>View Code</span>
-            <GithubIcon size={14} />
+            <GithubIcon size={12} />
           </a>
         </div>
 
       </div>
 
-      {/* Right Column: Refined Laptop Mockup Frame */}
-      <div className="lg:col-span-6 relative z-10 w-full">
+      {/* Right Column: MacBook Laptop Showcase (Desktop Only) */}
+      <div className="hidden lg:block col-span-1 lg:col-span-6 relative z-10 w-full">
         <LaptopMockup image={project.image} alt={project.title} isLight={isLight} />
       </div>
 
@@ -290,6 +285,7 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
 const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
   const [activeTab, setActiveTab] = useState('all');
   const [sortBy, setSortBy] = useState('latest');
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const isLight = theme === 'light';
 
   const filteredProjects = projectsData.filter(p => {
@@ -301,12 +297,12 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-6 sm:gap-8 select-none relative">
+    <div className="w-full min-w-0 mx-auto px-0 sm:px-3 md:px-5 py-2 sm:py-6 flex flex-col gap-3 sm:gap-8 select-none relative box-border">
 
       {/* Theme Toggle Floating Button */}
       <button
         onClick={toggleTheme}
-        className="fixed top-4 right-4 z-[9990] w-10 h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
+        className="fixed top-4 right-4 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full tt-toggle-btn flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg cursor-pointer"
         title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
       >
         {theme === 'dark' ? (
@@ -334,14 +330,14 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={headerInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full min-h-[340px] sm:min-h-[370px] flex items-center mb-2 overflow-hidden rounded-3xl bg-[#0a0714] shadow-2xl"
+        className="relative w-full min-h-[200px] sm:min-h-[340px] flex items-center mb-1 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#0a0714] shadow-2xl"
       >
-        {/* Background Samurai Kitsune Artwork */}
+        {/* Background Samurai Kitsune Main Hero Artwork */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
             src={projectpageImg}
             alt="Kitsune Samurai Avatar"
-            className="tt-dark-img absolute inset-0 w-full h-full object-cover object-[85%_center] filter brightness-110 contrast-105"
+            className="tt-dark-img absolute inset-0 w-full h-full object-cover object-[80%_center] filter brightness-110 contrast-105"
           />
           <img
             src={projectpagesummerImg}
@@ -369,53 +365,53 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-center py-6 px-4 sm:px-8">
-          
-          <div className="lg:col-span-8 flex flex-col items-start gap-4">
+        <div className="relative z-10 w-full flex flex-col justify-center py-5 px-4 sm:px-8 pt-7 sm:pt-6">
+          <div className="flex flex-col items-start gap-2 sm:gap-4 max-w-full sm:max-w-2xl">
             
             {/* Japanese Subtitle Tag */}
-            <div className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase flex items-center gap-2 mb-0.5 font-japanese">
+            <div className="text-purple-400 text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase flex items-center gap-2 font-japanese">
               <span>キツネの道</span>
             </div>
 
             {/* Stylized Brush Header Title */}
-            <div className="flex flex-col select-none">
-              <div className="flex items-center gap-2">
-                <span className="font-brush text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider text-white leading-tight">
+            <div className="flex flex-col select-none w-full">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-brush text-2xl xs:text-3xl sm:text-6xl lg:text-7xl font-bold tracking-wider text-white leading-tight">
                   PRO
                 </span>
-                <span className="font-brush text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider purple-brush-text italic leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                <span className="font-brush text-2xl xs:text-3xl sm:text-6xl lg:text-7xl font-bold tracking-wider purple-brush-text italic leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
                   JECTS
                 </span>
               </div>
 
               {/* Purple Brush Underline Graphic */}
               <div className="relative inline-block mt-0.5">
-                <svg className="w-48 sm:w-64 h-3.5 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
+                <svg className="w-28 xs:w-36 sm:w-64 h-2.5 sm:h-3.5 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
                   <path d="M 2 10 Q 50 2, 198 6 C 150 12, 50 14, 2 10 Z" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
             </div>
 
             {/* Subtitle Description */}
-            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-normal max-w-lg mt-1">
+            <p className="text-gray-300 text-[11.5px] sm:text-sm leading-relaxed font-normal max-w-lg mt-0.5">
               A collection of real-world projects where I transform ideas into functional, scalable and <span className={isLight ? 'text-orange-600 font-bold' : 'text-purple-400 font-bold'}>impactful</span> solutions.
             </p>
 
           </div>
-
         </div>
       </motion.div>
 
       {/* ================= 2. FILTER & SORT CONTROL BAR ================= */}
-      <div className={`sticky top-4 z-[990] w-full rounded-2xl p-2 sm:p-2.5 shadow-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border backdrop-blur-xl ${
+
+      {/* Desktop: Sticky horizontal bar */}
+      <div className={`hidden lg:flex lg:sticky lg:top-3 z-[990] w-full rounded-2xl p-2.5 shadow-2xl items-center justify-between gap-4 border backdrop-blur-xl ${
         isLight
           ? 'bg-white/90 border-orange-200'
           : 'bg-[#0c0916]/90 border-purple-900/40'
       }`}>
         
         {/* Left: Filter Tabs */}
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none py-0.5">
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1">
           {categories.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -423,7 +419,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   isActive
                     ? isLight
                       ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20'
@@ -441,27 +437,104 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
         </div>
 
         {/* Right: Sort By Selector */}
-        <div className="flex items-center gap-2 text-xs font-medium text-gray-400 self-end sm:self-auto px-2">
+        <div className="flex items-center gap-2 text-xs font-medium text-gray-400 px-2">
           <span>Sort by :</span>
-          <div className="relative">
-            <button
-              onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
-                isLight
-                  ? 'bg-orange-50 border-orange-200 text-stone-800'
-                  : 'bg-[#140f29] border-purple-500/20 text-gray-300 hover:border-purple-500/40'
-              }`}
-            >
-              <span className="capitalize">{sortBy}</span>
-              <ChevronDown size={13} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
-            </button>
-          </div>
+          <button
+            onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+              isLight
+                ? 'bg-orange-50 border-orange-200 text-stone-800'
+                : 'bg-[#140f29] border-purple-500/20 text-gray-300 hover:border-purple-500/40'
+            }`}
+          >
+            <span className="capitalize">{sortBy}</span>
+            <ChevronDown size={13} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+          </button>
         </div>
 
       </div>
 
+      {/* Mobile: Floating FAB circle + animated dropdown */}
+      {mobileFilterOpen && (
+        <div
+          className="fixed inset-0 z-[998] bg-black/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setMobileFilterOpen(false)}
+        />
+      )}
+      <div className="lg:hidden fixed bottom-5 right-5 z-[999] flex flex-col items-end gap-3">
+        {/* Animated Filter Dropdown */}
+        <div className={`flex flex-col gap-2 transition-all duration-300 ${
+          mobileFilterOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'
+        }`}>
+          {categories.map((tab, i) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => { setActiveTab(tab.id); setMobileFilterOpen(false); }}
+                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border transition-all duration-200 cursor-pointer ${
+                  mobileFilterOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+                } ${
+                  isActive
+                    ? isLight
+                      ? 'bg-orange-500 text-white border-orange-400'
+                      : 'bg-purple-600 text-white border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]'
+                    : isLight
+                      ? 'bg-white/95 text-stone-700 border-orange-200 hover:bg-orange-50'
+                      : 'bg-[#140f29]/95 text-gray-300 border-purple-500/30 hover:bg-purple-900/50 hover:text-white'
+                }`}
+                style={{
+                  transitionDelay: mobileFilterOpen ? `${i * 50}ms` : `${(categories.length - i) * 30}ms`,
+                }}
+              >
+                <Icon size={14} className={isActive ? 'text-white' : isLight ? 'text-orange-500' : 'text-purple-400'} />
+                <span>{tab.label}</span>
+                {isActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white/80" />}
+              </button>
+            );
+          })}
+
+          {/* Sort toggle */}
+          <button
+            onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
+            className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold shadow-xl border transition-all duration-200 cursor-pointer ${
+              mobileFilterOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            } ${
+              isLight
+                ? 'bg-white/95 text-stone-700 border-orange-200'
+                : 'bg-[#140f29]/95 text-gray-300 border-purple-500/30'
+            }`}
+            style={{
+              transitionDelay: mobileFilterOpen ? `${categories.length * 50}ms` : '0ms',
+            }}
+          >
+            <ChevronDown size={14} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+            <span>Sort: {sortBy === 'latest' ? 'Newest' : 'Oldest'}</span>
+          </button>
+        </div>
+
+        {/* FAB Circle Button */}
+        <button
+          onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+          className={`w-13 h-13 rounded-full flex items-center justify-center shadow-2xl border transition-all duration-300 cursor-pointer active:scale-90 ${
+            mobileFilterOpen ? 'rotate-45' : 'rotate-0'
+          } ${
+            isLight
+              ? 'bg-orange-500 border-orange-400 text-white shadow-orange-500/30'
+              : 'bg-purple-600 border-purple-400 text-white shadow-purple-600/40'
+          }`}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+        </button>
+      </div>
+
       {/* ================= 3. STACKING OVERLAPPING PROJECT CARDS ================= */}
-      <div className="flex flex-col gap-8 sm:gap-12 pb-16 relative">
+      <div className="flex flex-col gap-3 sm:gap-0 pb-8 sm:pb-16 relative w-full">
         {filteredProjects.map((project, index) => (
           <HorizontalProjectCard
             key={project.id}
