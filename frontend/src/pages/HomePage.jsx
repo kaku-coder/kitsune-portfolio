@@ -31,6 +31,9 @@ import cardimage1 from '../assets/cardimage1.jpg';
 import cardimage1summer from '../assets/cardimage1summer.png';
 import logoImg from '../assets/logo.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import StaggerCards from '../components/StaggerCards';
 import useGitHub from '../hooks/useGitHub';
 
 const GithubIcon = ({ size = 18, className = "" }) => (
@@ -130,6 +133,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                 </button>
 
                 {/* Top Right Japanese Quote */}
+                <ScrollReveal y={15} delay={0.5}>
                 <div className="relative z-10 self-end max-w-[260px] text-right pointer-events-none hidden sm:block">
                     <div className="text-purple-400 text-3xl font-serif mb-0.5 leading-none">“</div>
                     <div className="text-gray-200 text-sm font-japanese font-medium tracking-wide leading-relaxed">
@@ -140,36 +144,49 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         — キツネ
                     </div>
                 </div>
+                </ScrollReveal>
 
                 {/* Main Hero Content (Left Headline & Buttons) */}
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
                     <div className="lg:col-span-8 flex flex-col gap-4">
 
-                        <div className="text-purple-400 font-serif text-sm tracking-[0.25em] uppercase">
-                            キツネの道
-                        </div>
+                        <ScrollReveal y={15}>
+                            <div className="text-purple-400 font-serif text-sm tracking-[0.25em] uppercase">
+                                キツネの道
+                            </div>
+                        </ScrollReveal>
 
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none">
+                        <TextReveal
+                            as="h1"
+                            className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none"
+                            stagger={0.04}
+                        >
                             I BUILD DIGITAL <br />
-                            <span className="font-signature text-purple-400 text-5xl sm:text-6xl lg:text-7xl block my-1 font-bold">
-                                EXPERIENCES
-                            </span>
-                        </h1>
+                        </TextReveal>
 
-                        <div className="flex flex-wrap items-center gap-2 text-xs font-bold tracking-widest text-purple-300 uppercase py-0.5">
-                            <span>FULL STACK DEVELOPER</span>
-                            <span className="text-purple-500">•</span>
-                            <span>MERN STACK</span>
-                            <span className="text-purple-500">•</span>
-                            <span>AI ENTHUSIAST</span>
-                        </div>
+                        <span className="font-signature text-purple-400 text-5xl sm:text-6xl lg:text-7xl block my-1 font-bold">
+                            EXPERIENCES
+                        </span>
 
-                        <p className="text-gray-300 text-xs sm:text-sm max-w-lg leading-relaxed">
-                            I craft fast, scalable and beautiful web applications with clean code and thoughtful design.
-                        </p>
+                        <ScrollReveal y={15} delay={0.2}>
+                            <div className="flex flex-wrap items-center gap-2 text-xs font-bold tracking-widest text-purple-300 uppercase py-0.5">
+                                <span>FULL STACK DEVELOPER</span>
+                                <span className="text-purple-500">•</span>
+                                <span>MERN STACK</span>
+                                <span className="text-purple-500">•</span>
+                                <span>AI ENTHUSIAST</span>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal y={15} delay={0.3}>
+                            <p className="text-gray-300 text-xs sm:text-sm max-w-lg leading-relaxed">
+                                I craft fast, scalable and beautiful web applications with clean code and thoughtful design.
+                            </p>
+                        </ScrollReveal>
 
                         {/* Buttons Row */}
-                        <div className="flex flex-wrap items-center gap-5 pt-3">
+                        <ScrollReveal y={15} delay={0.4}>
+                            <div className="flex flex-wrap items-center gap-5 pt-3">
                             {/* Primary Button */}
                             <a
                                 href="#projects"
@@ -193,6 +210,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 </div>
                             </div>
                         </div>
+                        </ScrollReveal>
 
                     </div>
                 </div>
@@ -209,6 +227,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     </div>
 
                     {/* CURRENT STATUS & EXPERIENCE Card */}
+                    <ScrollReveal y={20} delay={0.3}>
                     <div className="p-4 sm:p-5 rounded-2xl bg-[#0d091a]/95 backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex flex-col gap-3 min-w-[240px] ml-auto">
                         <div className="text-[10px] uppercase font-bold tracking-widest text-purple-400 flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7]" />
@@ -240,13 +259,14 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                             </div>
                         </div>
                     </div>
+                    </ScrollReveal>
 
                 </div>
 
             </div>
 
             {/* ================= 2. BENTO GRID SECTION ================= */}
-            <div id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15} id="about">
 
                 {/* CARD 1: ABOUT ME */}
                 <div
@@ -419,10 +439,10 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     </div>
                 </div>
 
-            </div>
+            </StaggerCards>
 
             {/* ================= 3. BENTO GRID ROW 2: GITHUB & BLOGS ================= */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15}>
 
                 {/* GITHUB ACTIVITY CARD */}
                 <div className="lg:col-span-7 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl">
@@ -552,7 +572,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     </div>
                 </div>
 
-            </div>
+            </StaggerCards>
 
 
         </div>

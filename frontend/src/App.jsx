@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import HomePage from './pages/HomePage';
 import Aboutpage from './pages/Aboutpage';
 import LoadingScreen from './components/LoadingScreen';
+import MagneticCursor from './components/MagneticCursor';
 import logoImg from './assets/logo.png';
 
 import Projectpage from './pages/Projectpage';
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <>
+      <MagneticCursor />
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
 
       {/* Theme Transition Overlay */}
@@ -76,7 +78,7 @@ function App() {
         </div>
       )}
 
-      <div className={`min-h-screen text-gray-100 flex overflow-x-hidden selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
+      <div className={`min-h-screen text-gray-100 flex overflow-x-clip selection:text-white ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 tt-main-bg tt-selection`}>
         <div className="hidden md:block w-[120px] flex-shrink-0" />
         <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} theme={theme} />
         <main className="flex-1 min-h-screen sm:px-4 lg:px-6">

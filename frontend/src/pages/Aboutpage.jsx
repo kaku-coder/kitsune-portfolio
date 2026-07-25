@@ -24,6 +24,11 @@ import aboutUserimagesummer from '../assets/aboutUserimagesummer.png';
 import bottomlogo from '../assets/bottomlogo.png';
 import bottomlogoSummer from '../assets/bottomlogo copysummer.png';
 import ImagePetals from '../components/ImagePetals';
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import CounterAnimation from '../components/CounterAnimation';
+import StaggerCards from '../components/StaggerCards';
+import ParallaxImage from '../components/ParallaxImage';
 
 const Aboutpage = ({ theme, toggleTheme }) => {
     // Stats counter items (Clean, realistic, no fake internship text)
@@ -116,16 +121,20 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 
                 {/* Background Samurai Kitsune Artwork */}
                 <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                    <img
-                        src={projectMainimage}
-                        alt="Kitsune Samurai Avatar"
-                        className="tt-dark-img absolute inset-0 w-full h-full object-cover object-[85%_center] filter brightness-105 contrast-105"
-                    />
-                    <img
-                        src={mainimagesummer}
-                        alt="Kitsune Samurai Avatar Summer"
-                        className="tt-light-img absolute inset-0 w-full h-full object-cover object-[85%_center] filter brightness-105 contrast-105"
-                    />
+                    <ParallaxImage speed={0.15} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+                        <img
+                            src={projectMainimage}
+                            alt="Kitsune Samurai Avatar"
+                            className="tt-dark-img w-full h-full object-cover object-[85%_center] filter brightness-105 contrast-105"
+                        />
+                    </ParallaxImage>
+                    <ParallaxImage speed={0.15} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+                        <img
+                            src={mainimagesummer}
+                            alt="Kitsune Samurai Avatar Summer"
+                            className="tt-light-img w-full h-full object-cover object-[85%_center] filter brightness-105 contrast-105"
+                        />
+                    </ParallaxImage>
                     {/* Dark Gradient Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0a0714] via-[#0a0714]/85 via-45% to-transparent tt-dark-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0714] via-transparent to-[#0a0714]/30 tt-dark-overlay" />
@@ -151,15 +160,21 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                     
                     {/* Left Column: Title & Intro */}
                     <div className="lg:col-span-8 flex flex-col items-start gap-4">
-                        <div className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase flex items-center gap-2 mb-0.5 font-japanese">
-                            <span>キツネの道</span>
-                        </div>
+                        <ScrollReveal y={20}>
+                            <div className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase flex items-center gap-2 mb-0.5 font-japanese">
+                                <span>キツネの道</span>
+                            </div>
+                        </ScrollReveal>
 
                         {/* Title - Matching HomePage & ProjectPage */}
                         <div className="flex flex-col select-none">
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide uppercase font-cinzel leading-none drop-shadow-md">
+                            <TextReveal
+                                as="h1"
+                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide uppercase font-cinzel leading-none drop-shadow-md"
+                                stagger={0.04}
+                            >
                                 ABOUT <span className="purple-brush-text font-brush italic">ME</span>
-                            </h1>
+                            </TextReveal>
 
                             {/* Purple Brush Underline Graphic */}
                             <div className="relative inline-block mt-1">
@@ -170,9 +185,11 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                         </div>
 
                         {/* Subtitle intro */}
-                        <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-normal max-w-xl">
-                            I'm a Full Stack Developer passionate about building modern web applications with the MERN stack. I enjoy transforming ideas into responsive, scalable products while continuously learning new technologies and improving my development skills.
-                        </p>
+                        <ScrollReveal y={20} delay={0.4}>
+                            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-normal max-w-xl">
+                                I'm a Full Stack Developer passionate about building modern web applications with the MERN stack. I enjoy transforming ideas into responsive, scalable products while continuously learning new technologies and improving my development skills.
+                            </p>
+                        </ScrollReveal>
 
                         <a
                             href="/Prakash_Das_Resume.pdf"
@@ -189,24 +206,25 @@ const Aboutpage = ({ theme, toggleTheme }) => {
             </div>
 
             {/* ================= 2. STATS COUNTER BAR ================= */}
-            <div className="w-full rounded-2xl bg-[#0c0916] border border-purple-900/30 p-4 sm:p-5 shadow-xl shadow-purple-950/20">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-900/20">
-                    {statsData.map((stat, idx) => {
-                        const Icon = stat.icon;
-                        return (
-                            <div
-                                key={idx}
-                                className={`flex items-center gap-3.5 pt-3 sm:pt-0 ${
-                                    idx !== 0 ? 'sm:pl-4 lg:pl-6' : ''
-                                }`}
-                            >
-                                <div className="w-10 h-10 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.2)] flex-shrink-0">
-                                    <Icon size={18} />
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-xl sm:text-2xl font-black text-white tracking-tight leading-none mb-0.5">
-                                        {stat.value}
-                                    </span>
+            <ScrollReveal>
+                <div className="w-full rounded-2xl bg-[#0c0916] border border-purple-900/30 p-4 sm:p-5 shadow-xl shadow-purple-950/20">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-900/20">
+                        {statsData.map((stat, idx) => {
+                            const Icon = stat.icon;
+                            return (
+                                <div
+                                    key={idx}
+                                    className={`flex items-center gap-3.5 pt-3 sm:pt-0 ${
+                                        idx !== 0 ? 'sm:pl-4 lg:pl-6' : ''
+                                    }`}
+                                >
+                                    <div className="w-10 h-10 rounded-full border border-purple-500/30 bg-purple-950/40 text-purple-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.2)] flex-shrink-0">
+                                        <Icon size={18} />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-xl sm:text-2xl font-black text-white tracking-tight leading-none mb-0.5">
+                                            <CounterAnimation end={stat.value.replace('+', '')} suffix="+" delay={idx * 0.1} />
+                                        </span>
                                     <span className="text-[11px] font-medium text-gray-400 leading-tight">
                                         {stat.label}
                                     </span>
@@ -214,11 +232,12 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                             </div>
                         );
                     })}
+                    </div>
                 </div>
-            </div>
+            </ScrollReveal>
 
             {/* ================= 3. MIDDLE GRID ROW (3 CARDS) ================= */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <StaggerCards className="grid grid-cols-1 lg:grid-cols-12 gap-6" stagger={0.15}>
 
                 {/* CARD 1: WHO I AM */}
                 <div className="lg:col-span-4 rounded-3xl bg-[#0c0916] p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl min-h-[380px]">
@@ -383,10 +402,11 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                     </div>
                 </div>
 
-            </div>
+            </StaggerCards>
 
             {/* ================= 4. BOTTOM ROW (JOURNEY TIMELINE + PHILOSOPHY) ================= */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <ScrollReveal>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
                 {/* MY JOURNEY SO FAR (Left Column) */}
                 <div className="lg:col-span-7 rounded-2xl bg-[#0c0916] p-6 sm:p-7 shadow-xl border border-purple-900/30 relative overflow-hidden">
@@ -467,6 +487,7 @@ const Aboutpage = ({ theme, toggleTheme }) => {
                 </div>
 
             </div>
+            </ScrollReveal>
 
         </div>
     );

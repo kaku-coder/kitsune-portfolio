@@ -7,11 +7,7 @@ import {
   Clock,
   User,
   Star,
-  Code2,
   Zap,
-  Sparkles,
-  Layers,
-  Eye,
   Globe,
   Brain,
   Wrench,
@@ -26,6 +22,13 @@ import projectEcommerce from '../assets/project_ecommerce.png';
 import projectDashboard from '../assets/project_dashboard.png';
 import ImagePetals from '../components/ImagePetals';
 
+const GithubIcon = ({ size = 14, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
 const projectsData = [
   {
     id: 'ai-battle-arena',
@@ -33,7 +36,7 @@ const projectsData = [
     subtitle: 'Where Models Clash',
     category: 'ai',
     featured: true,
-    description: 'Real-time platform where different AI models compete head-to-head and users vote for the best response. Built with live streaming, scoring algorithms and dynamic battle arenas.',
+    description: 'Real-time platform where different AI models compete and users vote for the best response. Built with live streaming, scoring algorithms and dynamic battle arenas.',
     image: projectAiArena,
     tags: ['MERN', 'Socket.io', 'AI', 'Tailwind', 'Docker'],
     date: 'Apr 2024',
@@ -97,127 +100,126 @@ const categories = [
   { id: 'tools', label: 'Tools & Utilities', icon: Wrench },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
+// Sleek & Perfected Laptop Device Mockup Component
+const LaptopMockup = ({ image, alt, isLight }) => (
+  <div className="relative w-full max-w-[580px] mx-auto group/laptop transition-transform duration-500 hover:scale-[1.02]">
+    {/* Metallic Display Lid Frame */}
+    <div className={`relative rounded-t-[18px] sm:rounded-t-[22px] p-2.5 sm:p-3.5 pb-2 border border-b-0 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all ${
+      isLight ? 'bg-stone-800 border-stone-700' : 'bg-[#181426] border-purple-500/30'
+    }`}>
+      {/* Top Camera Dot */}
+      <div className="absolute top-1.5 sm:top-2 left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+        <div className="w-1.5 h-1.5 rounded-full bg-[#08060f]" />
+      </div>
 
-const ProjectCard = ({ project, index, isLight }) => {
+      {/* Screen Frame Display */}
+      <div className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-[16/10] bg-[#0c0916] border border-purple-900/40 shadow-inner">
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-full object-cover object-top filter brightness-95 group-hover/laptop:brightness-105 transition-all duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+      </div>
+    </div>
+
+    {/* Sleek Laptop Base Hinge (Perfectly 100% Width Fit) */}
+    <div className={`w-full h-3.5 sm:h-4.5 rounded-b-[18px] sm:rounded-b-[22px] border-t flex items-center justify-center shadow-2xl relative ${
+      isLight
+        ? 'bg-gradient-to-b from-stone-700 via-stone-800 to-stone-900 border-stone-600'
+        : 'bg-gradient-to-b from-[#241f36] via-[#161224] to-[#0c0916] border-purple-500/30'
+    }`}>
+      <div className="w-16 sm:w-20 h-1 bg-[#080611] rounded-full opacity-80" />
+      <span className="absolute text-[8px] font-mono text-gray-400/60 uppercase tracking-widest pointer-events-none hidden sm:block">
+        MacBook Pro
+      </span>
+    </div>
+  </div>
+);
+
+// Stacking Horizontal Project Card Component (Sticky Scroll Stacking Cards Effect)
+const HorizontalProjectCard = ({ project, index, isLight }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-40px' });
+
+  // Top sticky offset calculation so each card stacks cleanly over the previous card
+  const stickyTopOffset = 100 + index * 30;
 
   return (
     <motion.div
       ref={ref}
-      custom={index}
-      variants={cardVariants}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      className={`rounded-2xl sm:rounded-3xl p-4 sm:p-5 lg:p-6 flex flex-col md:flex-row gap-5 lg:gap-7 relative overflow-hidden group transition-all duration-500 shadow-2xl border ${
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        top: `${stickyTopOffset}px`,
+        zIndex: index + 10
+      }}
+      className={`sticky w-full rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden transition-all duration-500 border grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center shadow-[0_20px_60px_rgba(0,0,0,0.5)] ${
         isLight
-          ? 'bg-white border-orange-200 hover:border-orange-400 hover:shadow-[0_12px_35px_rgba(234,88,12,0.15)]'
+          ? 'bg-[#fff7ed] border-orange-200 shadow-orange-200/40 hover:border-orange-300'
           : project.featured
-            ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_8px_30px_rgba(168,85,247,0.2)] hover:border-purple-400'
-            : 'bg-[#0c0916] border-purple-900/30 hover:border-purple-500/40 hover:shadow-[0_8px_30px_rgba(168,85,247,0.15)]'
+            ? 'bg-[#0c0916] border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.25)] hover:border-purple-400'
+            : 'bg-[#0a0714] border-purple-900/35 shadow-[0_15px_45px_rgba(0,0,0,0.8)] hover:border-purple-500/40'
       }`}
     >
-      {/* Top Right External Link Button */}
-      <a
-        href={project.liveUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`absolute top-4 right-4 sm:top-5 sm:right-5 p-2.5 sm:p-3 rounded-xl border transition-all z-20 shadow-md active:scale-95 ${
-          isLight
-            ? 'bg-orange-50 border-orange-200 text-stone-700 hover:text-orange-600 hover:border-orange-300'
-            : 'bg-[#140f29] border-purple-500/20 text-purple-300 hover:text-white hover:border-purple-500/50 hover:bg-purple-900/40'
-        }`}
-        title="Open Live Demo"
-      >
-        <ExternalLink size={17} />
-      </a>
-
-      {/* Left Side: Preview Image Container */}
-      <div className="w-full md:w-[42%] lg:w-[38%] h-[200px] sm:h-[230px] md:h-auto min-h-[210px] rounded-xl sm:rounded-2xl overflow-hidden relative group/img flex-shrink-0 border border-purple-900/20 shadow-inner">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover object-top group-hover/img:scale-108 transition-transform duration-700 filter brightness-95"
-        />
-        <div className={`absolute inset-0 bg-gradient-to-t ${isLight ? 'from-orange-50/80' : 'from-[#0c0916]/80'} via-transparent to-transparent opacity-70 pointer-events-none`} />
-
-        {/* Hover Action Overlay Buttons */}
-        <div className="absolute inset-0 bg-purple-950/0 group-hover/img:bg-purple-950/50 transition-all duration-500 hidden sm:flex items-center justify-center opacity-0 group-hover/img:opacity-100 backdrop-blur-[2px]">
-          <div className="flex gap-3">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-purple-600/90 text-white backdrop-blur-md hover:bg-purple-500 transition-all shadow-lg active:scale-95"
-              title="View Live"
-            >
-              <Eye size={18} />
-            </a>
-            <a
-              href={project.caseStudyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white/20 text-white backdrop-blur-md hover:bg-white/30 transition-all shadow-lg active:scale-95"
-              title="View Source"
-            >
-              <Code2 size={18} />
-            </a>
-          </div>
+      {/* Background Japanese Kanji Watermark for Featured Project */}
+      {project.featured && (
+        <div className={`absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 text-[160px] sm:text-[220px] lg:text-[280px] font-serif font-black pointer-events-none select-none z-0 leading-none ${
+          isLight ? 'text-orange-500/5' : 'text-purple-500/10'
+        }`}>
+          道
         </div>
+      )}
 
-        {/* Featured Floating Badge */}
-        {project.featured && (
-          <div className={`absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase backdrop-blur-md shadow-md ${
-            isLight
-              ? 'bg-orange-500 text-white shadow-orange-500/30'
-              : 'bg-purple-600 text-white shadow-purple-600/40 border border-purple-400/40'
-          }`}>
-            <Star size={11} className="fill-current" />
-            <span>FEATURED</span>
-          </div>
-        )}
-      </div>
+      {/* Left Column: Details */}
+      <div className="lg:col-span-6 flex flex-col justify-between gap-5 relative z-10">
+        <div className="flex flex-col gap-2">
+          
+          {/* Badge Tag */}
+          {project.featured ? (
+            <div className={`flex items-center gap-2 text-xs font-black tracking-widest uppercase ${
+              isLight ? 'text-orange-500' : 'text-purple-400'
+            }`}>
+              <Star size={14} className="fill-current" />
+              <span>FEATURED PROJECT</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div className={`w-2.5 h-2.5 rounded-full ${isLight ? 'bg-orange-500' : 'bg-purple-500'}`} />
+              <span className={`text-xs font-extrabold tracking-widest uppercase ${
+                isLight ? 'text-orange-500' : 'text-purple-400/90'
+              }`}>
+                {project.subtitle}
+              </span>
+            </div>
+          )}
 
-      {/* Right Side: Details & Content */}
-      <div className="w-full md:w-[58%] lg:w-[62%] flex flex-col justify-between py-1 gap-3 sm:gap-4 pr-6 md:pr-10">
-        
-        <div className="flex flex-col gap-1.5">
-          <span className={`text-[10px] sm:text-[11px] font-extrabold tracking-widest uppercase ${
-            isLight ? 'text-orange-500' : 'text-purple-400/80'
-          }`}>
-            {project.subtitle}
-          </span>
-
-          <h3 className={`text-xl sm:text-2xl lg:text-3xl font-black italic tracking-wide transition-colors ${
-            isLight ? 'text-stone-900 group-hover:text-orange-600' : 'text-white group-hover:text-purple-300'
+          {/* Title */}
+          <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black italic tracking-wide uppercase ${
+            isLight ? 'text-stone-900' : 'text-white'
           }`}>
             {project.title}
-          </h3>
+          </h2>
 
+          {/* Description */}
           <p className={`text-xs sm:text-sm leading-relaxed font-normal max-w-xl ${
             isLight ? 'text-stone-600' : 'text-gray-300'
           }`}>
             {project.description}
           </p>
+
         </div>
 
         {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-2 my-1">
+        <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${
+              className={`px-3.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
                 isLight
-                  ? 'bg-orange-50 border-orange-200 text-orange-800 hover:border-orange-300'
-                  : 'bg-[#140f29] border-purple-500/20 text-purple-300 hover:border-purple-500/40'
+                  ? 'bg-orange-50 border-orange-200 text-orange-800'
+                  : 'bg-[#140f29] border-purple-500/25 text-purple-300 hover:border-purple-500/50'
               }`}
             >
               {tag}
@@ -225,41 +227,62 @@ const ProjectCard = ({ project, index, isLight }) => {
           ))}
         </div>
 
-        {/* Footer Metadata & Action Link */}
-        <div className={`flex flex-wrap items-center justify-between gap-3 pt-3 border-t mt-auto ${
-          isLight ? 'border-orange-100' : 'border-purple-500/15'
+        {/* Footer Metadata */}
+        <div className={`flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-medium pt-2 ${
+          isLight ? 'text-stone-500' : 'text-gray-400'
         }`}>
-          <div className={`flex items-center gap-3.5 text-xs font-medium ${
-            isLight ? 'text-stone-500' : 'text-gray-400'
-          }`}>
-            <div className="flex items-center gap-1.5">
-              <Calendar size={14} className={isLight ? 'text-orange-400' : 'text-purple-400'} />
-              <span>{project.date}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock size={14} className={isLight ? 'text-orange-400' : 'text-purple-400'} />
-              <span>{project.duration}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <User size={14} className={isLight ? 'text-orange-400' : 'text-purple-400'} />
-              <span>{project.projectType}</span>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <Calendar size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+            <span>{project.date}</span>
           </div>
+          <div className="flex items-center gap-1.5">
+            <Clock size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+            <span>{project.duration}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <User size={15} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
+            <span>{project.projectType}</span>
+          </div>
+        </div>
 
+        {/* Action Buttons Row */}
+        <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all group/link cursor-pointer ${
-              isLight ? 'text-orange-600 hover:text-orange-700' : 'text-purple-400 hover:text-purple-300'
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shadow-lg active:scale-95 cursor-pointer ${
+              isLight
+                ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
+                : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
             }`}
           >
-            <span>View Details</span>
-            <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
+            <span>Live Demo</span>
+            <ArrowRight size={14} />
+          </a>
+
+          <a
+            href={project.caseStudyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 border transition-all active:scale-95 cursor-pointer ${
+              isLight
+                ? 'bg-orange-50 border-orange-200 text-stone-700 hover:bg-orange-100'
+                : 'bg-[#140f29] border-purple-500/30 text-gray-300 hover:bg-purple-900/40 hover:text-white'
+            }`}
+          >
+            <span>View Code</span>
+            <GithubIcon size={14} />
           </a>
         </div>
 
       </div>
+
+      {/* Right Column: Refined Laptop Mockup Frame */}
+      <div className="lg:col-span-6 relative z-10 w-full">
+        <LaptopMockup image={project.image} alt={project.title} isLight={isLight} />
+      </div>
+
     </motion.div>
   );
 };
@@ -267,6 +290,7 @@ const ProjectCard = ({ project, index, isLight }) => {
 const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
   const [activeTab, setActiveTab] = useState('all');
   const [sortBy, setSortBy] = useState('latest');
+  const isLight = theme === 'light';
 
   const filteredProjects = projectsData.filter(p => {
     if (activeTab === 'all') return true;
@@ -277,7 +301,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-6 sm:gap-8 select-none">
+    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-6 sm:gap-8 select-none relative">
 
       {/* Theme Toggle Floating Button */}
       <button
@@ -288,7 +312,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
         {theme === 'dark' ? (
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-300">
             <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x1="12" y2="3" />
+            <line x1="12" y1="1" x2="12" y2="3" />
             <line x1="12" y1="21" x2="12" y2="23" />
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
             <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
@@ -338,6 +362,7 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
           <div className="text-purple-400/80 text-xs font-japanese tracking-[0.3em] [writing-mode:vertical-rl] leading-relaxed drop-shadow">
             静けさの中に、最も強い力が宿る。
           </div>
+
           <div className="w-9 h-9 rounded-lg border border-purple-500/40 bg-purple-950/60 flex items-center justify-center text-xs font-serif text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
             鬼
           </div>
@@ -348,36 +373,34 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
           
           <div className="lg:col-span-8 flex flex-col items-start gap-4">
             
+            {/* Japanese Subtitle Tag */}
             <div className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase flex items-center gap-2 mb-0.5 font-japanese">
-              <span>プロジェクト</span>
+              <span>キツネの道</span>
             </div>
 
-            {/* Title - Matching About Page Style */}
+            {/* Stylized Brush Header Title */}
             <div className="flex flex-col select-none">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide uppercase font-cinzel leading-none drop-shadow-md">
-                PRO<span className="purple-brush-text font-brush italic">JECTS</span>
-              </h1>
+              <div className="flex items-center gap-2">
+                <span className="font-brush text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider text-white leading-tight">
+                  PRO
+                </span>
+                <span className="font-brush text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider purple-brush-text italic leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                  JECTS
+                </span>
+              </div>
 
               {/* Purple Brush Underline Graphic */}
-              <div className="relative inline-block mt-1">
-                <svg className="w-36 sm:w-44 h-3 text-purple-500" viewBox="0 0 160 12" fill="none" preserveAspectRatio="none">
-                  <path d="M 2 8 Q 40 2, 158 5 C 120 11, 40 12, 2 8 Z" fill="currentColor" opacity="0.9" />
+              <div className="relative inline-block mt-0.5">
+                <svg className="w-48 sm:w-64 h-3.5 text-purple-500" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none">
+                  <path d="M 2 10 Q 50 2, 198 6 C 150 12, 50 14, 2 10 Z" fill="currentColor" opacity="0.9" />
                 </svg>
               </div>
             </div>
 
+            {/* Subtitle Description */}
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-normal max-w-lg mt-1">
-              Every project is a step forward — built with curiosity, tested with patience, and driven by the desire to create something that matters.
+              A collection of real-world projects where I transform ideas into functional, scalable and <span className={isLight ? 'text-orange-600 font-bold' : 'text-purple-400 font-bold'}>impactful</span> solutions.
             </p>
-
-            {/* Japanese Quote */}
-            <div className="flex items-center gap-3 mt-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_6px_#a855f7]" />
-              <p className="text-purple-400/80 text-[11px] font-japanese tracking-wider">
-                千里の道も一歩から
-              </p>
-              <span className="text-gray-500 text-[10px] font-normal">— A journey of a thousand miles begins with a single step</span>
-            </div>
 
           </div>
 
@@ -385,7 +408,11 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
       </motion.div>
 
       {/* ================= 2. FILTER & SORT CONTROL BAR ================= */}
-      <div className="w-full rounded-2xl bg-[#0c0916] border border-purple-900/30 p-2 sm:p-2.5 shadow-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+      <div className={`sticky top-4 z-[990] w-full rounded-2xl p-2 sm:p-2.5 shadow-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border backdrop-blur-xl ${
+        isLight
+          ? 'bg-white/90 border-orange-200'
+          : 'bg-[#0c0916]/90 border-purple-900/40'
+      }`}>
         
         {/* Left: Filter Tabs */}
         <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none py-0.5">
@@ -398,11 +425,15 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-[#1a0f35] border border-purple-500/40 text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.25)]'
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-[#140f29]'
+                    ? isLight
+                      ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20'
+                      : 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.35)]'
+                    : isLight
+                      ? 'text-stone-600 hover:text-stone-900 hover:bg-orange-100/60'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-[#140f29]'
                 }`}
               >
-                <Icon size={14} className={isActive ? 'text-purple-400' : 'text-gray-400'} />
+                <Icon size={14} className={isActive ? 'text-white' : 'text-gray-400'} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -415,23 +446,28 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
           <div className="relative">
             <button
               onClick={() => setSortBy(sortBy === 'latest' ? 'oldest' : 'latest')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#140f29] border border-purple-500/20 text-gray-300 text-xs font-semibold hover:border-purple-500/40 transition-all cursor-pointer"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                isLight
+                  ? 'bg-orange-50 border-orange-200 text-stone-800'
+                  : 'bg-[#140f29] border-purple-500/20 text-gray-300 hover:border-purple-500/40'
+              }`}
             >
               <span className="capitalize">{sortBy}</span>
-              <ChevronDown size={13} className="text-purple-400" />
+              <ChevronDown size={13} className={isLight ? 'text-orange-500' : 'text-purple-400'} />
             </button>
           </div>
         </div>
 
       </div>
 
-      {/* ================= 3. PROJECT CARDS LIST ================= */}
-      <div className="flex flex-col gap-5 sm:gap-6">
+      {/* ================= 3. STACKING OVERLAPPING PROJECT CARDS ================= */}
+      <div className="flex flex-col gap-8 sm:gap-12 pb-16 relative">
         {filteredProjects.map((project, index) => (
-          <ProjectCard
+          <HorizontalProjectCard
             key={project.id}
             project={project}
             index={index}
+            isLight={isLight}
           />
         ))}
       </div>
