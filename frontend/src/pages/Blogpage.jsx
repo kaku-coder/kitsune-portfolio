@@ -64,34 +64,101 @@ const Blogpage = ({ theme, toggleTheme, setActiveSection }) => {
       prefix: 'How I Built',
       subtitle: 'Real-time AI LLM Benchmarking Platform',
       description:
-        'The complete story of building a real-time AI battle platform with LangChain, OpenAI, Gemini, and modern web technologies. Streaming tokens live and scoring win rates with ELO ranking.',
+        'Two AI models walk into a bar. One writes code. The other writes better code. An AI judge decides who wins. Here is how I built the whole thing with LangGraph, Mistral, Cohere, and Groq.',
       category: 'AI',
-      readTime: '8 min read',
+      readTime: '12 min read',
       date: 'July 12, 2026',
       featured: true,
       image: aiArenaBlogImage,
       content: `
-### Building a Real-time AI Battle Platform
+## How it actually works
 
-Evaluating Large Language Models (LLMs) requires real-time side-by-side comparison. In this blog article, I break down how **AI Battle Arena** was engineered from scratch.
+Two AI models walk into a bar. One writes code. The other writes better code. An AI judge decides who wins.
 
-#### Key Architectural Highlights:
-1. **Server-Sent Events & Streaming**: Leveraging SSE for latency-free token streaming directly into React components.
-2. **LangChain Multi-Agent Router**: Routing prompt payloads concurrently to OpenAI GPT-4, Google Gemini Pro, and Claude 3.5.
-3. **Elo Rating Engine**: Implementing an automated chess-style ELO scoring algorithm to evaluate response win rates.
+That's basically what this project does — but with a really nice UI.
 
-\`\`\`javascript
-// Streaming LLM Responses Live
-const responseStream = await openai.chat.completions.create({
-  model: 'gpt-4o',
-  messages: [{ role: 'user', content: prompt }],
-  stream: true,
-});
+You type in a programming challenge, and two different LLMs (Mistral Large and Cohere Command R+) independently generate solutions. Then a third AI (Llama 3.3 via Groq) judges both answers on correctness, complexity, readability, and scalability. Scores come back, a winner is declared, and the whole thing is saved to your history.
 
-for await (const chunk of responseStream) {
-  process.stdout.write(chunk.choices[0]?.delta?.content || '');
-}
+### The LangGraph Workflow
+
+The backend is built on **LangGraph** — a framework for running multi-step AI workflows as a state graph. Here's the flow:
+
 \`\`\`
+Your Prompt
+    │
+    ▼
+┌──────────────────────────┐
+│   generateSolutions      │
+│   (runs in parallel)     │
+├────────────┬─────────────┤
+│            │             │
+▼            ▼             │
+Mistral    Cohere          │
+Large      Command R+      │
+│            │             │
+└────────────┴─────────────┘
+         │
+         ▼
+┌──────────────────────────┐
+│      judgeNode           │
+│  Llama 3.3 (Groq)       │
+│  ↓ fallback: Gemini 2.0  │
+└──────────────────────────┘
+         │
+         ▼
+   Score & Save to DB
+\`\`\`
+
+Both models get the same prompt at the same time (parallel execution via \`Promise.all\`). The judge gets both solutions plus the original prompt, scores each on a 0-10 scale, and picks a winner. If Groq goes down, Gemini picks up the judging automatically.
+
+Each contestant model also has a fallback — if Mistral or Cohere fails, Groq's Llama 3.1 8B steps in. So the whole thing is pretty resilient.
+
+### Tech Stack
+
+**Frontend**
+- React 19 + Vite 8
+- Tailwind CSS 4
+- Google Material Symbols
+- Custom glassmorphism design system
+- Dark/Light theme toggle
+
+**Backend**
+- Express 5 + TypeScript
+- LangChain + LangGraph (workflow orchestration)
+- MongoDB + Mongoose
+- Zod (structured output validation)
+
+**AI Models**
+| Role | Model | Provider | Fallback |
+|------|-------|----------|----------|
+| Contestant A | Mistral Large | Mistral AI | Groq Llama 3.1 8B |
+| Contestant B | Cohere Command R+ | Cohere | Groq Llama 3.1 8B |
+| Judge | Llama 3.3 70B | Groq | Gemini 2.0 Flash |
+
+### API Endpoints
+
+| Method | Endpoint | What it does |
+|--------|----------|-------------|
+| POST | \`/graph\` | Run a battle — send \`{ "problem": "your prompt" }\` |
+| GET | \`/history\` | Get all past battles |
+| GET | \`/health\` | Server health check |
+| GET | \`/api/leaderboard\` | Model rankings with ELO scores |
+| GET | \`/api/comparisons\` | List saved comparison presets |
+| POST | \`/api/comparisons\` | Create a new preset |
+| DELETE | \`/api/comparisons/:id\` | Delete a preset |
+
+### How the Judge Thinks
+
+The judge model receives a system prompt asking it to evaluate solutions on:
+
+1. **Correctness** — Does the code actually work?
+2. **Time Complexity** — Is the algorithm efficient?
+3. **Space Complexity** — Memory usage
+4. **Readability** — Clean code, good naming, comments
+5. **Scalability** — Can it handle growth?
+6. **Best Practices** — Language idioms, error handling
+
+It scores each solution 0-10, provides reasoning, and returns structured JSON (validated with Zod). The model with the higher score wins. If scores are equal, it's a draw.
 
 ### ELO Rating System
 
@@ -108,11 +175,15 @@ function calculateElo(winnerElo, loserElo, k = 32) {
 }
 \`\`\`
 
-### Tech Stack
-- **Frontend**: React + Tailwind CSS + Framer Motion
-- **Backend**: Express.js + Server-Sent Events
-- **AI**: LangChain + OpenAI GPT-4o + Google Gemini Pro
-- **Database**: MongoDB (battles, ratings, prompts)
+### Features
+
+**The Arena** — Type any programming challenge and hit Enter. Two AI models independently generate solutions side by side with a typewriter animation. The judge evaluates both and picks a winner.
+
+**Leaderboard** — Tracks every model's performance across all battles. Uses a custom ELO-style rating system: \`1000 + (winRate * 5) + (avgScore * 20)\`.
+
+**History** — All your past battles are saved automatically. Search through them, click "Load in Arena" to re-run or review any previous result.
+
+**Saved Comparisons** — Save your favorite model matchups as presets. Pick Model A, Model B, and the judge model — save it and load it instantly next time.
       `,
     },
     {
