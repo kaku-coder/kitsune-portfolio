@@ -43,7 +43,7 @@ const projectsData = [
     date: 'Apr 2024',
     duration: '3 Months',
     projectType: 'Personal Project',
-    liveUrl: 'https://ai-battle-arena-yq4a.vercel.app',
+    liveUrl: 'https://ai-battle-arena-3-s55j.onrender.com',
     caseStudyUrl: 'https://github.com/kaku-coder/AI-Battle-Arena',
   },
   {

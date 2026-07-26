@@ -26,6 +26,7 @@ import {
 import projectMainimage from '../assets/projectMainimage.png';
 import projectpagesummer from '../assets/projectpagesummer.png';
 import project_ai_arena from '../assets/project_ai_arena.png';
+import aiArenaBlogImage from '../assets/image.png';
 import project_dashboard from '../assets/project_dashboard.png';
 import project_ecommerce from '../assets/project_ecommerce.png';
 import cardimage1 from '../assets/cardimage1.jpg';
@@ -68,7 +69,7 @@ const Blogpage = ({ theme, toggleTheme, setActiveSection }) => {
       readTime: '8 min read',
       date: 'July 12, 2026',
       featured: true,
-      image: project_ai_arena,
+      image: aiArenaBlogImage,
       content: `
 ### Building a Real-time AI Battle Platform
 
