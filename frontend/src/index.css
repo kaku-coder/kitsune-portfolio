@@ -36,6 +36,30 @@
   }
 }
 
+/* Anti-copy: Prevent Print Screen / Screenshot */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  body::after {
+    content: '© Prakash — prakash.dev — All Rights Reserved';
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    padding-top: 40vh;
+    visibility: visible !important;
+  }
+}
+
+/* DevTools console warning */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
 /* ─── Light Theme ─── */
 [data-theme="light"] body,
 [data-theme="light"] {
