@@ -188,7 +188,7 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
             <a href="https://linkedin.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <LinkedinIcon size={15} />
             </a>
-            <a href="https://x.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
+            <a href="https://x.com/prakash70394254" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <TwitterIcon size={15} />
             </a>
           </div>
