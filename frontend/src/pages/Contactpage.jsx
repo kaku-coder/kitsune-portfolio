@@ -52,10 +52,9 @@ import StaggerCards from '../components/StaggerCards';
 const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
   const isLight = theme === 'light';
 
-  // Secure EmailJS Configuration from .env file
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_hkke994';
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_qnv4gq9';
-  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'l6Z7zk-GLe43tJKMv';
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -79,21 +78,21 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
     {
       title: 'LINKEDIN',
       value: 'linkedin.com/in/prakash',
-      link: 'https://linkedin.com',
+      link: 'https://linkedin.com/in/prakash',
       icon: LinkedinIcon,
     },
     {
       title: 'GITHUB',
-      value: 'github.com/prakash',
-      link: 'https://github.com',
+      value: 'github.com/kaku-coder',
+      link: 'https://github.com/kaku-coder',
       icon: GithubIcon,
     },
   ];
 
   const connectPlatforms = [
     { label: 'Email', value: 'prakashdasdev1@gmail.com', link: 'mailto:prakashdasdev1@gmail.com', icon: Mail },
-    { label: 'LinkedIn', value: 'linkedin.com/in/prakash', link: 'https://linkedin.com', icon: LinkedinIcon },
-    { label: 'GitHub', value: 'github.com/prakash', link: 'https://github.com', icon: GithubIcon },
+    { label: 'LinkedIn', value: 'linkedin.com/in/prakash', link: 'https://linkedin.com/in/prakash', icon: LinkedinIcon },
+    { label: 'GitHub', value: 'github.com/kaku-coder', link: 'https://github.com/kaku-coder', icon: GithubIcon },
     { label: 'Location', value: 'India', link: null, icon: MapPin },
   ];
 
@@ -159,7 +158,6 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      console.error('EmailJS error:', error);
       const msg = error?.text || error?.message || 'Failed to connect to EmailJS service';
       setErrorMessage(msg);
     } finally {
@@ -524,7 +522,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                     <span>EmailJS Status: {errorMessage}</span>
                   </div>
                   <p className="text-[11px] text-gray-300 leading-relaxed">
-                    Make sure Service ID <code className="text-purple-300 font-mono">service_hkke994</code> is connected to your Gmail account in your <a href="https://dashboard.emailjs.com" target="_blank" rel="noreferrer" className="text-purple-400 underline font-bold">EmailJS Dashboard</a>.
+                    Make sure your EmailJS service is connected to your Gmail account in your <a href="https://dashboard.emailjs.com" target="_blank" rel="noreferrer" className="text-purple-400 underline font-bold">EmailJS Dashboard</a>.
                   </p>
                   <a
                     href={`mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`}

@@ -765,25 +765,25 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                   <span className="flex items-center gap-2.5 opacity-80">
                     <FileText size={15} className="text-purple-400" /> Total Articles
                   </span>
-                  <span className="font-extrabold text-white">25+</span>
+                  <span className={`font-extrabold ${isLight ? 'text-stone-900' : 'text-white'}`}>25+</span>
                 </div>
                 <div className="flex items-center justify-between text-xs font-medium">
                   <span className="flex items-center gap-2.5 opacity-80">
                     <BookOpen size={15} className="text-purple-400" /> Total Words
                   </span>
-                  <span className="font-extrabold text-white">50K+</span>
+                  <span className={`font-extrabold ${isLight ? 'text-stone-900' : 'text-white'}`}>50K+</span>
                 </div>
                 <div className="flex items-center justify-between text-xs font-medium">
                   <span className="flex items-center gap-2.5 opacity-80">
                     <Clock size={15} className="text-purple-400" /> Reading Time
                   </span>
-                  <span className="font-extrabold text-white">12+ Hours</span>
+                  <span className={`font-extrabold ${isLight ? 'text-stone-900' : 'text-white'}`}>12+ Hours</span>
                 </div>
                 <div className="flex items-center justify-between text-xs font-medium">
                   <span className="flex items-center gap-2.5 opacity-80">
                     <Sparkles size={15} className="text-purple-400" /> Categories
                   </span>
-                  <span className="font-extrabold text-white">7</span>
+                  <span className={`font-extrabold ${isLight ? 'text-stone-900' : 'text-white'}`}>7</span>
                 </div>
               </div>
 

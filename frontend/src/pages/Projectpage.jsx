@@ -52,14 +52,15 @@ const projectsData = [
     subtitle: 'Full Stack Store',
     category: 'web',
     featured: false,
+    comingSoon: true,
     description: 'Full-stack e-commerce platform with payment integration, admin dashboard and order management.',
     image: projectEcommerce,
     tags: ['MERN', 'Stripe', 'Tailwind', 'Redux', 'Cloudinary'],
     date: 'Mar 2024',
     duration: '2 Months',
     projectType: 'Team Project',
-    liveUrl: 'https://github.com/kaku-coder',
-    caseStudyUrl: 'https://github.com/kaku-coder',
+    liveUrl: '#',
+    caseStudyUrl: '#',
   },
   {
     id: 'developer-dashboard',
@@ -67,37 +68,22 @@ const projectsData = [
     subtitle: 'Analytics Hub',
     category: 'tools',
     featured: false,
+    comingSoon: true,
     description: 'Analytics dashboard to track performance, users and real-time activities.',
     image: projectDashboard,
     tags: ['React', 'Node.js', 'MongoDB', 'Chart.js', 'Tailwind'],
     date: 'Feb 2024',
     duration: '1 Month',
     projectType: 'Personal Project',
-    liveUrl: 'https://github.com/kaku-coder',
-    caseStudyUrl: 'https://github.com/kaku-coder',
+    liveUrl: '#',
+    caseStudyUrl: '#',
   },
-  {
-    id: 'realtime-code-reviewer',
-    title: 'CODE REVIEWER',
-    subtitle: 'AI-Powered Analysis',
-    category: 'realtime',
-    featured: false,
-    description: 'Automated static code analysis and AI bug detection tool with real-time feedback stream and inline suggestions.',
-    image: projectAiArena,
-    tags: ['Python', 'FastAPI', 'OpenAI', 'React', 'Docker'],
-    date: 'Jan 2024',
-    duration: '1 Month',
-    projectType: 'Open Source',
-    liveUrl: 'https://github.com/kaku-coder',
-    caseStudyUrl: 'https://github.com/kaku-coder',
-  }
 ];
 
 const categories = [
   { id: 'all', label: 'All Projects', icon: LayoutGrid },
   { id: 'web', label: 'Web Applications', icon: Globe },
   { id: 'ai', label: 'AI / ML', icon: Brain },
-  { id: 'realtime', label: 'Real-time', icon: Zap },
   { id: 'tools', label: 'Tools & Utilities', icon: Wrench },
 ];
 
@@ -179,7 +165,14 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
           <div className="flex flex-col gap-1.5 sm:gap-2">
             
             {/* Badge Tag */}
-            {project.featured ? (
+            {project.comingSoon ? (
+              <div className={`flex items-center gap-1.5 text-[10px] sm:text-xs font-black tracking-widest uppercase ${
+                isLight ? 'text-orange-500' : 'text-purple-400'
+              }`}>
+                <Clock size={12} className="fill-current" />
+                <span>COMING SOON</span>
+              </div>
+            ) : project.featured ? (
               <div className={`flex items-center gap-1.5 text-[10px] sm:text-xs font-black tracking-widest uppercase ${
                 isLight ? 'text-orange-500' : 'text-purple-400'
               }`}>
@@ -249,33 +242,46 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
 
           {/* Action Buttons Row */}
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1 w-full">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
+            {project.comingSoon ? (
+              <span className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 opacity-60 cursor-not-allowed ${
                 isLight
-                  ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
-                  : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
-              }`}
-            >
-              <span>Live Demo</span>
-              <ArrowRight size={12} />
-            </a>
+                  ? 'bg-orange-200 text-orange-700'
+                  : 'bg-purple-900/40 text-purple-300'
+              }`}>
+                <Clock size={12} />
+                <span>Coming Soon</span>
+              </span>
+            ) : (
+              <>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
+                    isLight
+                      ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30'
+                      : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-600/40'
+                  }`}
+                >
+                  <span>Live Demo</span>
+                  <ArrowRight size={12} />
+                </a>
 
-            <a
-              href={project.caseStudyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer ${
-                isLight
-                  ? 'bg-orange-50 text-stone-700 hover:bg-orange-100'
-                  : 'bg-[#140f29] text-gray-300 hover:bg-purple-900/40 cursor-pointer'
-              }`}
-            >
-              <span>View Code</span>
-              <GithubIcon size={12} />
-            </a>
+                <a
+                  href={project.caseStudyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-[11px] sm:text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer ${
+                    isLight
+                      ? 'bg-orange-50 text-stone-700 hover:bg-orange-100'
+                      : 'bg-[#140f29] text-gray-300 hover:bg-purple-900/40 cursor-pointer'
+                  }`}
+                >
+                  <span>View Code</span>
+                  <GithubIcon size={12} />
+                </a>
+              </>
+            )}
           </div>
 
         </div>
@@ -283,6 +289,15 @@ const HorizontalProjectCard = ({ project, index, isLight }) => {
         {/* Right Column: MacBook Laptop Showcase (Desktop Only) */}
         <div className="hidden lg:block col-span-1 lg:col-span-6 relative z-10 w-full">
           <LaptopMockup image={project.image} alt={project.title} isLight={isLight} />
+          {project.comingSoon && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl sm:rounded-3xl backdrop-blur-sm bg-black/20">
+              <span className={`px-4 py-2 rounded-xl font-black text-sm tracking-widest uppercase ${
+                isLight ? 'bg-orange-500/90 text-white' : 'bg-purple-600/90 text-white'
+              }`}>
+                Coming Soon
+              </span>
+            </div>
+          )}
         </div>
 
       </motion.div>

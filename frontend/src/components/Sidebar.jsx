@@ -182,10 +182,10 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
 
           {/* Social Icons */}
           <div className={`flex flex-col gap-3.5 ${isLight ? 'text-stone-400' : 'text-gray-500'}`}>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
+            <a href="https://github.com/kaku-coder" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <GithubIcon size={15} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
+            <a href="https://linkedin.com/in/prakash" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <LinkedinIcon size={15} />
             </a>
             <a href="https://x.com/prakash70394254" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>

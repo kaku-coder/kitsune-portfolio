@@ -22,6 +22,11 @@ export default function useGitHub() {
           fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`),
         ]);
 
+        if (!userRes.ok || !reposRes.ok) {
+          if (!cancelled) setData((prev) => ({ ...prev, loading: false }));
+          return;
+        }
+
         const user = await userRes.json();
         const repos = await reposRes.json();
 
