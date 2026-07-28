@@ -23,7 +23,8 @@ import {
     CheckCircle2,
     BookOpen,
     Star,
-    Flame
+    Flame,
+    Eye
 } from 'lucide-react';
 import mainimage from '../assets/mainimage.png';
 import mainimagesummer from '../assets/mainimagesummer.png';
@@ -62,6 +63,15 @@ const BrushUnderline = () => (
 
 const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
     const gh = useGitHub();
+    const [visitorCount, setVisitorCount] = useState(0);
+
+    useEffect(() => {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        fetch(`${API_URL}/api/visitor/track`, { method: 'POST' })
+            .then(res => res.json())
+            .then(data => { if (data.count) setVisitorCount(data.count); })
+            .catch(() => {});
+    }, []);
 
     // Pure Black, White & Purple Theme Tech Stack
     const techStack = [
@@ -258,6 +268,15 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 <div className="text-xs font-bold text-gray-100">Open For Work</div>
                             </div>
                         </div>
+
+                        {visitorCount > 0 && (
+                            <div className="flex items-center justify-center gap-1.5 pt-2 border-t border-purple-900/40">
+                                <Eye size={11} className="text-purple-400" />
+                                <span className="text-[10px] font-bold text-purple-300 tracking-wider">
+                                    {visitorCount.toLocaleString()} visitors
+                                </span>
+                            </div>
+                        )}
                     </div>
                     </ScrollReveal>
 

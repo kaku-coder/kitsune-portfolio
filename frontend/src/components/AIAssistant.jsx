@@ -22,6 +22,7 @@ const quickPrompts = [
   { icon: FileText, label: "Can I see your resume?", msg: "Can I get your resume and email?" },
   { icon: Brain, label: "What do you specialize in?", msg: "What are your main areas of expertise?" },
   { icon: Rocket, label: "Are you open for work?", msg: "Are you available for hiring or freelance work?" },
+  { icon: Mail, label: "Send a message to Prakash", msg: "I want to send a message to Prakash" },
 ];
 
 const botAvatar = (
@@ -44,6 +45,99 @@ const TypingIndicator = () => (
   </div>
 );
 
+const ContactForm = ({ theme, onSubmit, onCancel }) => {
+  const isLight = theme === 'light';
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !message.trim()) return;
+    setSending(true);
+    await onSubmit({ name: name.trim(), email: email.trim(), message: message.trim() });
+    setSending(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-1">
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        className={`w-full px-3 py-2 rounded-xl text-xs font-medium outline-none border transition-all ${
+          isLight
+            ? 'bg-white border-orange-200 text-stone-800 focus:border-orange-400 placeholder:text-stone-400'
+            : 'bg-[#1a1435] border-purple-900/40 text-gray-200 focus:border-purple-500/60 placeholder:text-gray-500'
+        }`}
+      />
+      <input
+        type="email"
+        placeholder="Your Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className={`w-full px-3 py-2 rounded-xl text-xs font-medium outline-none border transition-all ${
+          isLight
+            ? 'bg-white border-orange-200 text-stone-800 focus:border-orange-400 placeholder:text-stone-400'
+            : 'bg-[#1a1435] border-purple-900/40 text-gray-200 focus:border-purple-500/60 placeholder:text-gray-500'
+        }`}
+      />
+      <textarea
+        placeholder="Your Message for Prakash"
+        rows={3}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        required
+        className={`w-full px-3 py-2 rounded-xl text-xs font-medium outline-none border transition-all resize-none ${
+          isLight
+            ? 'bg-white border-orange-200 text-stone-800 focus:border-orange-400 placeholder:text-stone-400'
+            : 'bg-[#1a1435] border-purple-900/40 text-gray-200 focus:border-purple-500/60 placeholder:text-gray-500'
+        }`}
+      />
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          disabled={sending || !name.trim() || !email.trim() || !message.trim()}
+          className={`flex-1 px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+            sending ? 'opacity-60 cursor-not-allowed' : ''
+          } ${
+            isLight
+              ? 'bg-orange-500 text-white hover:bg-orange-600'
+              : 'bg-purple-600 text-white hover:bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
+          }`}
+        >
+          {sending ? (
+            <>
+              <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              Sending...
+            </>
+          ) : (
+            <>
+              <Send size={12} />
+              Send Message
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            isLight
+              ? 'bg-stone-100 text-stone-500 hover:bg-stone-200'
+              : 'bg-purple-950/40 text-gray-400 hover:bg-purple-900/30'
+          }`}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+};
+
 export default function AIAssistant({ isOpen, onClose, theme }) {
   const isLight = theme === 'light';
   const [messages, setMessages] = useState([
@@ -55,6 +149,8 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactSent, setContactSent] = useState(false);
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -64,7 +160,7 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping]);
+  }, [messages, isTyping, showContactForm]);
 
   useEffect(() => {
     if (isOpen) {
@@ -97,9 +193,45 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
     setIsTyping(true);
 
     const botText = await getBotResponse(msg);
-    const botMsg = { id: Date.now() + 1, role: 'bot', text: botText };
-    setMessages((prev) => [...prev, botMsg]);
-    setIsTyping(false);
+
+    if (botText.includes('[CONTACT_FLOW]')) {
+      const cleanText = botText.replace('[CONTACT_FLOW]', '').trim();
+      const botMsg = { id: Date.now() + 1, role: 'bot', text: cleanText };
+      setMessages((prev) => [...prev, botMsg]);
+      setIsTyping(false);
+      setShowContactForm(true);
+      setContactSent(false);
+    } else {
+      const botMsg = { id: Date.now() + 1, role: 'bot', text: botText };
+      setMessages((prev) => [...prev, botMsg]);
+      setIsTyping(false);
+    }
+  };
+
+  const handleContactSubmit = async ({ name, email, message }) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/send-message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      });
+      const data = await res.json();
+
+      setShowContactForm(false);
+      setContactSent(true);
+
+      if (data.success) {
+        const botMsg = { id: Date.now() + 2, role: 'bot', text: `Thanks ${name}! Your message has been sent to Prakash. He'll get back to you soon at ${email}. Is there anything else you'd like to know about him?` };
+        setMessages((prev) => [...prev, botMsg]);
+      } else {
+        const botMsg = { id: Date.now() + 2, role: 'bot', text: "Oops, something went wrong while sending your message. Please try reaching Prakash directly at prakashdasdev1@gmail.com or through the Contact page." };
+        setMessages((prev) => [...prev, botMsg]);
+      }
+    } catch {
+      setShowContactForm(false);
+      const botMsg = { id: Date.now() + 2, role: 'bot', text: "Couldn't send your message right now. Please reach Prakash directly at prakashdasdev1@gmail.com or use the Contact section on this portfolio." };
+      setMessages((prev) => [...prev, botMsg]);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -193,6 +325,23 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
                   </div>
                 </motion.div>
               ))}
+
+              {showContactForm && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex gap-2.5"
+                >
+                  {botAvatar}
+                  <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-bl-md ${
+                    isLight
+                      ? 'bg-orange-100 border border-orange-200'
+                      : 'bg-[#140f29] border border-purple-900/30'
+                  }`}>
+                    <ContactForm theme={theme} onSubmit={handleContactSubmit} onCancel={() => setShowContactForm(false)} />
+                  </div>
+                </motion.div>
+              )}
 
               {isTyping && (
                 <div className="flex gap-2.5">
