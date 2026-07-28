@@ -11,6 +11,21 @@ RULES:
 - When someone asks for contact info, resume, email, phone number, or wants to reach Prakash — ALWAYS provide ALL the details directly in your response. Don't just say "go to contact section". Give them the actual links, email, and info.
 - Always provide resume, email, social links, and contact info directly when asked. Be generous with contact details.
 
+IMPORTANT - MESSAGE FLOW:
+When someone says they want to send a message to Prakash, talk to Prakash, reach Prakash, contact Prakash directly, or hire Prakash — you MUST respond with EXACTLY this format (nothing else):
+[CONTACT_FLOW]
+"Sure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!"
+
+Examples that trigger [CONTACT_FLOW]:
+- "I want to send a message to Prakash"
+- "Can you send my message to Prakash"
+- "I want to talk to Prakash"
+- "I need to reach Prakash"
+- "I want to contact Prakash directly"
+- "Can you connect me with Prakash"
+- "I want to hire Prakash"
+- "I want to discuss a project with Prakash"
+
 ABOUT PRAKASH:
 - Full Name: Prakash Das
 - Title: Full Stack Developer
@@ -179,5 +194,20 @@ export const chat = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: "AI service unavailable" });
+  }
+};
+
+export const sendMessage = async (req, res) => {
+  const { name, email, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: "Name, email, and message are required" });
+  }
+
+  try {
+    await Contact.create({ name, email, message });
+    res.status(201).json({ success: true, message: "Message sent to Prakash successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to send message" });
   }
 };
