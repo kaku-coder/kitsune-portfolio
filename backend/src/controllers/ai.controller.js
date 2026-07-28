@@ -1,3 +1,6 @@
+import Contact from "../models/contact.model.js";
+import { sendEmail } from "../utils/email.js";
+
 const SYSTEM_PROMPT = `You are Prakash's personal AI assistant on his portfolio website. You ONLY answer questions about Prakash. If asked about anything else, politely redirect the conversation back to Prakash.
 
 RULES:
@@ -206,6 +209,13 @@ export const sendMessage = async (req, res) => {
 
   try {
     await Contact.create({ name, email, message });
+
+    try {
+      await sendEmail({ name, email, subject: "Message via AI Assistant", message });
+    } catch (emailErr) {
+      console.error("Email notification failed:", emailErr.message);
+    }
+
     res.status(201).json({ success: true, message: "Message sent to Prakash successfully!" });
   } catch (error) {
     res.status(500).json({ error: "Failed to send message" });
