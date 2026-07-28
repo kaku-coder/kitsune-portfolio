@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import {
   Mail,
   MessageSquare,
@@ -51,10 +50,6 @@ import StaggerCards from '../components/StaggerCards';
 
 const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
   const isLight = theme === 'light';
-
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -137,29 +132,27 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
     setErrorMessage('');
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          reply_to: formData.email,
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${API_URL}/api/email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           subject: formData.subject || 'New Portfolio Inquiry',
-          title: formData.subject || 'New Portfolio Inquiry',
-          time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
           message: formData.message,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to send message');
 
       setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      const msg = error?.text || error?.message || 'Failed to connect to EmailJS service';
-      setErrorMessage(msg);
+      setErrorMessage(error.message || 'Failed to send message. Please try again.');
     } finally {
       setSending(false);
     }
@@ -519,11 +512,8 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
                 >
                   <div className="flex items-center gap-2 font-bold text-red-300">
                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                    <span>EmailJS Status: {errorMessage}</span>
+                    <span>Error: {errorMessage}</span>
                   </div>
-                  <p className="text-[11px] text-gray-300 leading-relaxed">
-                    Make sure your EmailJS service is connected to your Gmail account in your <a href="https://dashboard.emailjs.com" target="_blank" rel="noreferrer" className="text-purple-400 underline font-bold">EmailJS Dashboard</a>.
-                  </p>
                   <a
                     href={`mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`}
                     className="inline-flex items-center gap-1.5 text-xs text-orange-400 hover:text-orange-300 font-bold underline mt-1"

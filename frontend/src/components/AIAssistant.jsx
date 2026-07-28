@@ -11,13 +11,17 @@ import {
   FolderKanban,
   Rocket,
   Brain,
+  Mail,
+  FileText,
 } from 'lucide-react';
 
 const quickPrompts = [
   { icon: Code2, label: "What's your tech stack?", msg: "What technologies and tools do you work with?" },
   { icon: FolderKanban, label: "Show me your projects", msg: "Tell me about your best projects" },
-  { icon: Rocket, label: "How can I contact you?", msg: "How can I get in touch with you?" },
+  { icon: Mail, label: "How can I contact you?", msg: "How can I get in touch with you? Give me all your contact details." },
+  { icon: FileText, label: "Can I see your resume?", msg: "Can I get your resume and email?" },
   { icon: Brain, label: "What do you specialize in?", msg: "What are your main areas of expertise?" },
+  { icon: Rocket, label: "Are you open for work?", msg: "Are you available for hiring or freelance work?" },
 ];
 
 const botAvatar = (
@@ -68,33 +72,22 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
     }
   }, [isOpen]);
 
-  const getBotResponse = (userMsg) => {
-    const lower = userMsg.toLowerCase();
-    if (lower.includes('tech') || lower.includes('stack') || lower.includes('skill')) {
-      return "Prakash works with the MERN stack (MongoDB, Express.js, React, Node.js), along with TypeScript, Tailwind CSS, GSAP, Framer Motion, and Three.js. On the backend side, he uses REST APIs, GraphQL, JWT auth, and Socket.io for real-time features. He also works with Docker, GitHub Actions, and cloud deployments.";
+  const getBotResponse = async (userMsg) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg }),
+      });
+      const data = await res.json();
+      if (data.reply) return data.reply;
+      return "Sorry, I couldn't process that. Try asking about Prakash's skills, projects, or experience!";
+    } catch {
+      return "I'm having trouble connecting right now. Try again in a moment!";
     }
-    if (lower.includes('project') || lower.includes('work') || lower.includes('portfolio')) {
-      return "Prakash has built several projects including an E-Commerce platform with Stripe integration, an AI Arena with OpenAI/Gemini integration, a real-time Dashboard, and more. Each project showcases full-stack capabilities from database design to deployment.";
-    }
-    if (lower.includes('contact') || lower.includes('reach') || lower.includes('hire') || lower.includes('email')) {
-      return "You can reach Prakash through the Contact section of this portfolio, or connect with him on GitHub and LinkedIn. He's always open to discussing new opportunities and collaborations!";
-    }
-    if (lower.includes('special') || lower.includes('expert') || lower.includes('focus') || lower.includes('good')) {
-      return "Prakash specializes in full-stack web development with a focus on building modern, scalable applications. His strengths include React frontend development, Node.js backend APIs, AI/LLM integrations, and creating immersive user experiences with animations.";
-    }
-    if (lower.includes('experience') || lower.includes('year') || lower.includes('how long')) {
-      return "Prakash has 2+ years of hands-on development experience, having built 15+ projects across different domains. He's continuously learning and exploring new technologies in AI engineering, DevOps, and 3D web experiences.";
-    }
-    if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-      return "Hey! Welcome to Prakash's portfolio. Feel free to ask me anything about his skills, projects, or experience!";
-    }
-    if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('llm')) {
-      return "Prakash has experience working with OpenAI, Google Gemini, LangChain, Pinecone for vector databases, RAG pipelines, and Hugging Face models. He's focused on building practical AI-powered applications.";
-    }
-    return "That's a great question! Feel free to explore the different sections of the portfolio to learn more about Prakash. You can check out the Skills page for his tech stack, the Projects page for his work, or the About page for his background story.";
   };
 
-  const handleSend = (text) => {
+  const handleSend = async (text) => {
     const msg = text || input.trim();
     if (!msg) return;
 
@@ -103,11 +96,10 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
     setInput('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      const botMsg = { id: Date.now() + 1, role: 'bot', text: getBotResponse(msg) };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 800 + Math.random() * 800);
+    const botText = await getBotResponse(msg);
+    const botMsg = { id: Date.now() + 1, role: 'bot', text: botText };
+    setMessages((prev) => [...prev, botMsg]);
+    setIsTyping(false);
   };
 
   const handleKeyDown = (e) => {
@@ -187,7 +179,7 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
                 >
                   {msg.role === 'bot' ? botAvatar : userAvatar}
                   <div
-                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-medium ${
+                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-medium whitespace-pre-line ${
                       msg.role === 'user'
                         ? isLight
                           ? 'bg-orange-500 text-white rounded-br-md'
