@@ -88,7 +88,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
     { label: 'Email', value: 'prakashdasdev1@gmail.com', link: 'mailto:prakashdasdev1@gmail.com', icon: Mail },
     { label: 'LinkedIn', value: 'linkedin.com/in/prakash', link: 'https://linkedin.com/in/prakash', icon: LinkedinIcon },
     { label: 'GitHub', value: 'github.com/kaku-coder', link: 'https://github.com/kaku-coder', icon: GithubIcon },
-    { label: 'Location', value: 'India', link: null, icon: MapPin },
+    { label: 'Location', value: 'Bhubaneswar, India', link: null, icon: MapPin },
   ];
 
   const services = [

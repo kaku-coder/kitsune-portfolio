@@ -258,7 +258,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                     <MapPin size={10} className="text-purple-400" />
                                     LOCATION
                                 </div>
-                                <div className="text-xs font-bold text-gray-100">India, Earth</div>
+                                <div className="text-xs font-bold text-gray-100">Bhubaneswar, India</div>
                             </div>
                             <div className="flex flex-col gap-0.5">
                                 <div className="text-[9px] uppercase tracking-widest font-extrabold text-purple-300/70 flex items-center gap-1">

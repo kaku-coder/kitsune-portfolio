@@ -172,25 +172,11 @@ function App() {
       )}
 
       {/* Watermark Overlay */}
-      <div className="fixed inset-0 z-[9997] pointer-events-none overflow-hidden opacity-[0.03] select-none">
+      <div className="fixed inset-0 z-[9997] pointer-events-none overflow-hidden opacity-[0.015] select-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 200px, rgba(168,85,247,0.3) 200px, rgba(168,85,247,0.3) 201px)',
-          backgroundSize: '280px 280px'
+          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 300px, rgba(168,85,247,0.15) 300px, rgba(168,85,247,0.15) 301px)',
+          backgroundSize: '400px 400px'
         }} />
-        {Array.from({ length: 30 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-purple-500 font-black text-sm whitespace-nowrap"
-            style={{
-              top: `${(i * 3.5) % 100}%`,
-              left: `${(i * 7.3) % 100}%`,
-              transform: 'rotate(-25deg)',
-              pointerEvents: 'none',
-            }}
-          >
-            prakash.dev — Do not copy
-          </div>
-        ))}
       </div>
 
       {/* Invisible Honeypot Trap */}
