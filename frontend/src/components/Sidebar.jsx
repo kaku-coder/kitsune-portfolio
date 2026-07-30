@@ -185,10 +185,10 @@ export default function Sidebar({ activeSection = 'home', setActiveSection, them
             <a href="https://github.com/kaku-coder" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <GithubIcon size={15} />
             </a>
-            <a href="https://linkedin.com/in/prakash" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
+            <a href="https://www.linkedin.com/in/prakash-das-8374b5296/" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <LinkedinIcon size={15} />
             </a>
-            <a href="https://x.com/prakash70394254" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
+            <a href="https://x.com/prakashdasdev" target="_blank" rel="noreferrer" className={isLight ? 'hover:text-orange-500 transition-colors' : 'hover:text-purple-300 transition-colors'}>
               <TwitterIcon size={15} />
             </a>
           </div>

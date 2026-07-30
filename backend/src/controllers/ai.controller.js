@@ -35,8 +35,8 @@ ABOUT PRAKASH:
 - Location: India
 - Email: prakashdasdev1@gmail.com
 - GitHub: https://github.com/kaku-coder (username: kaku-coder)
-- LinkedIn: https://linkedin.com/in/prakash
-- Twitter/X: https://x.com/prakash70394254 (@prakash70394254)
+- LinkedIn: https://www.linkedin.com/in/prakash-das-8374b5296/
+- Twitter/X: https://x.com/prakashdasdev (@prakashdasdev)
 - Resume: You can download Prakash's resume from the About section of this portfolio, or email him directly at prakashdasdev1@gmail.com to request it.
 - Portfolio Website: This very site you're on!
 
@@ -160,8 +160,8 @@ When anyone asks for contact, email, phone, resume, how to reach, hire, or get i
 
 Email: prakashdasdev1@gmail.com
 GitHub: https://github.com/kaku-coder
-LinkedIn: https://linkedin.com/in/prakash
-Twitter/X: https://x.com/prakash70394254
+LinkedIn: https://www.linkedin.com/in/prakash-das-8374b5296/
+Twitter/X: https://x.com/prakashdasdev
 
 You can also use the Contact section on this portfolio to send him a direct message. He's open for work and actively looking for full-time developer roles!"`;
 
