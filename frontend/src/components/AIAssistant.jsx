@@ -168,19 +168,77 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
     }
   }, [isOpen]);
 
+  const getClientFallbackResponse = (userMsg) => {
+    const query = userMsg.toLowerCase();
+
+    // Contact flow trigger check
+    if (
+      query.includes("message") ||
+      query.includes("talk to") ||
+      query.includes("reach") ||
+      query.includes("hire") ||
+      query.includes("contact") ||
+      query.includes("connect") ||
+      query.includes("get in touch")
+    ) {
+      return `[CONTACT_FLOW]\nSure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!`;
+    }
+
+    // Greetings
+    if (query.includes("hi") || query.includes("hello") || query.includes("hey") || query.includes("who are you")) {
+      return "Hey there! I'm Prakash's AI Assistant. I can help you learn about his skills, projects, experience, or get in touch with him. What would you like to know?";
+    }
+
+    // Contact details & Social links
+    if (query.includes("email") || query.includes("twitter") || query.includes("linkedin") || query.includes("github") || query.includes("social") || query.includes("link")) {
+      return "Here's how you can reach Prakash:\n\nEmail: prakashdasdev1@gmail.com\nGitHub: https://github.com/kaku-coder\nLinkedIn: https://www.linkedin.com/in/prakash-das-8374b5296/\nTwitter/X: https://x.com/prakashdasdev\n\nYou can also use the Contact section on this portfolio to send him a direct message!";
+    }
+
+    // Resume
+    if (query.includes("resume") || query.includes("cv")) {
+      return "You can download Prakash's resume from the About section of this portfolio, or email him directly at prakashdasdev1@gmail.com to request it!";
+    }
+
+    // Skills & Tech
+    if (query.includes("skill") || query.includes("tech") || query.includes("stack") || query.includes("react") || query.includes("node") || query.includes("mern") || query.includes("docker") || query.includes("javascript")) {
+      return "Prakash is a Full Stack Developer specializing in the MERN stack (MongoDB, Express.js, React, Node.js), JavaScript, TypeScript, Tailwind CSS, Framer Motion, Three.js, Docker, REST APIs, Socket.io, and AI integrations (OpenAI, Gemini, LangChain, Pinecone, RAG).";
+    }
+
+    // Projects
+    if (query.includes("project") || query.includes("work") || query.includes("build") || query.includes("arena") || query.includes("app")) {
+      return "Some of Prakash's top projects include:\n1. AI Battle Arena (LIVE) - MERN, Socket.io, AI, Docker (https://ai-battle-arena-3-s55j.onrender.com)\n2. E-Commerce Platform - MERN, Stripe, Tailwind\n3. Developer Dashboard - React, Node.js, MongoDB\n\nCheck out the Projects section on this website to view all details!";
+    }
+
+    // Experience & Stats
+    if (query.includes("experience") || query.includes("background") || query.includes("about") || query.includes("bio") || query.includes("year") || query.includes("available")) {
+      return "Prakash has 2+ years of experience as a Full Stack Developer from India. He has completed 15+ projects, 500+ Git commits, 200+ LeetCode problems solved, and is actively open for full-time developer roles!";
+    }
+
+    return "I'm here to help you learn about Prakash! Feel free to ask about his skills, projects, experience, or how to get in touch with him.";
+  };
+
   const getBotResponse = async (userMsg) => {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg }),
+        signal: controller.signal,
       });
-      const data = await res.json();
-      if (data.reply) return data.reply;
-      return "Sorry, I couldn't process that. Try asking about Prakash's skills, projects, or experience!";
+      clearTimeout(timeoutId);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.reply) return data.reply;
+      }
     } catch {
-      return "I'm having trouble connecting right now. Try again in a moment!";
+      // Backend fetch failed or timed out - seamlessly use client AI engine
     }
+
+    return getClientFallbackResponse(userMsg);
   };
 
   const handleSend = async (text) => {
