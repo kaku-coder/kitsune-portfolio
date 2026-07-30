@@ -165,6 +165,54 @@ Twitter/X: https://x.com/prakashdasdev
 
 You can also use the Contact section on this portfolio to send him a direct message. He's open for work and actively looking for full-time developer roles!"`;
 
+const getFallbackResponse = (message) => {
+  const query = message.toLowerCase();
+
+  // Contact flow trigger check
+  if (
+    query.includes("message") ||
+    query.includes("talk to") ||
+    query.includes("reach") ||
+    query.includes("hire") ||
+    query.includes("contact") ||
+    query.includes("connect")
+  ) {
+    return `[CONTACT_FLOW]\n"Sure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!"`;
+  }
+
+  // Greetings
+  if (query.includes("hi") || query.includes("hello") || query.includes("hey") || query.includes("who are you")) {
+    return "Hey there! I'm Prakash's AI Assistant. I can help you learn about his skills, projects, experience, or get in touch with him. What would you like to know?";
+  }
+
+  // Socials / Contact info
+  if (query.includes("email") || query.includes("twitter") || query.includes("linkedin") || query.includes("github") || query.includes("social") || query.includes("link")) {
+    return "Here's how you can reach Prakash:\n\nEmail: prakashdasdev1@gmail.com\nGitHub: https://github.com/kaku-coder\nLinkedIn: https://www.linkedin.com/in/prakash-das-8374b5296/\nTwitter/X: https://x.com/prakashdasdev\n\nYou can also use the Contact section on this portfolio to send him a direct message!";
+  }
+
+  // Resume
+  if (query.includes("resume") || query.includes("cv")) {
+    return "You can download Prakash's resume from the About section of this portfolio, or email him directly at prakashdasdev1@gmail.com to request it!";
+  }
+
+  // Skills & Tech
+  if (query.includes("skill") || query.includes("tech") || query.includes("stack") || query.includes("react") || query.includes("node") || query.includes("mern") || query.includes("docker") || query.includes("javascript")) {
+    return "Prakash is a Full Stack Developer specializing in the MERN stack (MongoDB, Express.js, React, Node.js), JavaScript, TypeScript, Tailwind CSS, Framer Motion, Three.js, Docker, REST APIs, Socket.io, and AI integrations (OpenAI, Gemini, LangChain, Pinecone, RAG).";
+  }
+
+  // Projects
+  if (query.includes("project") || query.includes("work") || query.includes("build") || query.includes("arena") || query.includes("app")) {
+    return "Some of Prakash's top projects include:\n1. AI Battle Arena (LIVE) - MERN, Socket.io, AI, Docker (https://ai-battle-arena-3-s55j.onrender.com)\n2. E-Commerce Platform - MERN, Stripe, Tailwind\n3. Developer Dashboard - React, Node.js, MongoDB\n\nCheck out the Projects section on this website to view details!";
+  }
+
+  // Experience & Stats
+  if (query.includes("experience") || query.includes("background") || query.includes("about") || query.includes("bio") || query.includes("year")) {
+    return "Prakash has 2+ years of experience as a Full Stack Developer from India. He has completed 15+ projects, 500+ Git commits, 200+ LeetCode problems solved, and actively builds modern web and AI applications.";
+  }
+
+  return "I'm here to help you learn about Prakash! Feel free to ask about his skills, projects, experience, or how to get in touch with him.";
+};
+
 export const chat = async (req, res) => {
   const { message } = req.body;
 
@@ -172,32 +220,71 @@ export const chat = async (req, res) => {
     return res.status(400).json({ error: "Message is required" });
   }
 
-  try {
-    const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.MISTRAL_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "mistral-small-latest",
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: message },
-        ],
-      }),
-    });
+  // Try calling Mistral AI API if key is present
+  if (process.env.MISTRAL_API_KEY) {
+    try {
+      const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.MISTRAL_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "mistral-small-latest",
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: message },
+          ],
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.choices && data.choices[0]) {
-      res.json({ reply: data.choices[0].message.content });
-    } else {
-      res.status(500).json({ error: "No response from AI" });
+      if (response.ok && data.choices && data.choices[0]?.message?.content) {
+        return res.json({ reply: data.choices[0].message.content });
+      }
+
+      console.warn("Mistral AI API call returned non-OK response or error:", data);
+    } catch (error) {
+      console.error("Mistral AI API call error:", error.message);
     }
-  } catch (error) {
-    res.status(500).json({ error: "AI service unavailable" });
   }
+
+  // Try calling Google Gemini API if GEMINI_API_KEY is configured
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [{ text: `${SYSTEM_PROMPT}\n\nUser Question: ${message}` }],
+              },
+            ],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (response.ok && replyText) {
+        return res.json({ reply: replyText });
+      }
+
+      console.warn("Gemini API call returned non-OK response:", data);
+    } catch (error) {
+      console.error("Gemini API call error:", error.message);
+    }
+  }
+
+  // Fallback to intelligent local knowledge engine if external API keys fail or are unauthorized
+  const fallbackReply = getFallbackResponse(message);
+  return res.json({ reply: fallbackReply });
 };
 
 export const sendMessage = async (req, res) => {

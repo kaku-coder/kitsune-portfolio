@@ -117,8 +117,8 @@ this portfolio has anti-copy protections in place — right click is disabled, d
 **Prakash** — full stack developer from India
 
 - github: [kaku-coder](https://github.com/kaku-coder)
-- linkedin: [linkedin.com/in/prakash](https://linkedin.com/in/prakash)
-- twitter: [@prakash70394254](https://x.com/prakash70394254)
+- linkedin: [prakash-das](https://www.linkedin.com/in/prakash-das-8374b5296/)
+- twitter: [@prakashdasdev](https://x.com/prakashdasdev)
 - email: prakashdasdev1@gmail.com
 
 ## license
