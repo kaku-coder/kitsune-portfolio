@@ -218,6 +218,19 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
   };
 
   const getBotResponse = async (userMsg) => {
+    const query = userMsg.toLowerCase();
+    if (
+      query.includes("message") ||
+      query.includes("talk to") ||
+      query.includes("reach") ||
+      query.includes("hire") ||
+      query.includes("contact") ||
+      query.includes("connect") ||
+      query.includes("get in touch")
+    ) {
+      return `[CONTACT_FLOW]\nSure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!`;
+    }
+
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3500);

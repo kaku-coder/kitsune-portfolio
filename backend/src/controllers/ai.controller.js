@@ -220,6 +220,20 @@ export const chat = async (req, res) => {
     return res.status(400).json({ error: "Message is required" });
   }
 
+  // Intercept contact flow queries directly so external LLMs don't skip [CONTACT_FLOW] or hallucinate error messages
+  const lowerMsg = message.toLowerCase();
+  if (
+    lowerMsg.includes("message") ||
+    lowerMsg.includes("talk to") ||
+    lowerMsg.includes("reach") ||
+    lowerMsg.includes("hire") ||
+    lowerMsg.includes("contact") ||
+    lowerMsg.includes("connect") ||
+    lowerMsg.includes("get in touch")
+  ) {
+    return res.json({ reply: getFallbackResponse(message) });
+  }
+
   // Try calling Mistral AI API if key is present
   if (process.env.MISTRAL_API_KEY) {
     try {
