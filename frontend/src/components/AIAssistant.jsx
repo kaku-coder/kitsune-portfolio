@@ -278,16 +278,28 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
       setShowContactForm(false);
       setContactSent(true);
 
-      if (data.success) {
+      if (res.ok && data.success) {
         const botMsg = { id: Date.now() + 2, role: 'bot', text: `Thanks ${name}! Your message has been sent to Prakash. He'll get back to you soon at ${email}. Is there anything else you'd like to know about him?` };
         setMessages((prev) => [...prev, botMsg]);
       } else {
-        const botMsg = { id: Date.now() + 2, role: 'bot', text: "Oops, something went wrong while sending your message. Please try reaching Prakash directly at prakashdasdev1@gmail.com or through the Contact page." };
+        const mailtoUrl = `mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent('Portfolio Message from ' + name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+        const botMsg = {
+          id: Date.now() + 2,
+          role: 'bot',
+          text: "Oops, server couldn't send your message right now. You can click below to send it directly to Prakash via email:",
+          mailtoUrl,
+        };
         setMessages((prev) => [...prev, botMsg]);
       }
     } catch {
       setShowContactForm(false);
-      const botMsg = { id: Date.now() + 2, role: 'bot', text: "Couldn't send your message right now. Please reach Prakash directly at prakashdasdev1@gmail.com or use the Contact section on this portfolio." };
+      const mailtoUrl = `mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent('Portfolio Message from ' + name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+      const botMsg = {
+        id: Date.now() + 2,
+        role: 'bot',
+        text: "Couldn't send your message right now. Click below to send your message directly to Prakash via email:",
+        mailtoUrl,
+      };
       setMessages((prev) => [...prev, botMsg]);
     }
   };
@@ -380,6 +392,23 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
                     }`}
                   >
                     {msg.text}
+                    {msg.mailtoUrl && (
+                      <div className="mt-2.5">
+                        <a
+                          href={msg.mailtoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-md cursor-pointer ${
+                            isLight
+                              ? 'bg-orange-500 hover:bg-orange-600 text-white'
+                              : 'bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]'
+                          }`}
+                        >
+                          <Mail size={13} />
+                          <span>Send via Email Client</span>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}

@@ -177,7 +177,7 @@ const getFallbackResponse = (message) => {
     query.includes("contact") ||
     query.includes("connect")
   ) {
-    return `[CONTACT_FLOW]\n"Sure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!"`;
+    return `[CONTACT_FLOW]\nSure! I'd love to connect you with Prakash. Please fill in the details below and I'll send your message directly to him!`;
   }
 
   // Greetings
@@ -294,17 +294,37 @@ export const sendMessage = async (req, res) => {
     return res.status(400).json({ error: "Name, email, and message are required" });
   }
 
-  try {
-    await Contact.create({ name, email, message });
+  const results = await Promise.allSettled([
+    Contact.create({ name, email, message }),
+    sendEmail({ name, email, subject: "Message via AI Assistant", message }),
+  ]);
 
-    try {
-      await sendEmail({ name, email, subject: "Message via AI Assistant", message });
-    } catch (emailErr) {
-      console.error("Email notification failed:", emailErr.message);
-    }
+  const dbResult = results[0];
+  const emailResult = results[1];
 
-    res.status(201).json({ success: true, message: "Message sent to Prakash successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to send message" });
+  const dbSuccess = dbResult.status === "fulfilled";
+  const emailSuccess = emailResult.status === "fulfilled";
+
+  if (!dbSuccess) {
+    console.error("DB save warning in AI sendMessage:", dbResult.reason?.message);
   }
+
+  if (!emailSuccess) {
+    console.error("Email send warning in AI sendMessage:", emailResult.reason?.message);
+  }
+
+  if (emailSuccess || dbSuccess) {
+    return res.status(201).json({
+      success: true,
+      message: "Message sent to Prakash successfully!",
+      emailSent: emailSuccess,
+      dbSaved: dbSuccess,
+    });
+  }
+
+  return res.status(500).json({
+    error: "Failed to send message",
+    details: emailResult.reason?.message || dbResult.reason?.message,
+  });
 };
+
