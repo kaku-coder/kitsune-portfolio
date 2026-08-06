@@ -21,22 +21,7 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Block drag events on entire page
-  useEffect(() => {
-    const blockDrag = (e) => { e.preventDefault(); return false; };
-    const blockCopy = (e) => {
-      e.preventDefault();
-      return false;
-    };
-    document.addEventListener('dragstart', blockDrag);
-    document.addEventListener('copy', blockCopy);
-    document.addEventListener('cut', blockCopy);
-    return () => {
-      document.removeEventListener('dragstart', blockDrag);
-      document.removeEventListener('copy', blockCopy);
-      document.removeEventListener('cut', blockCopy);
-    };
-  }, []);
+
 
   const toggleTheme = () => {
     if (transPhase) return;

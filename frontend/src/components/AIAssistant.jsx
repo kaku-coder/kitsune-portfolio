@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import {
   Send,
   Bot,
@@ -280,37 +281,67 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
   };
 
   const handleContactSubmit = async ({ name, email, message }) => {
+    let sentSuccessfully = false;
+
+    // 1. Try sending via EmailJS directly from browser
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/ai/send-message`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
-      });
-      const data = await res.json();
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      setShowContactForm(false);
-      setContactSent(true);
-
-      if (res.ok && data.success) {
-        const botMsg = { id: Date.now() + 2, role: 'bot', text: `Thanks ${name}! Your message has been sent to Prakash. He'll get back to you soon at ${email}. Is there anything else you'd like to know about him?` };
-        setMessages((prev) => [...prev, botMsg]);
-      } else {
-        const mailtoUrl = `mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent('Portfolio Message from ' + name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-        const botMsg = {
-          id: Date.now() + 2,
-          role: 'bot',
-          text: "Oops, server couldn't send your message right now. You can click below to send it directly to Prakash via email:",
-          mailtoUrl,
-        };
-        setMessages((prev) => [...prev, botMsg]);
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: name,
+            from_email: email,
+            reply_to: email,
+            subject: `Message via AI Assistant from ${name}`,
+            message: message,
+            to_name: 'Prakash',
+          },
+          publicKey
+        );
+        sentSuccessfully = true;
       }
-    } catch {
-      setShowContactForm(false);
+    } catch (emailjsErr) {
+      console.warn("EmailJS send failed:", emailjsErr);
+    }
+
+    // 2. Try sending via Backend API if not localhost on production
+    const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!sentSuccessfully && apiUrl && (!isProd || !apiUrl.includes('localhost'))) {
+      try {
+        const res = await fetch(`${apiUrl}/api/ai/send-message`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) sentSuccessfully = true;
+      } catch (err) {
+        console.warn("Backend send-message error:", err);
+      }
+    }
+
+    setShowContactForm(false);
+    setContactSent(true);
+
+    if (sentSuccessfully) {
+      const botMsg = {
+        id: Date.now() + 2,
+        role: 'bot',
+        text: `Thanks ${name}! Your message has been sent directly to Prakash. He'll get back to you soon at ${email}. Is there anything else you'd like to know about him?`,
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } else {
       const mailtoUrl = `mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent('Portfolio Message from ' + name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
       const botMsg = {
         id: Date.now() + 2,
         role: 'bot',
-        text: "Couldn't send your message right now. Click below to send your message directly to Prakash via email:",
+        text: "Click below to send your message directly to Prakash via email:",
         mailtoUrl,
       };
       setMessages((prev) => [...prev, botMsg]);

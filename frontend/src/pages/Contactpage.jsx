@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import {
   Mail,
   MessageSquare,
@@ -137,32 +138,64 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
 
     setSending(true);
     setErrorMessage('');
+    let sent = false;
 
+    // 1. Try sending via EmailJS directly from browser
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-      const res = await fetch(`${API_URL}/api/email`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject || 'New Portfolio Inquiry',
-          message: formData.message,
-        }),
-      });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      const data = await res.json();
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            reply_to: formData.email,
+            subject: formData.subject || 'New Portfolio Inquiry',
+            message: formData.message,
+            to_name: 'Prakash',
+          },
+          publicKey
+        );
+        sent = true;
+      }
+    } catch (emailjsErr) {
+      console.warn('EmailJS submission error:', emailjsErr);
+    }
 
-      if (!res.ok) throw new Error(data.error || 'Failed to send message');
+    // 2. Try backend API if not localhost on production
+    const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!sent && apiUrl && (!isProd || !apiUrl.includes('localhost'))) {
+      try {
+        const res = await fetch(`${apiUrl}/api/email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject || 'New Portfolio Inquiry',
+            message: formData.message,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok) sent = true;
+      } catch (err) {
+        console.warn('Backend email submission error:', err);
+      }
+    }
 
+    if (sent) {
       setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
-    } catch (error) {
-      setErrorMessage(error.message || 'Failed to send message. Please try again.');
-    } finally {
-      setSending(false);
+    } else {
+      setErrorMessage('Could not send message automatically. Please click below to send via Email client.');
     }
+    setSending(false);
   };
 
   const headerRef = useRef(null);
@@ -176,7 +209,7 @@ const Contactpage = ({ theme, toggleTheme, setActiveSection }) => {
   };
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 pt-16 sm:pt-8 flex flex-col gap-6 sm:gap-10 select-none relative box-border">
+    <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 md:px-8 py-4 sm:py-8 pt-16 sm:pt-8 flex flex-col gap-6 sm:gap-10 relative box-border">
 
       {/* Floating Theme Toggle Button (Desktop Only - Mobile Has Header Bar) */}
       <button

@@ -66,7 +66,10 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
     const [visitorCount, setVisitorCount] = useState(0);
 
     useEffect(() => {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const API_URL = import.meta.env.VITE_API_URL;
+        if (!API_URL || (isProd && API_URL.includes('localhost'))) return;
+
         fetch(`${API_URL}/api/visitor/track`, { method: 'POST' })
             .then(res => res.json())
             .then(data => { if (data.count) setVisitorCount(data.count); })
