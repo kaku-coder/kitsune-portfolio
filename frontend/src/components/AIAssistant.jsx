@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import emailjs from '@emailjs/browser';
+import { sendPortfolioMessage } from '../utils/sendMessage';
 import {
   Send,
   Bot,
@@ -281,50 +281,12 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
   };
 
   const handleContactSubmit = async ({ name, email, message }) => {
-    let sentSuccessfully = false;
-
-    // 1. Try sending via EmailJS directly from browser
-    try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-      if (serviceId && templateId && publicKey) {
-        await emailjs.send(
-          serviceId,
-          templateId,
-          {
-            from_name: name,
-            from_email: email,
-            reply_to: email,
-            subject: `Message via AI Assistant from ${name}`,
-            message: message,
-            to_name: 'Prakash',
-          },
-          publicKey
-        );
-        sentSuccessfully = true;
-      }
-    } catch (emailjsErr) {
-      console.warn("EmailJS send failed:", emailjsErr);
-    }
-
-    // 2. Try sending via Backend API if not localhost on production
-    const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-    const apiUrl = import.meta.env.VITE_API_URL;
-    if (!sentSuccessfully && apiUrl && (!isProd || !apiUrl.includes('localhost'))) {
-      try {
-        const res = await fetch(`${apiUrl}/api/ai/send-message`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message }),
-        });
-        const data = await res.json();
-        if (res.ok && data.success) sentSuccessfully = true;
-      } catch (err) {
-        console.warn("Backend send-message error:", err);
-      }
-    }
+    const sentSuccessfully = await sendPortfolioMessage({
+      name,
+      email,
+      subject: `Message via AI Assistant from ${name}`,
+      message,
+    });
 
     setShowContactForm(false);
     setContactSent(true);
