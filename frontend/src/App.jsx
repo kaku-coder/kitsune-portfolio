@@ -16,66 +16,10 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [transPhase, setTransPhase] = useState('');
-  const [devtoolsOpen, setDevtoolsOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
-
-  // DevTools detection + keyboard shortcuts block
-  useEffect(() => {
-    const handleContextMenu = (e) => e.preventDefault();
-    const handleKeyDown = (e) => {
-      if (
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-        (e.ctrlKey && e.key === 'U') ||
-        e.key === 'F12' ||
-        (e.metaKey && e.altKey && e.key === 'I')
-      ) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    };
-
-    // DevTools detection via debugger timing
-    const devtoolsDetector = document.createElement('div');
-    let devtoolsisOpen = false;
-    const threshold = 160;
-
-    const emitDevToolsEvent = (isOpen) => {
-      devtoolsisOpen = isOpen;
-      setDevtoolsOpen(isOpen);
-    };
-
-    Object.defineProperty(devtoolsDetector, 'id', {
-      get() {
-        emitDevToolsEvent(true);
-        return 'debug-mode';
-      },
-    });
-
-    const checkDevTools = () => {
-      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-      if (widthThreshold || heightThreshold) {
-        if (!devtoolsisOpen) emitDevToolsEvent(true);
-      } else {
-        if (devtoolsisOpen) emitDevToolsEvent(false);
-      }
-    };
-
-    const devToolsInterval = setInterval(checkDevTools, 1000);
-
-    document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('keydown', handleKeyDown);
-      clearInterval(devToolsInterval);
-    };
-  }, []);
 
   // Block drag events on entire page
   useEffect(() => {
@@ -119,23 +63,6 @@ function App() {
     <>
       <MagneticCursor />
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
-
-      {/* DevTools Warning Overlay */}
-      {devtoolsOpen && (
-        <div className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center pointer-events-none">
-          <div className="text-center px-8 pointer-events-auto">
-            <div className="text-6xl mb-4">&#x1F6A8;</div>
-            <h2 className="text-2xl font-black text-white mb-2 uppercase tracking-widest">DevTools Detected</h2>
-            <p className="text-gray-400 text-sm max-w-md">
-              This portfolio is protected. Source code and design assets are proprietary.
-              Unauthorized copying or replication is strictly prohibited.
-            </p>
-            <p className="text-purple-400 text-xs mt-4 font-mono">
-              &copy; 2026 Prakash — All Rights Reserved
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Theme Transition Overlay */}
       {transPhase && transPhase !== 'done' && (
