@@ -24,28 +24,6 @@
     <meta name="twitter:image" content="/favicon.png" />
 
     <title>Prakash | Portfolio</title>
-    <script>
-      (function () {
-        function block(e) {
-          if (
-            e.key === 'F12' ||
-            ((e.ctrlKey || e.metaKey) &&
-              (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) ||
-            ((e.ctrlKey || e.metaKey) &&
-              e.shiftKey &&
-              (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C'))
-          ) {
-            e.preventDefault()
-            e.stopPropagation()
-          }
-        }
-        document.addEventListener('keydown', block, true)
-
-        document.addEventListener('contextmenu', function (e) {
-          e.preventDefault()
-        })
-      })()
-    </script>
   </head>
   <body>
     <div id="root"></div>
