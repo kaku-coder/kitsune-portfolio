@@ -27,7 +27,7 @@ import projectMainimage from '../assets/projectMainimage.png';
 import projectpagesummer from '../assets/projectpagesummer.png';
 import project_ai_arena from '../assets/project_ai_arena.png';
 import aiArenaBlogImage from '../assets/image.png';
-import projectMogoAi from '../assets/project_mogo_ai.png';
+import projectMogoAi from '../assets/chat-with-ai.png';
 import project_dashboard from '../assets/project_dashboard.png';
 import project_ecommerce from '../assets/project_ecommerce.png';
 import cardimage1 from '../assets/cardimage1.jpg';

@@ -18,7 +18,7 @@ import {
 import projectpageImg from '../assets/projectpage.png';
 import projectpagesummerImg from '../assets/projectpagesummer.png';
 import projectAiArena from '../assets/project_ai_arena.png';
-import projectMogoAi from '../assets/project_mogo_ai.png';
+import projectMogoAi from '../assets/chat-with-ai.png';
 import ImagePetals from '../components/ImagePetals';
 import TextReveal from '../components/TextReveal';
 

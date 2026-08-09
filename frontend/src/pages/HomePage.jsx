@@ -30,6 +30,7 @@ import mainimage from '../assets/mainimage.png';
 import mainimagesummer from '../assets/mainimagesummer.png';
 import cardimage1 from '../assets/cardimage1.jpg';
 import cardimage1summer from '../assets/cardimage1summer.png';
+import chatWithAiImg from '../assets/chat-with-ai.png';
 import logoImg from '../assets/logo.png';
 import AtmosphereLayer from '../components/AtmosphereLayer';
 import TextReveal from '../components/TextReveal';
@@ -568,7 +569,7 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 title: 'How I Built MOGO AI Assistant',
                                 date: 'Aug 05, 2026',
                                 readTime: '14 min read',
-                                img: cardimage1
+                                img: chatWithAiImg
                             },
                             {
                                 title: 'How I Built AI Battle Arena',
