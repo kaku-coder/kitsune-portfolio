@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useReducer, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sendPortfolioMessage } from '../utils/sendMessage';
 import {
@@ -139,19 +139,43 @@ const ContactForm = ({ theme, onSubmit, onCancel }) => {
   );
 };
 
-export default function AIAssistant({ isOpen, onClose, theme }) {
-  const isLight = theme === 'light';
-  const [messages, setMessages] = useState([
+const aiAssistantInitialState = {
+  messages: [
     {
       id: 1,
       role: 'bot',
       text: "Hey there! I'm Prakash's AI Assistant. I can help you learn about his skills, projects, and experience. What would you like to know?",
     },
-  ]);
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [contactSent, setContactSent] = useState(false);
+  ],
+  input: '',
+  isTyping: false,
+  showContactForm: false,
+  contactSent: false,
+};
+
+function aiAssistantReducer(state, action) {
+  switch (action.type) {
+    case 'SET_INPUT':
+      return { ...state, input: action.payload };
+    case 'ADD_MESSAGE':
+      return { ...state, messages: [...state.messages, action.payload] };
+    case 'SET_TYPING':
+      return { ...state, isTyping: action.payload };
+    case 'SET_SHOW_CONTACT':
+      return { ...state, showContactForm: action.payload };
+    case 'SET_CONTACT_SENT':
+      return { ...state, contactSent: action.payload };
+    case 'RESET_CHAT':
+      return aiAssistantInitialState;
+    default:
+      return state;
+  }
+}
+
+export default function AIAssistant({ isOpen, onClose, theme }) {
+  const isLight = theme === 'light';
+  const [state, dispatch] = useReducer(aiAssistantReducer, aiAssistantInitialState);
+  const { messages, input, isTyping, showContactForm, contactSent } = state;
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -255,32 +279,32 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
     return getClientFallbackResponse(userMsg);
   };
 
-  const handleSend = async (text) => {
+  const handleSend = useCallback(async (text) => {
     const msg = text || input.trim();
     if (!msg) return;
 
     const userMsg = { id: Date.now(), role: 'user', text: msg };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput('');
-    setIsTyping(true);
+    dispatch({ type: 'ADD_MESSAGE', payload: userMsg });
+    dispatch({ type: 'SET_INPUT', payload: '' });
+    dispatch({ type: 'SET_TYPING', payload: true });
 
     const botText = await getBotResponse(msg);
 
     if (botText.includes('[CONTACT_FLOW]')) {
       const cleanText = botText.replace('[CONTACT_FLOW]', '').trim();
       const botMsg = { id: Date.now() + 1, role: 'bot', text: cleanText };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-      setShowContactForm(true);
-      setContactSent(false);
+      dispatch({ type: 'ADD_MESSAGE', payload: botMsg });
+      dispatch({ type: 'SET_TYPING', payload: false });
+      dispatch({ type: 'SET_SHOW_CONTACT', payload: true });
+      dispatch({ type: 'SET_CONTACT_SENT', payload: false });
     } else {
       const botMsg = { id: Date.now() + 1, role: 'bot', text: botText };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
+      dispatch({ type: 'ADD_MESSAGE', payload: botMsg });
+      dispatch({ type: 'SET_TYPING', payload: false });
     }
-  };
+  }, [input]);
 
-  const handleContactSubmit = async ({ name, email, message }) => {
+  const handleContactSubmit = useCallback(async ({ name, email, message }) => {
     const sentSuccessfully = await sendPortfolioMessage({
       name,
       email,
@@ -288,27 +312,25 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
       message,
     });
 
-    setShowContactForm(false);
-    setContactSent(true);
+    dispatch({ type: 'SET_SHOW_CONTACT', payload: false });
+    dispatch({ type: 'SET_CONTACT_SENT', payload: true });
 
     if (sentSuccessfully) {
       const botMsg = {
         id: Date.now() + 2,
         role: 'bot',
-        text: `Thanks ${name}! Your message has been sent directly to Prakash. He'll get back to you soon at ${email}. Is there anything else you'd like to know about him?`,
+        text: `Thanks ${name}! Your message has been sent directly to Prakash. He'll get back to you at ${email} as soon as possible! 🚀`,
       };
-      setMessages((prev) => [...prev, botMsg]);
+      dispatch({ type: 'ADD_MESSAGE', payload: botMsg });
     } else {
-      const mailtoUrl = `mailto:prakashdasdev1@gmail.com?subject=${encodeURIComponent('Portfolio Message from ' + name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
       const botMsg = {
         id: Date.now() + 2,
         role: 'bot',
-        text: "Click below to send your message directly to Prakash via email:",
-        mailtoUrl,
+        text: `Thanks ${name}! Please feel free to reach Prakash directly at prakashdasdev1@gmail.com.`,
       };
-      setMessages((prev) => [...prev, botMsg]);
+      dispatch({ type: 'ADD_MESSAGE', payload: botMsg });
     }
-  };
+  }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -495,7 +517,7 @@ export default function AIAssistant({ isOpen, onClose, theme }) {
                   ref={inputRef}
                   type="text"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={(e) => dispatch({ type: 'SET_INPUT', payload: e.target.value })}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask me anything..."
                   className={`flex-1 bg-transparent outline-none text-xs font-medium placeholder:text-gray-500 ${

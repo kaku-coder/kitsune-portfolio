@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useReducer } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
   FileText,
@@ -41,13 +41,37 @@ import ScrollReveal from '../components/ScrollReveal';
 import CounterAnimation from '../components/CounterAnimation';
 import StaggerCards from '../components/StaggerCards';
 
+const blogInitialState = {
+  activeCategory: 'All',
+  searchQuery: '',
+  selectedArticle: null,
+  subscribed: false,
+  emailInput: '',
+};
+
+function blogReducer(state, action) {
+  switch (action.type) {
+    case 'SET_CATEGORY':
+      return { ...state, activeCategory: action.payload };
+    case 'SET_SEARCH':
+      return { ...state, searchQuery: action.payload };
+    case 'SELECT_ARTICLE':
+      return { ...state, selectedArticle: action.payload };
+    case 'SET_EMAIL':
+      return { ...state, emailInput: action.payload };
+    case 'SUBSCRIBE_SUCCESS':
+      return { ...state, subscribed: true, emailInput: '' };
+    case 'SUBSCRIBE_RESET':
+      return { ...state, subscribed: false };
+    default:
+      return state;
+  }
+}
+
 const Blogpage = ({ theme, toggleTheme, setActiveSection }) => {
   const isLight = theme === 'light';
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedArticle, setSelectedArticle] = useState(null);
-  const [subscribed, setSubscribed] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
+  const [state, dispatch] = useReducer(blogReducer, blogInitialState);
+  const { activeCategory, searchQuery, selectedArticle, subscribed, emailInput } = state;
 
   const categories = [
     'All',
@@ -407,9 +431,8 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (!emailInput || !emailInput.includes('@')) return;
-    setSubscribed(true);
-    setEmailInput('');
-    setTimeout(() => setSubscribed(false), 4000);
+    dispatch({ type: 'SUBSCRIBE_SUCCESS' });
+    setTimeout(() => dispatch({ type: 'SUBSCRIBE_RESET' }), 4000);
   };
 
   const headerRef = useRef(null);
@@ -589,7 +612,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
               return (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => dispatch({ type: 'SET_CATEGORY', payload: cat })}
                   className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 cursor-pointer flex-shrink-0 ${
                     active
                       ? isLight
@@ -615,7 +638,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
               type="text"
               placeholder="Search articles..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => dispatch({ type: 'SET_SEARCH', payload: e.target.value })}
               className={`w-full pl-8 sm:pl-9 pr-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-medium outline-none border transition-all ${
                 isLight
                   ? 'bg-orange-50/50 border-orange-200 text-stone-900 focus:border-orange-400 placeholder:text-stone-400'
@@ -624,7 +647,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             />
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => dispatch({ type: 'SET_SEARCH', payload: '' })}
                 className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs opacity-60 hover:opacity-100 cursor-pointer"
               >
                 <X size={12} />
@@ -643,7 +666,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
           {/* FEATURED STORY HERO CARD */}
           <ScrollReveal>
             <div
-              onClick={() => setSelectedArticle(featuredArticle)}
+              onClick={() => dispatch({ type: 'SELECT_ARTICLE', payload: featuredArticle })}
               className={`w-full rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 relative overflow-hidden group cursor-pointer transition-all duration-500 shadow-2xl ${
                 isLight
                   ? 'bg-white shadow-orange-200/40'
@@ -736,7 +759,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
                 {gridArticles.map((art) => (
                   <div
                     key={art.id}
-                    onClick={() => !art.comingSoon && setSelectedArticle(art)}
+                    onClick={() => !art.comingSoon && dispatch({ type: 'SELECT_ARTICLE', payload: art })}
                     className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 group shadow-lg ${
                       art.comingSoon
                         ? 'cursor-default opacity-60'
@@ -810,7 +833,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             )}
 
             <button
-              onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
+              onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'All' }); dispatch({ type: 'SET_SEARCH', payload: '' }); }}
               className={`w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer mt-1 sm:mt-2 text-center ${
                 isLight ? 'bg-orange-50 text-orange-700 hover:bg-orange-100' : 'bg-[#140f29] text-purple-300 hover:bg-[#1a1435]'
               }`}
@@ -970,7 +993,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
             >
               {/* Close Button */}
               <button
-                onClick={() => setSelectedArticle(null)}
+                onClick={() => dispatch({ type: 'SELECT_ARTICLE', payload: null })}
                 className="absolute top-3 right-3 sm:top-5 sm:right-5 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-900/40 cursor-pointer"
               >
                 <X size={14} />
@@ -1000,7 +1023,7 @@ I use **Default High Contrast** theme with a heavily customized color palette â€
 
               <div className="mt-5 sm:mt-8 pt-3 sm:pt-4 border-t border-purple-900/30 flex justify-end">
                 <button
-                  onClick={() => setSelectedArticle(null)}
+                  onClick={() => dispatch({ type: 'SELECT_ARTICLE', payload: null })}
                   className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-[11px] sm:text-xs cursor-pointer"
                 >
                   Close Article

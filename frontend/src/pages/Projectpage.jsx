@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   ExternalLink,
@@ -42,7 +42,7 @@ const projectsData = [
     date: 'Aug 2026',
     duration: '1 Month',
     projectType: 'Personal Project',
-    liveUrl: 'https://realtime-ai-chat-app-one.vercel.app',
+    liveUrl: 'https://realtime-ai-chat-app-git-main-kaku-coders-projects.vercel.app',
     caseStudyUrl: 'https://github.com/kaku-coder/realtime-ai-chat-app',
   },
   {
@@ -293,10 +293,29 @@ const Projectpage = ({ theme, toggleTheme, setActiveSection }) => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const isLight = theme === 'light';
 
-  const filteredProjects = projectsData.filter(p => {
-    if (activeTab === 'all') return true;
-    return p.category === activeTab;
-  });
+  const filteredProjects = useMemo(() => {
+    let result = projectsData.filter(p => {
+      if (activeTab === 'all') return true;
+      return p.category === activeTab;
+    });
+
+    if (sortBy === 'oldest') {
+      return [...result].reverse();
+    }
+    return result;
+  }, [activeTab, sortBy]);
+
+  const handleTabChange = useCallback((tabId) => {
+    setActiveTab(tabId);
+  }, []);
+
+  const handleSortToggle = useCallback(() => {
+    setSortBy(prev => (prev === 'latest' ? 'oldest' : 'latest'));
+  }, []);
+
+  const handleMobileFilterToggle = useCallback(() => {
+    setMobileFilterOpen(prev => !prev);
+  }, []);
 
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });

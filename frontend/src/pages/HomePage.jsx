@@ -342,9 +342,9 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     </div>
                 </div>
 
-                {/* CARD 2: FEATURED PROJECT (AI BATTLE ARENA) */}
+                {/* CARD 2: FEATURED PROJECT (MOGO AI CHAT) */}
                 <div
-                    onClick={() => setActiveSection && setActiveSection('projects')}
+                    onClick={() => window.open('https://realtime-ai-chat-app-git-main-kaku-coders-projects.vercel.app', '_blank')}
                     className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0c0916] border-0 p-4 sm:p-6 flex flex-col justify-between hover:bg-[#0e0a1c] transition-all shadow-2xl cursor-pointer"
                 >
                     <div className="flex items-center justify-between mb-2">
@@ -361,16 +361,16 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                         <div className="sm:col-span-6 flex flex-col justify-between h-full">
                             <div>
                                 <h3 className="text-lg sm:text-xl font-black text-white mb-0.5">
-                                    AI Battle Arena
+                                    MOGO AI Chat
                                 </h3>
                                 <BrushUnderline />
 
                                 <p className="text-gray-300 text-[11px] sm:text-xs leading-relaxed mb-2 sm:mb-3">
-                                    Real-time AI battle platform where different AI models compete and users vote for the best response.
+                                    Real-time AI assistant with Groq Llama 3.3, Tavily Live Search, Socket.IO WebSockets & MongoDB.
                                 </p>
 
                                 <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-4">
-                                    {['MERN', 'Socket.io', 'AI', 'Tailwind', 'MongoDB'].map((tag) => (
+                                    {['React 19', 'Groq Llama 3.3', 'Socket.io', 'Tavily', 'MongoDB'].map((tag) => (
                                         <span key={tag} className="px-2 py-0.5 rounded-md bg-purple-950/70 text-[10px] font-bold text-purple-300">
                                             {tag}
                                         </span>
@@ -378,18 +378,21 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                                 </div>
                             </div>
 
-                            <div
+                            <a
+                                href="https://realtime-ai-chat-app-git-main-kaku-coders-projects.vercel.app"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-xs font-bold text-purple-400 hover:text-purple-200 transition-colors uppercase tracking-wider group/link cursor-pointer"
                             >
-                                <span>VIEW PROJECT</span>
+                                <span>LIVE DEMO</span>
                                 <span className="font-mono text-sm group-hover/link:translate-x-1 transition-transform">⊣</span>
-                            </div>
+                            </a>
                         </div>
 
                         {/* Right Mockup Screen Frame (Pure Purple Theme) */}
                         <div className="sm:col-span-6 relative w-full h-32 sm:h-44 rounded-lg sm:rounded-xl bg-[#06040a] border-0 p-2 sm:p-3 overflow-hidden shadow-2xl flex flex-col justify-between group/frame transition-colors">
                             <div className="flex items-center justify-between text-[9px] text-purple-300 font-mono border-b border-purple-900/40 pb-1.5">
-                                <span className="font-bold tracking-widest">AI BATTLE ARENA</span>
+                                <span className="font-bold tracking-widest">MOGO AI REAL-TIME</span>
                                 <span className="text-purple-400 flex items-center gap-1 font-bold">
                                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
                                     LIVE
@@ -399,25 +402,25 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                             <div className="grid grid-cols-2 gap-2 my-auto items-center relative py-1">
                                 <div className="p-2 rounded-lg bg-[#120d24] border-0 text-center flex flex-col items-center shadow-lg">
                                     <div className="w-7 h-7 rounded-full bg-purple-900/60 border-0 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
-                                        GPT
+                                        🤖
                                     </div>
-                                    <span className="text-[10px] font-extrabold text-gray-100">GPT-4</span>
+                                    <span className="text-[10px] font-extrabold text-gray-100">Groq 70B</span>
                                 </div>
 
                                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-purple-600 text-white font-black text-[10px] flex items-center justify-center shadow-xl shadow-purple-950 border-0">
-                                    VS
+                                    ⚡
                                 </div>
 
                                 <div className="p-2 rounded-lg bg-[#120d24] border-0 text-center flex flex-col items-center shadow-lg">
                                     <div className="w-7 h-7 rounded-full bg-purple-900/60 border-0 flex items-center justify-center text-purple-200 text-[10px] font-bold mb-1 shadow-[0_0_8px_rgba(168,85,247,0.3)]">
-                                        GEM
+                                        🌐
                                     </div>
-                                    <span className="text-[10px] font-extrabold text-gray-100">Gemini Pro</span>
+                                    <span className="text-[10px] font-extrabold text-gray-100">Tavily Web</span>
                                 </div>
                             </div>
 
                             <div className="text-[8.5px] text-gray-400 text-center font-mono border-t border-purple-900/40 pt-1">
-                                Judge System • Real-time Evaluation
+                                Socket.IO Streaming • Persistent Sessions
                             </div>
                         </div>
 
