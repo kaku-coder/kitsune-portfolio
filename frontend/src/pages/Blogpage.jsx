@@ -27,6 +27,7 @@ import projectMainimage from '../assets/projectMainimage.png';
 import projectpagesummer from '../assets/projectpagesummer.png';
 import project_ai_arena from '../assets/project_ai_arena.png';
 import aiArenaBlogImage from '../assets/image.png';
+import projectMogoAi from '../assets/project_mogo_ai.png';
 import project_dashboard from '../assets/project_dashboard.png';
 import project_ecommerce from '../assets/project_ecommerce.png';
 import cardimage1 from '../assets/cardimage1.jpg';
@@ -59,6 +60,124 @@ const Blogpage = ({ theme, toggleTheme, setActiveSection }) => {
   // Actual Portfolio Projects as Blog Case Studies
   const articlesData = [
     {
+      id: 'mogo-ai',
+      title: 'How I Built MOGO AI: Real-Time Full-Stack AI Chat Assistant',
+      prefix: 'Case Study',
+      subtitle: 'Groq Llama 3.3 70B, Tavily Search, Socket.IO & MongoDB',
+      description:
+        'A complete technical walkthrough of building MOGO AI — combining ultra-fast Groq LLM inference, real-time live web grounding with Tavily, Socket.IO WebSockets streaming, and MongoDB Atlas session persistence.',
+      category: 'AI',
+      readTime: '14 min read',
+      date: 'August 5, 2026',
+      featured: true,
+      image: projectMogoAi,
+      content: `
+## Architecture Overview
+
+**MOGO AI** is a production-grade, real-time full-stack AI chat assistant designed for ultra-low latency conversational responses with real-world live web search grounding.
+
+Unlike generic chatbot wrappers, MOGO AI combines **Groq's LLaMA 3.3 70B inference engine** with automated **Tavily live web search**, **Socket.IO bidirectional WebSockets streaming**, and a **single-document MongoDB session architecture** to deliver instant, stateful conversations.
+
+### System Architecture Diagram
+
+\`\`\`
+  ┌─────────────────────────────────────────────────────────────┐
+  │                    React 19 Frontend                        │
+  │     useReducer State + Socket.IO Client + Tailwind 4 UI     │
+  └──────────────────────────────┬──────────────────────────────┘
+                                 │
+                     Socket.IO / REST HTTP API
+                                 │
+                                 ▼
+  ┌─────────────────────────────────────────────────────────────┐
+  │                   Node.js Express Server                    │
+  ├─────────────────────────────────────────────────────────────┤
+  │  1. Controller & Persona Engine (MOGO Persona State)        │
+  │  2. AI Service: Groq SDK (llama-3.3-70b-versatile)          │
+  │  3. Web Search Tool: Tavily API (@tavily/core)              │
+  │  4. Session Service: Mongoose 9 MongoDB Schema              │
+  └──────────────────────────────┬──────────────────────────────┘
+                                 │
+                ┌────────────────┴────────────────┐
+                ▼                                 ▼
+      ┌──────────────────┐               ┌──────────────────┐
+      │ Groq Llama 3.3   │               │ MongoDB Atlas    │
+      │   Inference      │               │ Session Database │
+      └──────────────────┘               └──────────────────┘
+\`\`\`
+
+---
+
+## Technical Highlights & Key Features
+
+### 1. Ultra-Fast LLM Inference via Groq Llama 3.3 70B
+We utilize the \`llama-3.3-70b-versatile\` model hosted on **Groq Llama Processing Units (LPUs)**. Groq provides processing speeds over 300+ tokens per second, ensuring responses start streaming back in milliseconds.
+
+### 2. Live Web Search Integration (Tavily API)
+When user prompts request recent events, real-time news, or verifiable web facts, MOGO automatically queries **Tavily Web Search** (\`@tavily/core\`) behind the scenes, injecting clean markdown web excerpts into the prompt context before Groq generates the response.
+
+### 3. Smart Greeting Persona Engine
+MOGO features an intelligent turn-aware persona state machine:
+- **First Turn of Session**: MOGO warmly greets the user: *"Hi! My name is MOGO. How can I help you today?"* followed by a structured answer.
+- **Follow-up Turns**: MOGO shifts directly to direct, expert answer mode without repeating repetitive greetings.
+- **Developer Awareness**: MOGO is trained with metadata about its developer, **Prakash Das** (MCA student & MERN Developer at Raajadhani Engineering College, Bhubaneswar, Odisha), correctly giving credit when asked.
+
+### 4. Single-Document MongoDB Session Architecture
+Instead of scattering chat turns across thousands of micro-documents, every chat conversation is stored as a single **Session Document** in MongoDB Atlas. Each document contains an array of message sub-documents, enabling fast index lookups and effortless sidebar conversation listing.
+
+\`\`\`json
+{
+  "_id": "66b4f2c9e4b0123456789abc",
+  "title": "Understanding Socket.IO vs WebSockets",
+  "messages": [
+    { "sender": "user", "text": "What is Socket.IO?", "timestamp": "2026-08-05T10:00:00.000Z" },
+    { "sender": "mogo", "text": "Socket.IO is an event-based bidirectional library...", "timestamp": "2026-08-05T10:00:01.000Z" }
+  ],
+  "createdAt": "2026-08-05T10:00:00.000Z"
+}
+\`\`\`
+
+---
+
+## Tech Stack Summary
+
+| Component | Technology Used |
+|---|---|
+| **Frontend Framework** | React 19 + Vite 8 |
+| **Styling** | Tailwind CSS 4 + Lucide React |
+| **Real-Time Layer** | Socket.IO 4.x |
+| **Backend Engine** | Node.js (ES Modules) + Express 5.x |
+| **AI Inference** | Groq SDK (\`llama-3.3-70b-versatile\`) |
+| **Live Web Search** | Tavily Search API (\`@tavily/core\`) |
+| **Database** | MongoDB Atlas via Mongoose 9.x |
+
+---
+
+## API & Socket Event Reference
+
+### REST Endpoints
+| Method | Endpoint | Description | Request Body |
+|---|---|---|---|
+| \`GET\` | \`/\` | Health check endpoint | — |
+| \`POST\` | \`/api/chat/send\` | Send prompt to MOGO & receive answer | \`{ "message": "hello", "chatId": "optional" }\` |
+| \`GET\` | \`/api/chat/history\` | Fetch all saved chat session titles | — |
+
+### WebSocket Events
+| Direction | Event Name | Payload / Description |
+|---|---|---|
+| Client → Server | \`send-message\` | \`{ "message": "What's the weather today?", "chatId": "..." }\` |
+| Server → Client | \`receive-message\` | Streamed response chunks & final session payload |
+
+---
+
+## Deployment & Production Infrastructure
+
+- 🖥️ **Frontend Deployment**: **Vercel** ([Live App Link](https://realtime-ai-chat-app-one.vercel.app))
+- ⚙️ **Backend Service**: **Render** ([Live Server Link](https://realtime-ai-chat-app1.onrender.com))
+- 📦 **GitHub Codebase**: [kaku-coder/realtime-ai-chat-app](https://github.com/kaku-coder/realtime-ai-chat-app)
+      `,
+    },
+    {
       id: 'ai-arena',
       title: 'How I Built AI Battle Arena',
       prefix: 'How I Built',
@@ -68,7 +187,7 @@ const Blogpage = ({ theme, toggleTheme, setActiveSection }) => {
       category: 'AI',
       readTime: '12 min read',
       date: 'July 12, 2026',
-      featured: true,
+      featured: false,
       image: aiArenaBlogImage,
       content: `
 ## How it actually works
@@ -268,51 +387,6 @@ I use **Default High Contrast** theme with a heavily customized color palette �
 3. Word Wrap On — No horizontal scrolling
 4. Error Lens — See errors without hovering
       `,
-    },
-    {
-      id: 'ecommerce-platform',
-      title: 'Modern E-Commerce Platform Architecture',
-      prefix: 'Full Stack',
-      subtitle: 'Stripe Payments, Redux & Optimised Queries',
-      description:
-        'Deep dive into building a full-stack e-commerce store with Stripe payment webhooks, custom cart state, and fast MongoDB index queries.',
-      category: 'Backend',
-      readTime: '7 min read',
-      date: 'June 28, 2026',
-      featured: false,
-      image: project_ecommerce,
-      comingSoon: true,
-      content: '',
-    },
-    {
-      id: 'dev-dashboard',
-      title: 'Dev Pulse: Real-Time Analytics Dashboard',
-      prefix: 'System Design',
-      subtitle: 'WebSocket Streaming & Live Performance Charts',
-      description:
-        'How I designed and engineered a real-time developer metrics dashboard using WebSockets, Chart.js, and Node.js microservices.',
-      category: 'System Design',
-      readTime: '6 min read',
-      date: 'Coming Soon',
-      featured: false,
-      image: project_dashboard,
-      comingSoon: true,
-      content: '',
-    },
-    {
-      id: 'ai-langchain-agents',
-      title: 'Building AI Agents with LangChain',
-      prefix: 'AI',
-      subtitle: 'Autonomous Tool Use & Memory Retrieval',
-      description:
-        'A practical guide to building AI agents that can think, act, and remember using LangChain and vector databases.',
-      category: 'AI',
-      readTime: '10 min read',
-      date: 'Coming Soon',
-      featured: false,
-      image: project_ai_arena,
-      comingSoon: true,
-      content: '',
     },
   ];
 

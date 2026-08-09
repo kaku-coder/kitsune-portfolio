@@ -18,8 +18,7 @@ import {
 import projectpageImg from '../assets/projectpage.png';
 import projectpagesummerImg from '../assets/projectpagesummer.png';
 import projectAiArena from '../assets/project_ai_arena.png';
-import projectEcommerce from '../assets/project_ecommerce.png';
-import projectDashboard from '../assets/project_dashboard.png';
+import projectMogoAi from '../assets/project_mogo_ai.png';
 import ImagePetals from '../components/ImagePetals';
 import TextReveal from '../components/TextReveal';
 
@@ -31,6 +30,21 @@ const GithubIcon = ({ size = 14, className = "" }) => (
 );
 
 const projectsData = [
+  {
+    id: 'mogo-ai-chat',
+    title: 'MOGO AI — REAL-TIME CHAT',
+    subtitle: 'Lightning-Fast AI Assistant',
+    category: 'ai',
+    featured: true,
+    description: 'A lightning-fast, production-ready full-stack AI chat assistant powered by Groq Llama 3.3 70B, Tavily live web search, Socket.IO bidirectional streaming, and persistent MongoDB session architecture.',
+    image: projectMogoAi,
+    tags: ['React 19', 'Groq Llama 3.3', 'Tavily Search', 'Socket.io', 'Express.js', 'MongoDB', 'Tailwind CSS'],
+    date: 'Aug 2026',
+    duration: '1 Month',
+    projectType: 'Personal Project',
+    liveUrl: 'https://realtime-ai-chat-app-one.vercel.app',
+    caseStudyUrl: 'https://github.com/kaku-coder/realtime-ai-chat-app',
+  },
   {
     id: 'ai-battle-arena',
     title: 'AI BATTLE ARENA',
@@ -45,38 +59,6 @@ const projectsData = [
     projectType: 'Personal Project',
     liveUrl: 'https://ai-battle-arena-3-s55j.onrender.com',
     caseStudyUrl: 'https://github.com/kaku-coder/AI-Battle-Arena',
-  },
-  {
-    id: 'e-commerce-platform',
-    title: 'E-COMMERCE PLATFORM',
-    subtitle: 'Full Stack Store',
-    category: 'web',
-    featured: false,
-    comingSoon: true,
-    description: 'Full-stack e-commerce platform with payment integration, admin dashboard and order management.',
-    image: projectEcommerce,
-    tags: ['MERN', 'Stripe', 'Tailwind', 'Redux', 'Cloudinary'],
-    date: 'Mar 2024',
-    duration: '2 Months',
-    projectType: 'Team Project',
-    liveUrl: '#',
-    caseStudyUrl: '#',
-  },
-  {
-    id: 'developer-dashboard',
-    title: 'DEVELOPER DASHBOARD',
-    subtitle: 'Analytics Hub',
-    category: 'tools',
-    featured: false,
-    comingSoon: true,
-    description: 'Analytics dashboard to track performance, users and real-time activities.',
-    image: projectDashboard,
-    tags: ['React', 'Node.js', 'MongoDB', 'Chart.js', 'Tailwind'],
-    date: 'Feb 2024',
-    duration: '1 Month',
-    projectType: 'Personal Project',
-    liveUrl: '#',
-    caseStudyUrl: '#',
   },
 ];
 

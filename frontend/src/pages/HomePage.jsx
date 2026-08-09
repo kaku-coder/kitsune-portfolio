@@ -562,21 +562,21 @@ const HomePage = ({ setActiveSection, theme, toggleTheme }) => {
                     <div className="flex flex-col gap-3 my-auto">
                         {[
                             {
+                                title: 'How I Built MOGO AI Assistant',
+                                date: 'Aug 05, 2026',
+                                readTime: '14 min read',
+                                img: cardimage1
+                            },
+                            {
                                 title: 'How I Built AI Battle Arena',
-                                date: 'May 12, 2024',
-                                readTime: '5 min read',
+                                date: 'July 12, 2026',
+                                readTime: '12 min read',
                                 img: cardimage1
                             },
                             {
-                                title: 'My Journey with Docker',
-                                date: 'Apr 25, 2024',
+                                title: 'My VS Code Setup That I Use',
+                                date: 'July 18, 2026',
                                 readTime: '6 min read',
-                                img: cardimage1
-                            },
-                            {
-                                title: 'Authentication in MERN Stack',
-                                date: 'Apr 10, 2024',
-                                readTime: '4 min read',
                                 img: cardimage1
                             }
                         ].map((blog, bIdx) => (
